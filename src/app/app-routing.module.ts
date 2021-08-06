@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'signin', component: SigninComponent },
   {
     path: 'home', component: HomeComponent,
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
     // data: { role: ['Estudiante'] }
   },
   {
