@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'home', component: HomeComponent,
     canActivate: [AuthGuardService],
-    data: { role: ['Estudiante'] }
+    // data: { role: ['Estudiante'] }
   },
   {
     path: 'colegio', component: HomeAdminComponent,
