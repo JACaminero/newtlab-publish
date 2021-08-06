@@ -1,0 +1,75 @@
+.sidenav-container {
+  height: 100%;
+  margin: 0%;
+}
+
+.sidenav {
+  width: 18%;
+  min-width: 200px;
+  max-width: 500px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+  justify-content: space-between;
+  padding: 0 0 0 16px;
+}
+
+.mat-toolbar .mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.home {
+  text-decoration: none;
+  color: #fff;
+}
+
+.list-item {
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+::ng-deep .mat-select-placeholder {
+  color: #000000;
+}
+
+.dropdown {
+  height: 48px;
+  padding: 16px 16px;
+  font-size: 1.3rem;
+}
+
+.container {
+  margin: 16px;
+  padding: 0;
+  width: inherit;
+}
+
+.signin-btn {
+  background-color: #320e3b;
+  height: inherit;
+  margin: 0;
+  border: 0px solid black;
+  color: #fff;
+  text-decoration: none;
+  padding: 16px;
+}
+
+.signin-btn:focus {
+  border: 1px solid #fff;
+}
+
+.dropdown:hover {
+  background-color: #f0f0f0;
+}
+
+.icon {
+  width: 3.2rem;
+  margin-right: 10px;
+}

@@ -1,0 +1,22 @@
+.input-container {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flex-item label {
+  text-align: center;
+}
+
+.flex-container {
+  height: 120px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

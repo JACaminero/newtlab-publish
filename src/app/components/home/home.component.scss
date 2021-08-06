@@ -1,0 +1,35 @@
+canvas {
+  border: solid;
+  width: 100%;
+}
+.experiment {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.section-header {
+  height: 90px;
+  background-color: #0dcaf0;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  margin: 15px 0;
+  padding: 0 5px;
+}
+
+.section-header span {
+  line-height: 0;
+  font-weight: 600;
+  color: white;
+  font-size: 26px;
+}
+.section-content {
+  padding: 0 16px;
+}
+
+.section-content h1 {
+  font-weight: 500;
+}

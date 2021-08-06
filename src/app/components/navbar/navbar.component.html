@@ -1,0 +1,47 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar style="background-color: #320e3b; color: white"
+      >Menu
+    </mat-toolbar>
+    <mat-nav-list>
+      <a class="list-item" mat-list-item>Perfil de Usuario</a>
+      <div class="list-item">
+        <mat-select class="dropdown" placeholder="Experimentos">
+          <mat-option>Experimento Inercia</mat-option>
+          <mat-option>Experimento Dinamica</mat-option>
+          <mat-option>Experimento Friccion</mat-option>
+        </mat-select>
+      </div>
+      <a class="list-item" mat-list-item>Reporte de Calificaciones</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <a href="/" class="home">
+        <img src="../../../assets/images/favicon.ico" class="icon" />
+        NewtLab</a
+      >
+      <a class="signin-btn" *ngIf="!user" href="/signin">Iniciar sesión</a>
+      <span style="font-size: small" *ngIf="user">{{ user.username }}</span>
+    </mat-toolbar>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

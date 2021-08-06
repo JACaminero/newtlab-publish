@@ -1,0 +1,59 @@
+<body>
+  <div class="container-login">
+    <div class="wrap-login">
+      <form
+        [formGroup]="signInForm"
+        (ngSubmit)="onSubmit()"
+        class="login-form validate-form"
+      >
+        <span class="login-form-title"> Login </span>
+        <br />
+
+        <div
+          class="wrap-input100 validate-input"
+          data-validate="Username is required"
+        >
+          <input
+            class="input100"
+            type="text"
+            formControlName="username"
+            name="username"
+            placeholder="Email"
+            required
+            formControlName="username"
+          />
+          <span class="focus-input100"></span>
+        </div>
+        <br />
+
+        <div
+          class="wrap-input100 validate-input m-b-16"
+          data-validate="Escriba la contraseña"
+        >
+          <input
+            class="input100"
+            type="password"
+            formControlName="password"
+            name="pass"
+            placeholder="Contraseña"
+            required
+          />
+          <span class="focus-input100"></span>
+        </div>
+        <br />
+
+        <div class="container-login-form-btn">
+          <input
+            type="submit"
+            [disabled]="signInForm.invalid"
+            class="login-form-btn"
+            value="Entrar"
+          />
+          <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
+            {{ error }}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
