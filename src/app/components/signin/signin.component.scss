@@ -124,14 +124,14 @@ iframe {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  background-image: url("../../../assets/images/background.svg");
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
 }
 
 .wrap-login {
   width: 390px;
-  background: #fff;
   border-radius: 10px;
   position: relative;
 }

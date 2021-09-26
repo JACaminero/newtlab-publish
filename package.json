@@ -1,5 +1,5 @@
 {
-  "name": "newt-lab-front",
+  "name": "newtlab-front",
   "version": "0.0.0",
   "engines": {
     "node": "12.13.0",
@@ -35,6 +35,8 @@
     "@pixi/settings": "^6.1.0",
     "@pixi/ticker": "^6.1.0",
     "@pixi/utils": "^6.1.0",
+    "@syncfusion/ej2": "^19.2.51",
+    "@syncfusion/ej2-angular-grids": "^19.2.51",
     "@types/p5": "^1.3.0",
     "bootstrap": "^5.0.2",
     "express": "^4.17.1",

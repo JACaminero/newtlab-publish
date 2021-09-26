@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { User, Role } from './models/models';
+import { User } from './models/models';
 
 @Component({
   selector: 'app-root',
@@ -15,14 +15,14 @@ export class AppComponent {
     this.auth.user.subscribe(x => this.user = x);
   }
   get isAdmin() {
-    return this.user && this.user.role === Role.Admin;
+    return this.user && this.user.role === 'Admin';
   }
 
   get isProfesor() {
-    return this.user && this.user.role === Role.Profesor;
+    return this.user && this.user.role === 'Profesor';
   }
 
   get isEstudiante() {
-    return this.user && this.user.role === Role.Estudiante;
+    return this.user && this.user.role === 'Estudiante';
   }
 }

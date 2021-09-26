@@ -7,7 +7,17 @@ canvas {
   justify-content: center;
   align-content: center;
 }
-
+.instructions {
+  margin-bottom: 30px;
+}
+.variables {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.formulas {
+  font-style: italic;
+}
 .section-header {
   height: 90px;
   background-color: #0dcaf0;
@@ -19,7 +29,6 @@ canvas {
   margin: 15px 0;
   padding: 0 5px;
 }
-
 .section-header span {
   line-height: 0;
   font-weight: 600;
@@ -32,4 +41,91 @@ canvas {
 
 .section-content h1 {
   font-weight: 500;
+}
+
+.container {
+  background-color: #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 700px;
+}
+
+.container > p {
+  font-size: 32px;
+}
+
+.options {
+  position: relative;
+  padding-left: 40px;
+}
+
+#options label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.options input {
+  opacity: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #555;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+}
+
+.options input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.options .checkmark:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  display: block;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 300ms ease-in-out 0s;
+}
+
+.options input[type="radio"]:checked ~ .checkmark {
+  background: #21bf73;
+  transition: 300ms ease-in-out 0s;
+}
+
+.options input[type="radio"]:checked ~ .checkmark:after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.btn-primary {
+  background-color: #555;
+  color: #ddd;
+  border: 1px solid #ddd;
+  height: 2.5rem;
+}
+
+.btn-primary:hover {
+  background-color: #21bf73;
+  border: 1px solid #21bf73;
+}
+
+.btn-success {
+  padding: 5px 25px;
+  background-color: #21bf73;
+}
+
+.question {
+  width: 100%;
+  word-spacing: 2px;
 }

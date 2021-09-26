@@ -1,0 +1,37 @@
+<div class="header row" *ngIf="user">
+  <div class="col-md-4">
+    <div class="profile-img">
+      <img src="../../../assets/images/maxresdefault.jpg" alt="" />
+    </div>
+  </div>
+  <div class="d-flex flex-column justify-content-center col-md-8">
+    <form class="profile-head">
+      <mat-form-field appearance="fill" class="name">
+        <mat-label>Nombre del estudiante</mat-label>
+        <input
+          matInput
+          placeholder="Ej. Margarita Hern"
+          value="{{ user.name }} {{ user.lastName1 }} {{ user.lastName2 }}"
+          disabled
+        />
+      </mat-form-field>
+      <div class="periodo-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Año</mat-label>
+          <select matNativeControl required>
+            <option value="volvo">2021</option>
+            <option value="saab">2022</option>
+          </select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Periodo</mat-label>
+          <select matNativeControl required>
+            <option value="saab">Enero-Julio</option>
+            <option value="volvo">Septiembre-Diciembre</option>
+          </select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</div>
+<div id="grid"></div>

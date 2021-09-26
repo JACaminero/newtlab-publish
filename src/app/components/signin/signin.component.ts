@@ -22,9 +22,9 @@ export class SigninComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    // if (this.authService.userValue) {
-    //   this.router.navigate(['/']);
-    // }
+    if (this.authService.userValue) {
+      this.router.navigate(['/']);
+    }
   }
 
   ngOnInit() {

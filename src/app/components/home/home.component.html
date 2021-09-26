@@ -1,16 +1,142 @@
+<section class="description">
+  <div class="section-header">
+    <span> Descripción de Conceptos </span>
+  </div>
+  <div class="section-content">
+    <h1>Probando conceptos de fuerza</h1>
+    <div>
+      <p>
+        Los objetos en planos inclinados tienen vectores componentes que son
+        alterados por ángulo de elevación. Por lo tanto, modificamos F<sub
+          >net</sub
+        >
+        = ma en el siguiente subconjunto de ecuaciones para modelar las nuevas
+        fuerzas que actúan sobre el objeto.
+      </p>
+
+      <div class="variables">
+        <div class="formulas">
+          <p>
+            <span style="font-size: large"
+              >Formulas
+              <hr
+            /></span>
+            Fr<sub>x</sub> = m∙a<sub>x</sub> <br />
+            Fa + Fg<sub>x</sub> − Ff = m∙a<sub>x</sub> <br />
+            Fa + m∙g∙sinθ − μ∙m∙g∙cosθ = m∙a<sub>x</sub> <br />
+          </p>
+        </div>
+        <div>
+          <p>
+            m = Masa <br />
+            a = Aceleracion<br />
+            Fr = Fuerza Resultante <br />
+            Fa = Fuerza Aplicada <br />
+            Fg = Fuerza de Gravedad <br />
+            Ff = Fuerza de Friccion
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="instructions">
+  <div class="section-header"><span> Instrucciones de Ejecución </span></div>
+  <div class="section-content">
+    <ol>
+      <li>Coloque el angulo en 20 grados de inclinación.</li>
+      <li>Coloque la masa en 30 kg de peso.</li>
+      <li>Coloque el coeficiente de fricción en 0.2</li>
+      <li>Corra la simulación durante 12 segundos.</li>
+    </ol>
+  </div>
+</section>
+
 <section class="experiment">
   <app-dinamics></app-dinamics>
 </section>
 
-<section class="description">
+<section class="test">
   <div class="section-header">
-    <span> Descripcion de Conceptos </span>
+    <span> Prueba </span>
   </div>
-  <div class="section-content">
-    <h1>something</h1>
+
+  <div class="container mt-sm-5 my-1">
+    <div class="question ml-sm-5 pl-sm-5 pt-2">
+      <div class="py-2 h5">
+        <b>1. ¿Qué formula usarias para calcular la aceleración del objeto?</b>
+      </div>
+      <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+        <label class="options">
+          a = m ∙ t
+          <input type="radio" name="radio" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="options"
+          >a = v / t<sup>2</sup>
+          <input type="radio" name="radio" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="options"
+          >a = v / t <input type="radio" name="radio" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="options"
+          >Es imposible calcular la aceleración
+          <input type="radio" name="radio" />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="question ml-sm-5 pl-sm-5 pt-2">
+      <div class="py-2 h5">
+        <b
+          >2. ¿Cuál crees que es la razon por la que el angulo de inclinación
+          afecta la velocidad del objeto?</b
+        >
+      </div>
+      <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+        <textarea class="form-control" rows="3"></textarea>
+      </div>
+    </div>
+
+    <div class="question ml-sm-5 pl-sm-5 pt-2">
+      <div class="py-2 h5">
+        <b
+          >3. ¿Qué pasaria si incrementamos la fricción de la superficie sobre
+          la que se mueve el objeto?</b
+        >
+      </div>
+      <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+        <label class="options">
+          El objeto se detendria por completo
+          <input type="radio" name="radio1" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="options"
+          >El objeto reduciria su aceleración
+          <input type="radio" name="radio1" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="options">
+          El objeto reduciria su velocidad <input type="radio" name="radio1" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="options"
+          >El objeto reduciria su velocidad y su aceleración
+          <input type="radio" name="radio1" />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div class="d-flex justify-content-end pt-3">
+        <div id="prev">
+          <button class="btn btn-primary" (click)="openDialog()">
+            Enviar prueba
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-<section class="instructions">
-  <div class="section-header"><span> Instrucciones de Ejecución </span></div>
-</section>
-<section class="test"></section>

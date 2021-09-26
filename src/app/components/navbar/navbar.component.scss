@@ -45,10 +45,13 @@
   font-size: 1.3rem;
 }
 
-.container {
-  margin: 16px;
-  padding: 0;
-  width: inherit;
+.app-container {
+  padding: 16px 16px;
+  width: 100%;
+  min-height: 100%;
+  background-image: url("../../../assets/images/background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .signin-btn {
@@ -72,4 +75,8 @@
 .icon {
   width: 3.2rem;
   margin-right: 10px;
+}
+
+.name {
+  margin-right: 25px;
 }

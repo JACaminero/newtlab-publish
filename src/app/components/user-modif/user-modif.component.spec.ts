@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PixiCanvasComponent } from './pixi-canvas.component';
+import { UserModifComponent } from './user-modif.component';
 
-describe('PixiCanvasComponent', () => {
-  let component: PixiCanvasComponent;
-  let fixture: ComponentFixture<PixiCanvasComponent>;
+describe('UserModifComponent', () => {
+  let component: UserModifComponent;
+  let fixture: ComponentFixture<UserModifComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PixiCanvasComponent ]
+      declarations: [ UserModifComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PixiCanvasComponent);
+    fixture = TestBed.createComponent(UserModifComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

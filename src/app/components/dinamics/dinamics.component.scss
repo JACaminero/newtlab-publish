@@ -12,11 +12,50 @@
 .flex-item label {
   text-align: center;
 }
-
+.btn {
+  width: 15%;
+}
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+}
 .flex-container {
   height: 120px;
   background-color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+.btn-outline {
+  color: #4fbfa8;
+  background-color: #ffffff;
+  border-color: #4fbfa8;
+  font-weight: bold;
+  border-radius: 0;
+  letter-spacing: 0.05em;
+}
+.btn-outline:hover,
+.btn-outline:active,
+.btn-outline:focus,
+.btn-outline.active {
+  background: #4fbfa8;
+  color: #ffffff;
+  border-color: #4fbfa8;
+}
+.btn-colour-1 {
+  color: #fff;
+  background-color: #004e64;
+  border-color: #004e64;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  border-radius: 0;
+}
+.btn-colour-1:hover,
+.btn-colour-1:active,
+.btn-colour-1:focus,
+.btn-colour-1.active {
+  /* let's darken #004E64 a bit for hover effect */
+  background: #003d4f;
+  color: #ffffff;
+  border-color: #003d4f;
 }

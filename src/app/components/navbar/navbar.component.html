@@ -1,46 +1,79 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav
-    #drawer
-    class="sidenav"
-    fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
-  >
-    <mat-toolbar style="background-color: #320e3b; color: white"
-      >Menu
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar style="background-color: #320e3b; color: white">Menu
     </mat-toolbar>
-    <mat-nav-list>
-      <a class="list-item" mat-list-item>Perfil de Usuario</a>
+    <!-- navbar de profesores -->
+
+    <mat-nav-list *ngIf="role == 'Profesor'">
+      <a class="list-item" mat-list-item href="/perfil">Perfil de Usuario</a>
+      <div class="list-item">
+        <mat-select class="dropdown" placeholder="Usuarios">
+          <a href="/registro-usuarios" style="text-decoration: none !important; color: black">
+            <mat-option>Registrar usuarios</mat-option>
+          </a>
+          <a href="/usuarios" style="text-decoration: none !important; color: black">
+            <mat-option>Consultar Usuarios</mat-option>
+          </a>
+        </mat-select>
+      </div>
+      <div class="list-item">
+        <mat-select class="dropdown" placeholder="Pruebas">
+          <a href="/preguntas" style="text-decoration: none !important; color: black">
+            <mat-option>Bancos de preguntas</mat-option>
+          </a>
+          <a href="/usuarios" style="text-decoration:none!important; color: black">
+            <mat-option>Pruebas</mat-option>
+          </a>
+        </mat-select>
+      </div>
+      <div class="list-item">
+        <mat-select class="dropdown" placeholder="Guias">
+          <a href="/preguntas" style="text-decoration: none !important; color: black">
+            <mat-option>Bancos de preguntas</mat-option>
+          </a>
+          <a href="/usuarios" style="text-decoration:none!important; color: black">
+            <mat-option>Pruebas</mat-option>
+          </a>
+        </mat-select>
+      </div>
+      <a class="list-item" mat-list-item href="reports">Reporte de Calificaciones</a>
+    </mat-nav-list>
+
+    <!-- navbar de estudiantes -->
+
+    <mat-nav-list *ngIf="role == 'Estudiante'">
+      <a class="list-item" mat-list-item href="/perfil">Perfil de Usuario</a>
       <div class="list-item">
         <mat-select class="dropdown" placeholder="Experimentos">
           <mat-option>Experimento Inercia</mat-option>
-          <mat-option>Experimento Dinamica</mat-option>
+          <a style="text-decoration: none !important; color: black" href="/home">
+            <mat-option>Experimento Dinamica</mat-option>
+          </a>
           <mat-option>Experimento Friccion</mat-option>
         </mat-select>
       </div>
-      <a class="list-item" mat-list-item>Reporte de Calificaciones</a>
+      <a class="list-item" mat-list-item href="reports">Reporte de Calificaciones</a>
     </mat-nav-list>
   </mat-sidenav>
+
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async"
-      >
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <a href="/" class="home">
         <img src="../../../assets/images/favicon.ico" class="icon" />
-        NewtLab</a
-      >
+        NewtLab</a>
       <a class="signin-btn" *ngIf="!user" href="/signin">Iniciar sesión</a>
-      <span style="font-size: small" *ngIf="user">{{ user.username }}</span>
+      <div *ngIf="user">
+        <span class="name">{{ user.name }} {{ user.lastName1 }} </span>
+        <button class="signin-btn" (click)="logout()">Cerrar sesión</button>
+      </div>
     </mat-toolbar>
-    <div class="container">
+
+    <div class="app-container">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

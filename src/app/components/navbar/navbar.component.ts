@@ -18,12 +18,18 @@ export class NavbarComponent implements OnInit {
     );
 
   user?: User;
+  role?: string = '';
   constructor(
     private auth: AuthService,
     private breakpointObserver: BreakpointObserver
   ) {
     this.auth.user.subscribe(x => this.user = x);
+    this.role = this.user?.role?.toString()
   }
 
   ngOnInit() { }
+
+  logout() {
+    this.auth.logout();
+  }
 }

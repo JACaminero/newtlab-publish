@@ -1,0 +1,65 @@
+<div class="banco-cont">
+    <div class="banco">
+        <h2><strong>NOMBRE BANCO</strong></h2>
+        <div style="float: right; width: 40%">
+            <mat-label>Banco Pregunta:</mat-label>
+            <mat-select [(value)]="selectedBP">
+                <mat-option value="Seleccion Multiple">bp 1</mat-option>
+                <mat-option value="Completa">bp 2</mat-option>
+            </mat-select>
+        </div>
+    </div>
+</div>
+<div class="question-container">
+    <form [formGroup]="questionForm" class="question border border-light p-3 ml-sm-5 pl-sm-5">
+        <!-- (ngSubmit)="modificar()" -->
+        <div class="h5">
+            <h2>Nueva pregunta</h2>
+            <hr />
+            <div style="float: right; width: 40%">
+                <mat-label>Tipo de Pregunta:</mat-label>
+                <mat-select [(value)]="selected" style="background-color: #EEE;" formControlName="selectedType">
+                    <mat-option value="1">Seleccion Multiple</mat-option>
+                    <mat-option value="2">Completa</mat-option>
+                </mat-select>
+            </div>
+            <mat-form-field style="font-size: 12px;" appearance="outline">
+                <mat-label class="answer-label">Puntuacion</mat-label>
+                <input matInput type="number" max="10" min="1">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" style="margin: 0;" appearance="standard">
+                <mat-label>Pregunta:</mat-label>
+                <textarea matInput placeholder="Ej. ¿A que velocidad viaje el carro?"></textarea>
+            </mat-form-field>
+
+            <div *ngIf="questionForm.controls.selectedType.value != '2'">
+                <div style="font-size: small;" class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                    <mat-form-field class="answer" appearance="outline">
+                        <mat-label class="answer-label">Respuesta 1</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                    <mat-form-field class="answer" appearance="outline">
+                        <mat-label class="answer-label">Respuesta 2</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                    <mat-form-field class="answer" appearance="outline">
+                        <mat-label class="answer-label">Respuesta 3</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                    <mat-form-field class="answer" appearance="outline">
+                        <mat-label class="answer-label">Respuesta 4</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+                <div class="d-flex justify-content-end pt-3">
+                    <div id="prev">
+                        <button class="btn btn-primary">
+                            Añadir Pregunta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

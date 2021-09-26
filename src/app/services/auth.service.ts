@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { User } from '../models/models';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +36,6 @@ export class AuthService {
         map((user) => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('user', JSON.stringify(user));
-          console.log(user)
           this.userSubject.next(user);
           return user;
         })

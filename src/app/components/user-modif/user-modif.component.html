@@ -1,0 +1,41 @@
+<form [formGroup]="userForm" (ngSubmit)="modificar()" class="text-center border border-light p-5">
+    <p class="h4 mb-4">Modificar Usuario</p>
+    <div class="form-row mb-4">
+        <div class="col">
+            <input type="text" class="form-control" formControlName="firstName" placeholder="Primer nombre" />
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Apellido paternal" formControlName="lastName1" />
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Apellido maternal" formControlName="lastName2" />
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Cedula" formControlName="cedula" />
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" formControlName="phone" placeholder="Telefono" />
+        </div>
+        <div class="col">
+            <input type="date" class="form-control" formControlName="birth" />
+        </div>
+        <div class="col">
+            <input type="email" class="form-control mb-4" formControlName="email" placeholder="E-mail" />
+        </div>
+        <!-- <div class="col">
+            <input type="password" formControlName="pass" class="form-control" placeholder="Contraseña" />
+        </div> -->
+
+        <!-- <div class="col" style="text-align: start">
+            <mat-form-field appearance="fill" style="margin: 0 20px">
+                <mat-label>Rol:</mat-label>
+                <select formControlName="role" matNativeControl>
+                    <option value="Profesor">Profesor</option>
+                    <option value="Estudiante">Estudiante</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </mat-form-field>
+        </div> -->
+        <input class="btn btn-info my-4 btn-block" type="submit" value="Modificar" />
+    </div>
+</form>

@@ -16,8 +16,8 @@
     <mat-slider
       id="Masa"
       type="range"
-      min="40"
-      max="200"
+      min="20"
+      max="120"
       [(ngModel)]="massInput"
       step="1"
     ></mat-slider>
@@ -37,14 +37,16 @@
 </div>
 
 <div id="cnvs"></div>
+<div class="btn-container">
+  <button class="btn btn-outline" (click)="stop()">Detener</button>
+  <button class="btn btn-colour-1" (click)="start()">Empezar</button>
+  <button class="btn btn-outline" (click)="restart()">Reiniciar</button>
+</div>
 
-<span>time: {{ timer }} seg</span>
+<span>Tiempo transcurrido: {{ timer }} seg</span>
 <div>
-  <span>speed: {{ speed }} m/s</span>
+  <span>Velocidad: {{ speed }} m/s</span>
 </div>
 <div>
-  <span>distancia: {{ distance }} m</span>
+  <span>Distancia Viajada: {{ distance }} m</span>
 </div>
-<button (click)="stop()">stop</button>
-<button (click)="start()">start</button>
-<button (click)="restart()">restart</button>

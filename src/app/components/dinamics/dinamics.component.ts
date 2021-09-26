@@ -11,6 +11,7 @@ export class DinamicsComponent implements OnInit {
 
   constructor() { }
   canvas: any;
+
   p = p5.prototype;
   massInput: number = 60;
   angleInput: number = 15;
@@ -22,10 +23,11 @@ export class DinamicsComponent implements OnInit {
   stop: any;
   start: any;
   restart: any;
+  isStopped: boolean = true;
 
   ngOnInit(): void {
     const sketch = (p: any) => {
-      let weightSize, m: number, acc: number, distance, weight = 0;
+      let weightSize, m: number, acc: number, weight = 0;
       const g = 9.8;
       let v: number = 0
       let interval: any;
@@ -35,7 +37,7 @@ export class DinamicsComponent implements OnInit {
       let t: number = 0;
 
       p.setup = () => {
-        let cnvs = p.createCanvas(800, 500);
+        let cnvs = p.createCanvas(800, 450);
         cnvs.parent('cnvs');
         p.rectMode(p.CENTER);
       }
@@ -84,7 +86,7 @@ export class DinamicsComponent implements OnInit {
           v = 0;
         }
 
-        x += v / 20;
+        x += v / 5;
 
         if (x >= p.width) {
           x = 0;
@@ -107,7 +109,6 @@ export class DinamicsComponent implements OnInit {
         if (Math.abs(weight * Math.sin(ang)) <= weight * Math.cos(ang) * fric) {
           return 0;
         }
-        console.log('clickme')
         return weight * Math.cos(ang) * fric;
       }
 
@@ -128,25 +129,28 @@ export class DinamicsComponent implements OnInit {
       p.noLoop();
 
       this.start = () => {
-        p.loop()
-        interval = setInterval(increaseTime, 1000)
+        p.loop();
+        if (!interval) {
+          interval = setInterval(increaseTime, 1000);
+        }
       }
 
       this.stop = () => {
         p.noLoop();
-        clearInterval(interval)
+        clearInterval(interval);
+        interval = null;
       };
 
       this.restart = () => {
         weight = 0;
-        v = 0
+        v = 0;
         x = 300;
         m = 10;
         ang = 15;
         fric = 0.2;
         t = 0;
-        clearInterval(interval)
-        p.noLoop()
+        p.loop();
+        this.stop();
       };
     }
 

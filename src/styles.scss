@@ -1,8 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+@import "../node_modules/@syncfusion/ej2/material.css";
+
+html,
 body {
-    margin: 0;
-    background-color: #FFF;
-    font: 14px/20px Roboto, "Helvetica Neue", sans-serif; 
+  height: 100%;
+}
+body {
+  margin: 0;
+  background-color: #fff;
+  font: 14px/20px Roboto, "Helvetica Neue", sans-serif;
 }
