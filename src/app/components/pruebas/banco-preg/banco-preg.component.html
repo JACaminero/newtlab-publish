@@ -1,13 +1,24 @@
 <div class="banco-cont">
     <div class="banco">
-        <h2><strong>NOMBRE BANCO</strong></h2>
-        <div style="float: right; width: 40%">
+        <h1><strong>BANCO DE PREGUNTAS:</strong></h1>
+        <div>
+            <h2>{{bp.tema}}</h2>
+        </div>
+
+        <!-- <button type="button" class="ml btn btn-outline-info btn-circle btn-lg bi">
+                <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor" class="bi-plus"
+                    viewBox="0 0 45 45">
+                    <path
+                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                </svg>
+            </button> -->
+        <!-- <div style="float: right; width: 40%">
             <mat-label>Banco Pregunta:</mat-label>
             <mat-select [(value)]="selectedBP">
-                <mat-option value="Seleccion Multiple">bp 1</mat-option>
-                <mat-option value="Completa">bp 2</mat-option>
+                <mat-option value="Seleccion Multiple">Seleccion Multiple</mat-option>
+                <mat-option value="Completa">Completa</mat-option>
             </mat-select>
-        </div>
+        </div> -->
     </div>
 </div>
 <div class="question-container">
@@ -34,24 +45,36 @@
             </mat-form-field>
 
             <div *ngIf="questionForm.controls.selectedType.value != '2'">
-                <div style="font-size: small;" class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
-                    <mat-form-field class="answer" appearance="outline">
-                        <mat-label class="answer-label">Respuesta 1</mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                    <mat-form-field class="answer" appearance="outline">
-                        <mat-label class="answer-label">Respuesta 2</mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                    <mat-form-field class="answer" appearance="outline">
-                        <mat-label class="answer-label">Respuesta 3</mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                    <mat-form-field class="answer" appearance="outline">
-                        <mat-label class="answer-label">Respuesta 4</mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                </div>
+                <mat-radio-group aria-label="Select an option">
+
+                    <div style="font-size: small;" class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                        <mat-form-field class="answer" appearance="outline">
+                            <mat-label class="answer-label">Respuesta 1</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                        <mat-radio-button class="radio" value="1"></mat-radio-button>
+
+                        <mat-form-field class="answer" appearance="outline">
+                            <mat-label class="answer-label">Respuesta 2</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                        <mat-radio-button class="radio" value="2"></mat-radio-button>
+
+                        <mat-form-field class="answer" appearance="outline">
+                            <mat-label class="answer-label">Respuesta 3</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                        <mat-radio-button class="radio" value="1"></mat-radio-button>
+
+                        <mat-form-field class="answer" appearance="outline">
+                            <mat-label class="answer-label">Respuesta 4</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                        <mat-radio-button class="radio" value="2"></mat-radio-button>
+
+                    </div>
+                </mat-radio-group>
+
                 <div class="d-flex justify-content-end pt-3">
                     <div id="prev">
                         <button class="btn btn-primary">

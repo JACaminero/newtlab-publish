@@ -33,6 +33,9 @@ import { UserRegistComponent } from './components/user-regist/user-regist.compon
 import { UsersComponent } from './components/users/users.component';
 import { UserModifComponent } from './components/user-modif/user-modif.component';
 import { BancoPregComponent } from './components/pruebas/banco-preg/banco-preg.component';
+import { BancoPregInsertComponent } from './components/banco-preg-insert/banco-preg-insert.component';
+import { BancoPregShowComponent } from './components/banco-preg-show/banco-preg-show.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,8 @@ import { BancoPregComponent } from './components/pruebas/banco-preg/banco-preg.c
     UsersComponent,
     UserModifComponent,
     BancoPregComponent,
+    BancoPregShowComponent,
+    BancoPregInsertComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +75,7 @@ import { BancoPregComponent } from './components/pruebas/banco-preg/banco-preg.c
     MatIconModule,
     MatListModule,
     GridModule,
+    MatRadioModule
   ],
   providers: [PageService, SortService, FilterService, GroupService],
   bootstrap: [AppComponent],

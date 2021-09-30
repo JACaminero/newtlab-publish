@@ -1,0 +1,62 @@
+<div class="container">
+  
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="text-center border border-light p-5">
+    <p class="h4 mb-4">Crear banco de pregunta</p>
+    <div class="form-row mb-4">
+      <div class="col">
+        <input type="text" class="form-control" formControlName="name" placeholder="Nombre del Banco" />
+      </div>
+      <input class="btn btn-info my-4 btn-block" type="submit" value="Crear" />
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-uppercase mb-0">Bancos de pregunta</h5>
+        </div>
+        <div class="table-responsive">
+          <table class="table no-wrap user-table mb-0">
+            <thead>
+              <tr class="ml">
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Nombre
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Fecha de Creacion
+                </th>
+                <th scope="col" class="ml border-0 text-uppercase font-medium">
+                  Opciones
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="d" *ngFor="let bp of bps">
+                <td>
+                  <span class="text-muted">{{bp.tema}}</span><br />
+                </td>
+                <td>
+                  <span class="text-muted">{{bp.fechaCreacion}}</span><br />
+                </td>
+                <td>
+                  <a type="button" [routerLink]="['/preguntas', bp.bancoPreguntaId]"
+                    class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <button type="button" class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                  <!-- <button type="button" class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
+                    <i class="fa fa-repeat"></i>
+                  </button> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />

@@ -48,6 +48,10 @@ export class UserService {
       });
   }
 
+  enable(id: number) {
+    return this.http.put<User>(`${environment.api}/user/enable/${id}`, {});
+  }
+  
   delete(id: number) {
     return this.http.put<User>(`${environment.api}/user/delete/${id}`, {});
   }

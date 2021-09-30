@@ -30,8 +30,8 @@ export class UsersComponent implements OnInit {
   }
 
   enable(id: number) {
-    console.log('need to implement this bro ', id);
-    
+    this.uServ.enable(id).subscribe();
+    window.location.reload();
   }
 }
 
@@ -49,5 +49,6 @@ export class DeletePopup {
 
   onNo(): void {
     this.dialogRef.close();
+    window.location.reload();
   }
 }

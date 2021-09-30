@@ -14,17 +14,21 @@ export class User {
 }
 
 export class BancoPreg {
-  BancoPreguntaId?: number = 0
-  Tema?: string = ''
-  FechaCreacion?: string = ''
-  Experimento?: any
+  bancoPreguntaId?: number = 0
+  tema?: string = ''
+  fechaCreacion?: string = ''
+  experimento?: any
 }
 
 export class Pregunta {
+  preguntaId?: number 
   description?: string
-  answer1?: string
-  answer2?: string
-  answer3?: string
-  answer4?: string
-  Puntuacion?: number
+  puntuacion?: number
+  respuestas?: Respuesta[]
+}
+
+export class Respuesta {
+  respuestaId?: number;
+  descripcion?: string;
+  esCorrecta: boolean = false
 }
