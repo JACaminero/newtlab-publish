@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -10,11 +10,11 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit {
-  error = '';
+  error: any = '';
   returnUrl: string = '';
   signInForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
+    username: new FormControl('', [Validators.email]),
+    password: new FormControl('', [Validators.maxLength(14)]),
   });
 
   constructor(
@@ -33,6 +33,7 @@ export class SigninComponent implements OnInit {
 
   onSubmit() {
     if (this.signInForm.invalid) {
+      this.error = this.signInForm.errors
       return;
     }
 
@@ -43,12 +44,12 @@ export class SigninComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (res) => {
-          // get return url from query parameters or default to home page
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
           this.router.navigateByUrl(returnUrl);
         },
         (error) => {
-          this.error = error;
+          console.log(error)
+          this.error = error.error.message;
         }
       );
   }

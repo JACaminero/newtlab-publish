@@ -1,88 +1,114 @@
 <div class="banco-cont">
-    <div class="banco">
-        <h1><strong>BANCO DE PREGUNTAS:</strong></h1>
-        <div>
-            <h2>{{bp.tema}}</h2>
-        </div>
-
-        <!-- <button type="button" class="ml btn btn-outline-info btn-circle btn-lg bi">
-                <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor" class="bi-plus"
-                    viewBox="0 0 45 45">
-                    <path
-                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                </svg>
-            </button> -->
-        <!-- <div style="float: right; width: 40%">
-            <mat-label>Banco Pregunta:</mat-label>
-            <mat-select [(value)]="selectedBP">
-                <mat-option value="Seleccion Multiple">Seleccion Multiple</mat-option>
-                <mat-option value="Completa">Completa</mat-option>
-            </mat-select>
-        </div> -->
+  <div class="banco">
+    <h1><strong>BANCO DE PREGUNTAS:</strong></h1>
+    <div>
+      <h2>{{bp.tema}}</h2>
     </div>
+  </div>
 </div>
-<div class="question-container">
-    <form [formGroup]="questionForm" class="question border border-light p-3 ml-sm-5 pl-sm-5">
-        <!-- (ngSubmit)="modificar()" -->
-        <div class="h5">
-            <h2>Nueva pregunta</h2>
-            <hr />
-            <div style="float: right; width: 40%">
-                <mat-label>Tipo de Pregunta:</mat-label>
-                <mat-select [(value)]="selected" style="background-color: #EEE;" formControlName="selectedType">
-                    <mat-option value="1">Seleccion Multiple</mat-option>
-                    <mat-option value="2">Completa</mat-option>
-                </mat-select>
-            </div>
-            <mat-form-field style="font-size: 12px;" appearance="outline">
-                <mat-label class="answer-label">Puntuacion</mat-label>
-                <input matInput type="number" max="10" min="1">
+<div class="question-container" style="margin-bottom: 20px;">
+  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" class="question border border-light p-3 ml-sm-5 pl-sm-5">
+    <div class="h5">
+      <h2>Nueva pregunta</h2>
+      <hr />
+      <div style="float: right; width: 40%">
+        <mat-label>Tipo de Pregunta:</mat-label>
+        <mat-select style="background-color: #EEE;" formControlName="selectedType">
+          <mat-option value="Seleccion Multiple">Seleccion Multiple</mat-option>
+          <mat-option value="Completa">Completa</mat-option>
+        </mat-select>
+      </div>
+      <mat-form-field style="font-size: 12px;" appearance="outline">
+        <mat-label class="answer-label">Puntuacion</mat-label>
+        <input matInput type="number" formControlName="punt" max="10" min="1">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="margin: 0;" appearance="standard">
+        <mat-label>Pregunta:</mat-label>
+        <textarea formControlName="description" matInput placeholder="Ej. ¿A que velocidad viaje el carro?"></textarea>
+      </mat-form-field>
+
+      <div *ngIf="questionForm.controls.selectedType.value != '2'">
+        <mat-radio-group aria-label="Select an option" formControlName="options">
+
+          <div style="font-size: small;" class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+            <mat-form-field class="answer" appearance="outline">
+              <mat-label class="answer-label">Respuesta 1</mat-label>
+              <input matInput formControlName="answer1">
             </mat-form-field>
+            <mat-radio-button class="radio" value="1"></mat-radio-button>
+            <span *ngIf="questionForm.controls.options.value == '1'">Es correcta</span>
 
-            <mat-form-field class="example-full-width" style="margin: 0;" appearance="standard">
-                <mat-label>Pregunta:</mat-label>
-                <textarea matInput placeholder="Ej. ¿A que velocidad viaje el carro?"></textarea>
+            <mat-form-field class="answer" appearance="outline">
+              <mat-label class="answer-label">Respuesta 2</mat-label>
+              <input matInput formControlName="answer2">
             </mat-form-field>
+            <mat-radio-button class="radio" value="2"></mat-radio-button>
+            <span *ngIf="questionForm.controls.options.value == '2'">Es correcta</span>
 
-            <div *ngIf="questionForm.controls.selectedType.value != '2'">
-                <mat-radio-group aria-label="Select an option">
+            <mat-form-field class="answer" appearance="outline">
+              <mat-label class="answer-label">Respuesta 3</mat-label>
+              <input matInput formControlName="answer3">
+            </mat-form-field>
+            <mat-radio-button class="radio" value="3"></mat-radio-button>
+            <span *ngIf="questionForm.controls.options.value == '3'">Es correcta</span>
 
-                    <div style="font-size: small;" class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
-                        <mat-form-field class="answer" appearance="outline">
-                            <mat-label class="answer-label">Respuesta 1</mat-label>
-                            <input matInput>
-                        </mat-form-field>
-                        <mat-radio-button class="radio" value="1"></mat-radio-button>
+            <mat-form-field class="answer" appearance="outline">
+              <mat-label class="answer-label">Respuesta 4</mat-label>
+              <input matInput formControlName="answer4">
+            </mat-form-field>
+            <mat-radio-button class="radio" value="4"></mat-radio-button>
+            <span *ngIf="questionForm.controls.options.value == '4'">Es correcta</span>
+          </div>
+        </mat-radio-group>
+      </div>
 
-                        <mat-form-field class="answer" appearance="outline">
-                            <mat-label class="answer-label">Respuesta 2</mat-label>
-                            <input matInput>
-                        </mat-form-field>
-                        <mat-radio-button class="radio" value="2"></mat-radio-button>
-
-                        <mat-form-field class="answer" appearance="outline">
-                            <mat-label class="answer-label">Respuesta 3</mat-label>
-                            <input matInput>
-                        </mat-form-field>
-                        <mat-radio-button class="radio" value="1"></mat-radio-button>
-
-                        <mat-form-field class="answer" appearance="outline">
-                            <mat-label class="answer-label">Respuesta 4</mat-label>
-                            <input matInput>
-                        </mat-form-field>
-                        <mat-radio-button class="radio" value="2"></mat-radio-button>
-
-                    </div>
-                </mat-radio-group>
-
-                <div class="d-flex justify-content-end pt-3">
-                    <div id="prev">
-                        <button class="btn btn-primary">
-                            Añadir Pregunta
-                        </button>
-                    </div>
-                </div>
-            </div>
+      <div class="d-flex justify-content-end pt-3">
+        <div id="prev">
+          <input class="btn btn-primary" [disabled]="questionForm.invalid" type="submit" value="Añadir Pregunta" />
         </div>
-    </form>
+      </div>
+    </div>
+  </form>
 </div>
+
+<div class="row justify-content-center">
+  <div class="col-md-12 table-cont">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-uppercase mb-0">Preguntas</h5>
+      </div>
+      <div class="table-responsive">
+        <table class="table no-wrap user-table mb-0">
+          <thead>
+            <tr class="ml">
+              <th scope="col" class="border-0 text-uppercase font-medium">
+                Descripcion
+              </th>
+              <th scope="col" style="width: 20%;" class="ml border-0 text-uppercase font-medium">
+                Puntuacion
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="d" *ngFor="let p of ps" (click)="openDialog(p.preguntaId)">
+              <td>
+                <span class="text-muted">{{p.descripcion}}</span><br />
+              </td>
+              <td>
+                <span class="text-muted">{{p.puntuacion}}</span><br />
+              </td>
+              <td>
+                <button type="button" (click)="delete(p.preguntaId)"
+                  class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />

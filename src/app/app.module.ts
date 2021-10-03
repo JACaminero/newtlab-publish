@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
+import {MatRadioModule} from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 import { SigninComponent } from './components/signin/signin.component';
@@ -32,10 +33,8 @@ import { FillerComponent } from './components/filler/filler.component';
 import { UserRegistComponent } from './components/user-regist/user-regist.component';
 import { UsersComponent } from './components/users/users.component';
 import { UserModifComponent } from './components/user-modif/user-modif.component';
-import { BancoPregComponent } from './components/pruebas/banco-preg/banco-preg.component';
-import { BancoPregInsertComponent } from './components/banco-preg-insert/banco-preg-insert.component';
+import { BancoPregComponent, RespuestaDialog } from './components/pruebas/banco-preg/banco-preg.component';
 import { BancoPregShowComponent } from './components/banco-preg-show/banco-preg-show.component';
-import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -55,7 +54,7 @@ import { MatRadioModule } from '@angular/material/radio';
     UserModifComponent,
     BancoPregComponent,
     BancoPregShowComponent,
-    BancoPregInsertComponent,
+    RespuestaDialog
   ],
   imports: [
     BrowserModule,
@@ -75,7 +74,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatIconModule,
     MatListModule,
     GridModule,
-    MatRadioModule
+    MatRadioModule,
   ],
   providers: [PageService, SortService, FilterService, GroupService],
   bootstrap: [AppComponent],

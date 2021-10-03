@@ -1,12 +1,20 @@
 <div class="container">
-  
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="text-center border border-light p-5">
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-con border border-light ">
     <p class="h4 mb-4">Crear banco de pregunta</p>
     <div class="form-row mb-4">
       <div class="col">
-        <input type="text" class="form-control" formControlName="name" placeholder="Nombre del Banco" />
+        <input type="text" class="form-control" formControlName="name" placeholder="Tema" />
+        <mat-form-field appearance="fill" style="margin: 10px 5px">
+          <mat-label>Rol:</mat-label>
+          <select formControlName="exper" matNativeControl>
+            <option value="g">Gravedad</option>
+            <option value="i">Inercia</option>
+            <option value="a">Accion y Reaccion</option>
+          </select>
+        </mat-form-field>
       </div>
-      <input class="btn btn-info my-4 btn-block" type="submit" value="Crear" />
+      <input [disabled]="form.invalid" class="btn btn-info btn-block" type="submit" value="Crear" />
     </div>
   </form>
 
@@ -44,7 +52,7 @@
                     class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
                     <i class="fa fa-edit"></i>
                   </a>
-                  <button type="button" class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
+                  <button type="button" (click)="onDelete(bp.bancoPreguntaId)" class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
                     <i class="fa fa-trash"></i>
                   </button>
                   <!-- <button type="button" class="ml btn btn-outline-info btn-circle btn-lg btn-circle">

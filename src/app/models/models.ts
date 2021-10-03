@@ -22,13 +22,19 @@ export class BancoPreg {
 
 export class Pregunta {
   preguntaId?: number 
-  description?: string
+  descripcion?: string
   puntuacion?: number
   respuestas?: Respuesta[]
+  bancoPreguntaId?: number
+  tp?: string
 }
 
 export class Respuesta {
   respuestaId?: number;
   descripcion?: string;
   esCorrecta: boolean = false
+
+  constructor(descripcion: string) {
+    this.descripcion = descripcion
+  }
 }

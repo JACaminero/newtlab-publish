@@ -1,31 +1,7 @@
 <form [formGroup]="userForm" (ngSubmit)="registrar()" class="text-center border border-light p-5">
   <p class="h4 mb-4">Registrar Usuario</p>
   <div class="form-row mb-4">
-    <div class="col">
-      <input type="text" class="form-control" formControlName="firstName" placeholder="Primer nombre" />
-    </div>
-    <div class="col">
-      <input type="text" class="form-control" placeholder="Apellido paternal" formControlName="lastName1" />
-    </div>
-    <div class="col">
-      <input type="text" class="form-control" placeholder="Apellido maternal" formControlName="lastName2" />
-    </div>
-    <div class="col">
-      <input type="text" class="form-control" placeholder="Cedula" formControlName="cedula" />
-    </div>
-    <div class="col">
-      <input type="text" class="form-control" formControlName="phone" placeholder="Telefono" />
-    </div>
-    <div class="col">
-      <input type="date" class="form-control" formControlName="birth" />
-    </div>
-    <div class="col">
-      <input type="email" class="form-control mb-4" formControlName="email" placeholder="E-mail" />
-    </div>
-    <div class="col">
-      <input type="password" formControlName="pass" class="form-control" placeholder="Contraseña" />
-    </div>
-
+    
     <div class="col" style="text-align: start">
       <mat-form-field appearance="fill" style="margin: 0 20px">
         <mat-label>Rol:</mat-label>
@@ -36,6 +12,41 @@
         </select>
       </mat-form-field>
     </div>
-    <input class="btn btn-info my-4 btn-block" type="submit" value="Registrar" />
+    <div class="col">
+      <input type="text" class="form-control" formControlName="firstName" placeholder="Primer nombre" />
+    </div>
+    <div *ngIf="userForm.controls.firstName.errors?.maxLength" class="alert alert-danger mt-3 mb-0">Primer nombre muy largo</div>
+    <div class="col">
+      <input type="text" class="form-control" placeholder="Apellido paternal" formControlName="lastName1" />
+      <div *ngIf="userForm.controls.lastName1.errors?.maxLength" class="alert alert-danger mt-3 mb-0">Primer apellido muy largo</div>
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" placeholder="Apellido maternal" formControlName="lastName2" />
+      <div *ngIf="userForm.controls.lastName2.errors?.maxLength" class="alert alert-danger mt-3 mb-0">Segundo apellido muy largo</div>
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" placeholder="Identificacion" formControlName="cedula" />
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" formControlName="phone" placeholder="Telefono" />
+    </div>
+    <div class="col">
+      <input type="date" class="form-control" min="1989-12-31" max="2017-01-01" formControlName="birth" />
+    </div>
+    <div class="col">
+      <input type="email" class="form-control mb-4" formControlName="email" placeholder="E-mail" />
+      <div *ngIf="userForm.controls.email.errors?.email" class="alert alert-danger mt-3 mb-0">Email es invalido</div>
+    </div>
+    <div class="col">
+      <input type="password" data-validate="Contraseña invalida" formControlName="pass" class="form-control" placeholder="Contraseña" />
+    </div>
+    <div *ngIf="userForm.controls.pass.errors?.maxLength" class="alert alert-danger mt-3 mb-0">Contraseña demasiado larga</div>
+    <div class="col">
+      <input type="password" formControlName="secondPass" class="form-control" placeholder="Confirmar Contraseña" />
+    </div>
+    <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
+      {{ error }}
+    </div>
+    <input class="submit btn btn-info my-4 btn-block" [disabled]="userForm.invalid" type="submit" value="Registrar" />
   </div>
 </form>

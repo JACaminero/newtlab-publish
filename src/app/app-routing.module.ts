@@ -11,7 +11,6 @@ import { UserRegistComponent } from './components/user-regist/user-regist.compon
 import { UsersComponent } from './components/users/users.component';
 import { UserModifComponent } from './components/user-modif/user-modif.component';
 import { BancoPregComponent } from './components/pruebas/banco-preg/banco-preg.component';
-import { BancoPregInsertComponent } from './components/banco-preg-insert/banco-preg-insert.component';
 import { BancoPregShowComponent } from './components/banco-preg-show/banco-preg-show.component';
 
 const routes: Routes = [
@@ -52,11 +51,6 @@ const routes: Routes = [
   },
   {
     path: '', canActivate: [AuthGuardService], component: FillerComponent
-  },
-  {
-    path: 'insert-banco', component: BancoPregInsertComponent,
-    canActivate: [AuthGuardService],
-    data: { role: ['Profesor'] },
   },
   {
     path: 'show-banco', component: BancoPregShowComponent,
