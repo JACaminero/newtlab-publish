@@ -35,6 +35,12 @@ import { UsersComponent } from './components/users/users.component';
 import { UserModifComponent } from './components/user-modif/user-modif.component';
 import { BancoPregComponent, RespuestaDialog } from './components/pruebas/banco-preg/banco-preg.component';
 import { BancoPregShowComponent } from './components/banco-preg-show/banco-preg-show.component';
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { plus } from 'ngx-bootstrap-icons';
+
+const icons = {
+  plus
+};
 
 @NgModule({
   declarations: [
@@ -54,7 +60,7 @@ import { BancoPregShowComponent } from './components/banco-preg-show/banco-preg-
     UserModifComponent,
     BancoPregComponent,
     BancoPregShowComponent,
-    RespuestaDialog
+    RespuestaDialog,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +72,7 @@ import { BancoPregShowComponent } from './components/banco-preg-show/banco-preg-
     MatInputModule,
     MatSliderModule,
     HttpClientModule,
+    NgxBootstrapIconsModule.pick(icons),
     LayoutModule,
     FormsModule,
     MatToolbarModule,

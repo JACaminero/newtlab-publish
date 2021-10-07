@@ -6,13 +6,15 @@
       <div class="col">
         <input type="text" class="form-control" formControlName="name" placeholder="Tema" />
         <mat-form-field appearance="fill" style="margin: 10px 5px">
-          <mat-label>Rol:</mat-label>
+          <mat-label>Experimento:</mat-label>
           <select formControlName="exper" matNativeControl>
             <option value="g">Gravedad</option>
             <option value="i">Inercia</option>
             <option value="a">Accion y Reaccion</option>
           </select>
         </mat-form-field>
+        
+
       </div>
       <input [disabled]="form.invalid" class="btn btn-info btn-block" type="submit" value="Crear" />
     </div>
@@ -34,6 +36,9 @@
                 <th scope="col" class="border-0 text-uppercase font-medium">
                   Fecha de Creacion
                 </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Estado
+                </th>
                 <th scope="col" class="ml border-0 text-uppercase font-medium">
                   Opciones
                 </th>
@@ -46,6 +51,9 @@
                 </td>
                 <td>
                   <span class="text-muted">{{bp.fechaCreacion}}</span><br />
+                </td>
+                <td>
+                  <span class="text-muted">{{bp.publicado ? 'Publicado' : 'No publicado'}}</span><br />
                 </td>
                 <td>
                   <a type="button" [routerLink]="['/preguntas', bp.bancoPreguntaId]"

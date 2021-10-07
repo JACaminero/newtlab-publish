@@ -56,7 +56,7 @@ const routes: Routes = [
     path: 'show-banco', component: BancoPregShowComponent,
     canActivate: [AuthGuardService],
     data: { role: ['Profesor'] },
-  },
+  }
 ];
 
 @NgModule({

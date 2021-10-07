@@ -17,7 +17,10 @@ export class BancoPreg {
   bancoPreguntaId?: number = 0
   tema?: string = ''
   fechaCreacion?: string = ''
-  experimento?: any
+  experimento?: string
+  publicado?: boolean
+  fechaLimite?: string
+  isOn?: boolean
 }
 
 export class Pregunta {
@@ -27,6 +30,7 @@ export class Pregunta {
   respuestas?: Respuesta[]
   bancoPreguntaId?: number
   tp?: string
+  isOn?: boolean
 }
 
 export class Respuesta {

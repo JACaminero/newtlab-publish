@@ -13,20 +13,19 @@ export class BancoPregShowComponent implements OnInit {
   constructor(private bpServ: BancoPregService) { }
 
   bps?: BancoPreg[] = []
-
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    exper: new FormControl('g')
+    exper: new FormControl('g'),
   });
 
   ngOnInit(): void {
     this.bpServ.get().subscribe(us => {
       this.bps = us;
+      console.log(us);
     });
   }
 
   onSubmit() {
-    console.log();
     let k: number = 0
     //BULLSHIT
     switch (this.form.controls.exper.value) {
@@ -43,10 +42,13 @@ export class BancoPregShowComponent implements OnInit {
         break;
     }
     this.bpServ.insert(this.form.controls.name.value, k)
-      .subscribe(() => window.location.reload)
+      .subscribe(() => {
+        alert('¡Operacion Exitosa!');
+        window.location.reload()
+      });
   }
 
   onDelete(id?: number) {
-    this.bpServ.deleteBanco(id).subscribe(() => window.location.reload);
+    this.bpServ.deleteBanco(id).subscribe(() => window.location.reload());
   }
 }

@@ -89,7 +89,6 @@
     border-radius: 13px;
     padding: 20px;
     word-spacing: 2px;
-
 }
 .example-form {
     min-width: 150px;
@@ -103,14 +102,21 @@
 .answer {
     width: 60%;
     margin: 0 4rem;
-
 }
+
 .answer-label {
     font-size: small;
 }
+
 .btn-circle {
   border-radius: 100%;
   width: 40px;
   height: 40px;
   padding: 10px;
+}
+
+.alert {
+    font-size: 12px;
+    padding: 0.5rem;
+    width: 70%;
 }

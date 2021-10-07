@@ -1,9 +1,25 @@
 <div class="banco-cont">
-  <div class="banco">
+  <div [formGroup]="pruebaForm" class="banco">
     <h1><strong>BANCO DE PREGUNTAS:</strong></h1>
-    <div>
-      <h2>{{bp.tema}}</h2>
+    <h2>{{bp.tema}}</h2>
+    <span>Estado: {{bp.publicado ? 'Publicado' : 'No publicado'}}</span>
+    <div *ngIf="!bp.publicado" >
+      <mat-form-field style="font-size: 12px; margin-right:5px" appearance="outline">
+        <mat-label class="answer-label">Fecha Limite</mat-label>
+        <input matInput type="date" formControlName="limit" [min]="date">
+      </mat-form-field>
+      <button type="button" [disabled]="pruebaForm.invalid" (click)="publicar(bp.bancoPreguntaId)"
+        class="ml btn btn-outline-info">
+        <i i-bs name="plus"></i>Publicar Prueba
+      </button>
     </div>
+    <div *ngIf="bp.publicado">
+      <span>Fecha de cierre: {{bp.fechaLimite}}</span>
+      <button type="button" style="margin-left:8px"  (click)="deshabilitar(bp.bancoPreguntaId)" class="ml btn btn-outline-info">
+        <i i-bs name="plus"></i>Deshabilitar prueba
+      </button>
+    </div>
+
   </div>
 </div>
 <div class="question-container" style="margin-bottom: 20px;">
@@ -62,7 +78,6 @@
           </div>
         </mat-radio-group>
       </div>
-
       <div class="d-flex justify-content-end pt-3">
         <div id="prev">
           <input class="btn btn-primary" [disabled]="questionForm.invalid" type="submit" value="Añadir Pregunta" />
@@ -73,10 +88,10 @@
 </div>
 
 <div class="row justify-content-center">
-  <div class="col-md-12 table-cont">
+  <div class="col-md-6 table-cont">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title text-uppercase mb-0">Preguntas</h5>
+        <h5 class="card-title text-uppercase mb-0">Preguntas. Calificacion total: {{califTotal}} puntos </h5>
       </div>
       <div class="table-responsive">
         <table class="table no-wrap user-table mb-0">
@@ -87,6 +102,9 @@
               </th>
               <th scope="col" style="width: 20%;" class="ml border-0 text-uppercase font-medium">
                 Puntuacion
+              </th>
+              <th scope="col" style="width: 20%;" class="ml border-0 text-uppercase font-medium">
+                Opciones
               </th>
             </tr>
           </thead>
