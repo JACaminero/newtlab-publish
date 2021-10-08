@@ -13,8 +13,6 @@
             <option value="a">Accion y Reaccion</option>
           </select>
         </mat-form-field>
-        
-
       </div>
       <input [disabled]="form.invalid" class="btn btn-info btn-block" type="submit" value="Crear" />
     </div>
@@ -37,6 +35,9 @@
                   Fecha de Creacion
                 </th>
                 <th scope="col" class="border-0 text-uppercase font-medium">
+                  Creador
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
                   Estado
                 </th>
                 <th scope="col" class="ml border-0 text-uppercase font-medium">
@@ -53,16 +54,26 @@
                   <span class="text-muted">{{bp.fechaCreacion}}</span><br />
                 </td>
                 <td>
-                  <span class="text-muted">{{bp.publicado ? 'Publicado' : 'No publicado'}}</span><br />
+                  <span class="text-muted">{{bp.username}}</span><br />
                 </td>
                 <td>
-                  <a type="button" [routerLink]="['/preguntas', bp.bancoPreguntaId]"
-                    class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
+                  <span class="text-muted">{{bp.publicado ? 'Publicado' : 'No publicado'}}</span><br />
+                  <!-- <span class="text-muted">{{bp.isOn ? 'Habilitado' : 'Deshabilitado'}}</span><br /> -->
+                </td>
+                <td>
+                  <button type="button" [routerLink]="['/preguntas', bp.bancoPreguntaId]"
+                    [disabled]="bp.userId != user?.id" class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
                     <i class="fa fa-edit"></i>
-                  </a>
-                  <button type="button" (click)="onDelete(bp.bancoPreguntaId)" class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
+                  </button>
+                  <!-- <button type="button" *ngIf="bp.isOn" (click)="onDelete(bp.bancoPreguntaId)"
+                    class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
                     <i class="fa fa-trash"></i>
                   </button>
+                  <button type="button" *ngIf="!bp.isOn" (click)="on(bp.bancoPreguntaId)"
+                    class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
+                    <i i-bs name="check"></i>
+                  </button> -->
+                  <!-- {{bp.userId}} -->
                   <!-- <button type="button" class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
                     <i class="fa fa-repeat"></i>
                   </button> -->

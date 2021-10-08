@@ -1,25 +1,46 @@
 <form [formGroup]="userForm" (ngSubmit)="modificar()" class="text-center border border-light p-5">
     <p class="h4 mb-4">Modificar Usuario</p>
     <div class="form-row mb-4">
-        <div class="col">
+        <div style="text-align: start" class="col">
+            <div style="margin-left: 30px;">
+                <mat-label>Nombre</mat-label>
+            </div>
             <input type="text" class="form-control" formControlName="firstName" placeholder="Primer nombre" />
         </div>
-        <div class="col">
+        <div style="text-align: start" class="col">
+            <div style="margin-left: 30px;">
+                <mat-label>Apellido paternal</mat-label>
+            </div>
             <input type="text" class="form-control" placeholder="Apellido paternal" formControlName="lastName1" />
         </div>
-        <div class="col">
+        <div style="text-align: start" class="col">
+            <div style="margin-left: 30px;">
+                <mat-label>Apellido maternal</mat-label>
+            </div>
             <input type="text" class="form-control" placeholder="Apellido maternal" formControlName="lastName2" />
         </div>
-        <div class="col">
-            <input type="text" class="form-control" placeholder="Cedula" formControlName="cedula" />
+        <div style="text-align: start" class="col">
+            <div style="margin-left: 30px;">
+                <mat-label>Identificación</mat-label>
+            </div>
+            <input type="text" class="form-control" placeholder="Identificación" formControlName="cedula" />
         </div>
-        <div class="col">
+        <div style="text-align: start" class="col">
+            <div style="margin-left: 30px;">
+                <mat-label>Telefono</mat-label>
+            </div>
             <input type="text" class="form-control" formControlName="phone" placeholder="Telefono" />
         </div>
-        <div class="col">
-            <input type="date" class="form-control" formControlName="birth" />
+        <div style="text-align: start" class="col">
+            <div style="margin-left: 30px;">
+                <mat-label>Fecha de Nacimiento</mat-label>
+            </div>
+            <input type="date" class="form-control" [value]="dat" formControlName="birth" />
         </div>
-        <div class="col">
+        <div style="text-align: start" class="col">
+            <div style="margin-left: 30px;">
+                <mat-label>E-mail</mat-label>
+            </div>
             <input type="email" class="form-control mb-4" formControlName="email" placeholder="E-mail" />
         </div>
         <!-- <div class="col">

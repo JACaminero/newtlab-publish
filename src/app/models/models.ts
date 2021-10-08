@@ -14,13 +14,15 @@ export class User {
 }
 
 export class BancoPreg {
-  bancoPreguntaId?: number = 0
+  bancoPreguntaId?: number
   tema?: string = ''
   fechaCreacion?: string = ''
   experimento?: string
   publicado?: boolean
   fechaLimite?: string
   isOn?: boolean
+  userId: number = 1
+  username?: string
 }
 
 export class Pregunta {

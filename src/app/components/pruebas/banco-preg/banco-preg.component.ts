@@ -14,11 +14,13 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 export class BancoPregComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, private bpService: BancoPregService) { }
+  
   bp: BancoPreg = new BancoPreg()
   id: unknown
   ps?: Array<Pregunta>
   date: any
   califTotal: number = 0
+
   pruebaForm = new FormGroup({
     limit: new FormControl('', [Validators.required])
   })
@@ -44,6 +46,7 @@ export class BancoPregComponent implements OnInit {
       this.ps.forEach(preg => {
         this.califTotal += +<number>preg.puntuacion
       })
+      this.ps.sort()
     })
     this.date = new Date().toISOString().slice(0, 10);
   }
@@ -91,7 +94,6 @@ export class BancoPregComponent implements OnInit {
 
   openDialog(preguntaId: any) {
     this.bpService.getResp(preguntaId).subscribe(rs => {
-
       this.dialog.open(RespuestaDialog, {
         width: '473px',
         data: { rs: rs }
@@ -103,6 +105,9 @@ export class BancoPregComponent implements OnInit {
     this.bpService.deshabilitar(id).subscribe(() => window.location.reload())
   }
 
+  on(id?: number) {
+    this.bpService.habilitarPregunta(id).subscribe(() => window.location.reload())
+  }
 
   publicar(id?: number) {
     if (this.ps!.length <= 0) {
@@ -111,7 +116,7 @@ export class BancoPregComponent implements OnInit {
     }
     let limit = new PublicarVM()
     limit.limit = this.pruebaForm.controls.limit.value;
-
+    this.bp.fechaLimite
     this.bpService.publicar(id, limit).subscribe(() => window.location.reload())
   }
 }

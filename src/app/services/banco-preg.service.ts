@@ -21,11 +21,16 @@ export class BancoPregService {
     return this.http.get<Respuesta[]>(`${environment.api}/pregunta/respuestas/${id}`) 
   }
 
-  insert(name :string, exp: number) {
+  insert(name :string, userId?: number, exp?: number) {
     return this.http.post(`${environment.api}/bancopregunta`, {
       Tema: name,
       ExperimentoId: exp,
+      userId: userId
     })
+  }
+
+  habilitarPregunta(id?: number) {
+    return this.http.delete(`${environment.api}/pregunta/habilitar/${id}`) 
   }
 
   deletePregunta(id?: number) {
@@ -36,6 +41,10 @@ export class BancoPregService {
     return this.http.delete(`${environment.api}/bancopregunta/${id}`) 
   }
   
+  onBanco(id?: number) {
+    return this.http.delete(`${environment.api}/bancopregunta/on/${id}`) 
+  }
+
   publicar(id?: number, limit?: PublicarVM) {
 
     return this.http.put(`${environment.api}/bancopregunta/publicar/${id}`, { fechaLimite: limit?.limit }) 

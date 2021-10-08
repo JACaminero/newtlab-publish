@@ -35,11 +35,11 @@ import { UsersComponent } from './components/users/users.component';
 import { UserModifComponent } from './components/user-modif/user-modif.component';
 import { BancoPregComponent, RespuestaDialog } from './components/pruebas/banco-preg/banco-preg.component';
 import { BancoPregShowComponent } from './components/banco-preg-show/banco-preg-show.component';
-import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
-import { plus } from 'ngx-bootstrap-icons';
+import { plus, check, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 
 const icons = {
-  plus
+  plus,
+  check
 };
 
 @NgModule({

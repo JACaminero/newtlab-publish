@@ -91,7 +91,7 @@
   <div class="col-md-6 table-cont">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title text-uppercase mb-0">Preguntas. Calificacion total: {{califTotal}} puntos </h5>
+        <h5 class="card-title text-uppercase mb-0">Preguntas. Calificacion total: {{califTotal}} en preguntas habilitadas </h5>
       </div>
       <div class="table-responsive">
         <table class="table no-wrap user-table mb-0">
@@ -102,6 +102,9 @@
               </th>
               <th scope="col" style="width: 20%;" class="ml border-0 text-uppercase font-medium">
                 Puntuacion
+              </th>
+              <th scope="col" class="border-0 text-uppercase font-medium">
+                Estado
               </th>
               <th scope="col" style="width: 20%;" class="ml border-0 text-uppercase font-medium">
                 Opciones
@@ -117,9 +120,16 @@
                 <span class="text-muted">{{p.puntuacion}}</span><br />
               </td>
               <td>
-                <button type="button" (click)="delete(p.preguntaId)"
+                <span class="text-muted">{{p.isOn ? 'Habilitada' : 'Deshabilitada'}}</span><br />
+              </td>
+              <td>
+                <button type="button" *ngIf="p.isOn" (click)="delete(p.preguntaId)"
                   class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
                   <i class="fa fa-trash"></i>
+                </button>
+                <button type="button" *ngIf="!p.isOn" (click)="on(p.preguntaId)"
+                  class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
+                  <i i-bs name="check"></i>
                 </button>
               </td>
             </tr>

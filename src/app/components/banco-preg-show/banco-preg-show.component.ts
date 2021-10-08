@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BancoPreg } from 'src/app/models/models';
+import { BancoPreg, User } from 'src/app/models/models';
 import { BancoPregService } from 'src/app/services/banco-preg.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-banco-preg-show',
@@ -10,18 +12,27 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class BancoPregShowComponent implements OnInit {
 
-  constructor(private bpServ: BancoPregService) { }
-
+  user?: any;
   bps?: BancoPreg[] = []
+  constructor(private bpServ: BancoPregService, private auth: AuthService, private uServ: UserService) {
+    this.auth.user.subscribe(x => this.user = x);
+  }
+
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
     exper: new FormControl('g'),
   });
 
   ngOnInit(): void {
+    console.log(this.user);
+    
     this.bpServ.get().subscribe(us => {
-      this.bps = us;
-      console.log(us);
+      us.forEach(element => {
+        this.uServ.getById(element.userId).subscribe(uu => {
+          element.username = `${uu.name} ${uu.lastName1}`
+          this.bps = us;
+        })
+      });
     });
   }
 
@@ -41,7 +52,7 @@ export class BancoPregShowComponent implements OnInit {
       default:
         break;
     }
-    this.bpServ.insert(this.form.controls.name.value, k)
+    this.bpServ.insert(this.form.controls.name.value, this.user?.userId, k)
       .subscribe(() => {
         alert('¡Operacion Exitosa!');
         window.location.reload()
@@ -50,5 +61,9 @@ export class BancoPregShowComponent implements OnInit {
 
   onDelete(id?: number) {
     this.bpServ.deleteBanco(id).subscribe(() => window.location.reload());
+  }
+  
+  on(id?: number) {
+    this.bpServ.onBanco(id).subscribe(() => window.location.reload());
   }
 }

@@ -120,3 +120,7 @@
     padding: 0.5rem;
     width: 70%;
 }
+
+.button :disabled {
+    color: rgb(179, 5, 5);
+}

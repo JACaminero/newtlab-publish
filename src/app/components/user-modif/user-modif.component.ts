@@ -24,6 +24,7 @@ export class UserModifComponent implements OnInit {
   constructor(private uServ: UserService, private route: ActivatedRoute) { }
 
   current: User = new User()
+  dat?: string
   ngOnInit(): void {
     let id: unknown = this.route.snapshot.paramMap.get('id');
     this.uServ.getById(<number>id).subscribe(u => {
@@ -38,6 +39,7 @@ export class UserModifComponent implements OnInit {
         phone: this.current.phone,
         email: this.current.username
       })
+      this.dat = formattedDate
     });
   }
 

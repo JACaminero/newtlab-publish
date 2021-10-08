@@ -14,7 +14,7 @@ export class UserService {
   }
 
   getById(id: number) {
-    return this.http.get<User>(`${environment.api}/user/get/${id}`, {});
+    return this.http.get<User>(`${environment.api}/user/${id}`, {});
   }
 
   insert(u: User) {
