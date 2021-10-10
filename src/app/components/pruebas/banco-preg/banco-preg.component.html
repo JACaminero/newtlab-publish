@@ -1,7 +1,13 @@
 <div class="banco-cont">
   <div [formGroup]="pruebaForm" class="banco">
-    <h1><strong>BANCO DE PREGUNTAS:</strong></h1>
-    <h2>{{bp.tema}}</h2>
+    <h1><strong>Banco de preguntas: {{bp.tema}}</strong></h1>
+    <div>
+      <span *ngIf="bp.publicado">Titulo de publicación: {{bp.tituloPublicado}}</span>
+      <mat-form-field *ngIf="!bp.publicado" style="font-size: 12px; margin-right:5px" appearance="outline">
+        <mat-label class="answer-label">Titulo Publicacion</mat-label>
+        <input matInput type="text" style="font-size: 20px;" value="{{bp.tema}}" formControlName="tituloPublic">
+      </mat-form-field>  
+    </div>
     <span>Estado: {{bp.publicado ? 'Publicado' : 'No publicado'}}</span>
     <div *ngIf="!bp.publicado" >
       <mat-form-field style="font-size: 12px; margin-right:5px" appearance="outline">
@@ -19,9 +25,9 @@
         <i i-bs name="plus"></i>Deshabilitar prueba
       </button>
     </div>
-
   </div>
 </div>
+
 <div class="question-container" style="margin-bottom: 20px;">
   <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" class="question border border-light p-3 ml-sm-5 pl-sm-5">
     <div class="h5">

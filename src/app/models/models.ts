@@ -23,10 +23,11 @@ export class BancoPreg {
   isOn?: boolean
   userId: number = 1
   username?: string
+  tituloPublicado?: string
 }
 
 export class Pregunta {
-  preguntaId?: number 
+  preguntaId?: number
   descripcion?: string
   puntuacion?: number
   respuestas?: Respuesta[]
@@ -39,8 +40,25 @@ export class Respuesta {
   respuestaId?: number;
   descripcion?: string;
   esCorrecta: boolean = false
-
+  preguntaId?: number
   constructor(descripcion: string) {
     this.descripcion = descripcion
   }
+}
+
+export class PruebaExperimento {
+  pruebaExperimentoId?: number
+  titulo?: string
+  userId?: number
+  bancoPreguntaId?: number
+  fechaTomado?: Date
+  calificacionObtenida?: number
+  isCerrada?: boolean
+}
+
+export class PruebaRespuesta {
+  pruebaRespuestaId?: number
+  PEId?: number
+  preguntaId?: number
+  respuestaId?: number
 }

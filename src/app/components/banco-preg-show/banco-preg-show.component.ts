@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class BancoPregShowComponent implements OnInit {
 
-  user?: any;
+  user: any;
   bps?: BancoPreg[] = []
   constructor(private bpServ: BancoPregService, private auth: AuthService, private uServ: UserService) {
     this.auth.user.subscribe(x => this.user = x);
@@ -24,8 +24,7 @@ export class BancoPregShowComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    console.log(this.user);
-    
+
     this.bpServ.get().subscribe(us => {
       us.forEach(element => {
         this.uServ.getById(element.userId).subscribe(uu => {
@@ -52,7 +51,8 @@ export class BancoPregShowComponent implements OnInit {
       default:
         break;
     }
-    this.bpServ.insert(this.form.controls.name.value, this.user?.userId, k)
+    let gotDamn: User = this.user
+    this.bpServ.insert(this.form.controls.name.value, Object.values(gotDamn)[0], k)
       .subscribe(() => {
         alert('¡Operacion Exitosa!');
         window.location.reload()
@@ -62,7 +62,7 @@ export class BancoPregShowComponent implements OnInit {
   onDelete(id?: number) {
     this.bpServ.deleteBanco(id).subscribe(() => window.location.reload());
   }
-  
+
   on(id?: number) {
     this.bpServ.onBanco(id).subscribe(() => window.location.reload());
   }

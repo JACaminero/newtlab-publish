@@ -7,9 +7,7 @@
     <div>
       <p>
         Los objetos en planos inclinados tienen vectores componentes que son
-        alterados por ángulo de elevación. Por lo tanto, modificamos F<sub
-          >net</sub
-        >
+        alterados por ángulo de elevación. Por lo tanto, modificamos F<sub>net</sub>
         = ma en el siguiente subconjunto de ecuaciones para modelar las nuevas
         fuerzas que actúan sobre el objeto.
       </p>
@@ -17,10 +15,9 @@
       <div class="variables">
         <div class="formulas">
           <p>
-            <span style="font-size: large"
-              >Formulas
-              <hr
-            /></span>
+            <span style="font-size: large">Formulas
+              <hr />
+            </span>
             Fr<sub>x</sub> = m∙a<sub>x</sub> <br />
             Fa + Fg<sub>x</sub> − Ff = m∙a<sub>x</sub> <br />
             Fa + m∙g∙sinθ − μ∙m∙g∙cosθ = m∙a<sub>x</sub> <br />
@@ -61,41 +58,27 @@
   <div class="section-header">
     <span> Prueba </span>
   </div>
-
-  <div class="container mt-sm-5 my-1">
-    <div class="question ml-sm-5 pl-sm-5 pt-2">
+  <form [formGroup]="pruebaForm" class="mt-sm-5 my-1 container">
+    <div *ngFor="let p of preguntas; let i = index" class="question ml-sm-5 pl-sm-5 pt-2">
       <div class="py-2 h5">
-        <b>1. ¿Qué formula usarias para calcular la aceleración del objeto?</b>
+        <b>{{p.descripcion}}</b>
       </div>
-      <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
-        <label class="options">
-          a = m ∙ t
-          <input type="radio" name="radio" />
-          <span class="checkmark"></span>
-        </label>
-        <label class="options"
-          >a = v / t<sup>2</sup>
-          <input type="radio" name="radio" />
-          <span class="checkmark"></span>
-        </label>
-        <label class="options"
-          >a = v / t <input type="radio" name="radio" />
-          <span class="checkmark"></span>
-        </label>
-        <label class="options"
-          >Es imposible calcular la aceleración
-          <input type="radio" name="radio" />
-          <span class="checkmark"></span>
-        </label>
-      </div>
+      <mat-radio-group class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+        <mat-label *ngFor="let r of p.respuestas" class="options">
+          <div>
+            <mat-radio-button (change)="radioChange(r)" type="radio" [value]="r.respuestaId">
+              {{r.descripcion}}
+            </mat-radio-button>  
+          </div>
+          <!-- <span class="checkmark"></span> -->
+        </mat-label>
+      </mat-radio-group>
     </div>
-
+    <!--     
     <div class="question ml-sm-5 pl-sm-5 pt-2">
       <div class="py-2 h5">
-        <b
-          >2. ¿Cuál crees que es la razon por la que el angulo de inclinación
-          afecta la velocidad del objeto?</b
-        >
+        <b>2. ¿Cuál crees que es la razon por la que el angulo de inclinación
+          afecta la velocidad del objeto?</b>
       </div>
       <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
         <textarea class="form-control" rows="3"></textarea>
@@ -104,10 +87,8 @@
 
     <div class="question ml-sm-5 pl-sm-5 pt-2">
       <div class="py-2 h5">
-        <b
-          >3. ¿Qué pasaria si incrementamos la fricción de la superficie sobre
-          la que se mueve el objeto?</b
-        >
+        <b>3. ¿Qué pasaria si incrementamos la fricción de la superficie sobre
+          la que se mueve el objeto?</b>
       </div>
       <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
         <label class="options">
@@ -115,8 +96,7 @@
           <input type="radio" name="radio1" />
           <span class="checkmark"></span>
         </label>
-        <label class="options"
-          >El objeto reduciria su aceleración
+        <label class="options">El objeto reduciria su aceleración
           <input type="radio" name="radio1" />
           <span class="checkmark"></span>
         </label>
@@ -124,19 +104,18 @@
           El objeto reduciria su velocidad <input type="radio" name="radio1" />
           <span class="checkmark"></span>
         </label>
-        <label class="options"
-          >El objeto reduciria su velocidad y su aceleración
+        <label class="options">El objeto reduciria su velocidad y su aceleración
           <input type="radio" name="radio1" />
           <span class="checkmark"></span>
         </label>
-      </div>
-      <div class="d-flex justify-content-end pt-3">
-        <div id="prev">
-          <button class="btn btn-primary" (click)="openDialog()">
-            Enviar prueba
-          </button>
-        </div>
+      </div> -->
+    <div class="d-flex justify-content-end pt-3">
+      <div id="prev">
+        <button class="btn btn-primary" (click)="openDialog()">
+          Enviar prueba
+        </button>
       </div>
     </div>
-  </div>
+    <!-- </div> -->
+  </form>
 </section>

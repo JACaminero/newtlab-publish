@@ -1,7 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/models/models';
+import { PruebaExperimento, Pregunta, PruebaRespuesta, User, Respuesta } from 'src/app/models/models';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BancoPregService } from 'src/app/services/banco-preg.service';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { PruebaService } from 'src/app/services/prueba.service'
 
 @Component({
   selector: 'app-home',
@@ -10,21 +14,62 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 })
 export class HomeComponent implements OnInit {
   user?: User;
+  preguntas?: Pregunta[];
+  id: unknown
+  prueba: PruebaExperimento = new PruebaExperimento()
+  respondidas: PruebaRespuesta[]= [];
+  pruebaForm = new FormGroup({ })
 
   constructor(
-    private auth: AuthService, public dialog: MatDialog
+    private auth: AuthService, private route: ActivatedRoute, private fb: FormBuilder,
+    private bpService: BancoPregService, private pService: PruebaService, public dialog: MatDialog
   ) {
     this.user = this.auth.userValue;
-  }
+    this.id = this.route.snapshot.paramMap.get('id');
+    bpService.getPreg(<number>this.id).subscribe(here => {
+      this.preguntas = here.filter(r => r.isOn == true);
+      // this.preguntas.forEach(control => this.pruebaForm.addControl(<string>control.descripcion, this.fb.control(control.preguntaId)));
+      this.preguntas.forEach(p => {
+        this.bpService.getResp(p.preguntaId).subscribe(r => {
+          p.respuestas = r
+          p.respuestas.forEach(control => this.pruebaForm.addControl(<string>control.descripcion, this.fb.control(control.respuestaId)));
+        })
+      })
 
-  openDialog() {
-    const dialogRef = this.dialog.open(SendTestDialog, {
-      width: '473px',
-      data: { message: 'Prueba enviada exitosamente' }
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  radioChange(r: Respuesta) {
+    let respondida = new PruebaRespuesta()
+    respondida.preguntaId = r.respuestaId
+    respondida.preguntaId = r.preguntaId
+
+    for (let i = 0; i < this.respondidas.length; i++) {
+        if (this.respondidas[i].preguntaId === r.preguntaId) {
+          this.respondidas.splice(i, 1)  
+        }
+    }
+    this.respondidas.push(r)
+    
+  }
+
+  openDialog() {
+    // this.respondidas
+    this.prueba.bancoPreguntaId = <number>this.id
+    this.prueba.userId = Object.values(this.auth.userValue)[0];
+
+    
+    this.pService.uploadTest(this.prueba, this.respondidas).subscribe(() => {
+      this.dialog.open(SendTestDialog, {
+        width: '473px',
+        data: {
+          message: this.pruebaForm.valid ?
+            'Prueba enviada exitosamente' : 'Ha ocurrido un error, por favor revise la validez de sus respuestas'
+        }
+      });
+    })
   }
 }
 
@@ -38,8 +83,4 @@ export class SendTestDialog {
   constructor(
     public dialogRef: MatDialogRef<SendTestDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 }

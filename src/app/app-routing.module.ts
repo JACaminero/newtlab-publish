@@ -16,9 +16,9 @@ import { BancoPregShowComponent } from './components/banco-preg-show/banco-preg-
 const routes: Routes = [
   { path: 'signin', component: SigninComponent },
   {
-    path: 'home', component: HomeComponent,
+    path: 'experimento/Gravedad/:id', component: HomeComponent,
     canActivate: [AuthGuardService],
-    data: { role: ['Estudiante'] }
+    data: { role: ['Estudiante', 'Profesor'] }
   },
   {
     path: 'reports', canActivate: [AuthGuardService], component: ReportsComponent,

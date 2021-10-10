@@ -14,51 +14,54 @@ export class BancoPregService {
   }
 
   getPreg(id: number) {
-    return this.http.get<Pregunta[]>(`${environment.api}/pregunta/${id}`) 
+    return this.http.get<Pregunta[]>(`${environment.api}/pregunta/${id}`)
   }
 
-  getResp(id: number) {
-    return this.http.get<Respuesta[]>(`${environment.api}/pregunta/respuestas/${id}`) 
+  getResp(id?: number) {
+    return this.http.get<Respuesta[]>(`${environment.api}/pregunta/respuestas/${id}`)
   }
 
-  insert(name :string, userId?: number, exp?: number) {
+  insert(name: string, userId?: number, exp?: number) {
     return this.http.post(`${environment.api}/bancopregunta`, {
       Tema: name,
       ExperimentoId: exp,
-      userId: userId
+      UserId: userId
     })
   }
 
   habilitarPregunta(id?: number) {
-    return this.http.delete(`${environment.api}/pregunta/habilitar/${id}`) 
+    return this.http.delete(`${environment.api}/pregunta/habilitar/${id}`)
   }
 
   deletePregunta(id?: number) {
-    return this.http.delete(`${environment.api}/pregunta/${id}`) 
+    return this.http.delete(`${environment.api}/pregunta/${id}`)
   }
 
   deleteBanco(id?: number) {
-    return this.http.delete(`${environment.api}/bancopregunta/${id}`) 
+    return this.http.delete(`${environment.api}/bancopregunta/${id}`)
   }
-  
+
   onBanco(id?: number) {
-    return this.http.delete(`${environment.api}/bancopregunta/on/${id}`) 
+    return this.http.delete(`${environment.api}/bancopregunta/on/${id}`)
   }
 
-  publicar(id?: number, limit?: PublicarVM) {
+  publicar(id?: number, limit?: PublicarVM, tituloPublic?: string) {
+    return this.http.put(`${environment.api}/bancopregunta/publicar/${id}`, {
+      fechaLimite: limit?.limit,
+       tituloPublicado: tituloPublic
+     })
+  }
 
-    return this.http.put(`${environment.api}/bancopregunta/publicar/${id}`, { fechaLimite: limit?.limit }) 
+  deshabilitar(id?: number) {
+    return this.http.put(`${environment.api}/bancopregunta/deshabilitar/${id}`, {})
   }
   
-  deshabilitar(id?: number) {
-    return this.http.put(`${environment.api}/bancopregunta/deshabilitar/${id}`, {}) 
-  }
   getById(id: number) {
-    return this.http.get<BancoPreg>(`${environment.api}/bancopregunta/${id}`) 
+    return this.http.get<BancoPreg>(`${environment.api}/bancopregunta/${id}`)
   }
 
   get() {
-    return this.http.get<BancoPreg[]>(`${environment.api}/bancopregunta`) 
+    return this.http.get<BancoPreg[]>(`${environment.api}/bancopregunta`)
   }
 }
 

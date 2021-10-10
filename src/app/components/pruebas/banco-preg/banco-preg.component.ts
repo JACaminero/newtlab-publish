@@ -22,7 +22,8 @@ export class BancoPregComponent implements OnInit {
   califTotal: number = 0
 
   pruebaForm = new FormGroup({
-    limit: new FormControl('', [Validators.required])
+    limit: new FormControl('', [Validators.required]),
+    tituloPublic: new FormControl('', [Validators.required])
   })
 
   questionForm = new FormGroup({
@@ -92,7 +93,7 @@ export class BancoPregComponent implements OnInit {
     window.location.reload()
   }
 
-  openDialog(preguntaId: any) {
+  openDialog(preguntaId?: any) {
     this.bpService.getResp(preguntaId).subscribe(rs => {
       this.dialog.open(RespuestaDialog, {
         width: '473px',
@@ -116,8 +117,7 @@ export class BancoPregComponent implements OnInit {
     }
     let limit = new PublicarVM()
     limit.limit = this.pruebaForm.controls.limit.value;
-    this.bp.fechaLimite
-    this.bpService.publicar(id, limit).subscribe(() => window.location.reload())
+    this.bpService.publicar(id, limit, this.pruebaForm.controls.tituloPublic.value).subscribe(() => window.location.reload())
   }
 }
 
