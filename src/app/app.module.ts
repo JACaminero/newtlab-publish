@@ -27,7 +27,7 @@ import { HomeComponent } from './components/home/home.component';
 import { HomeAdminComponent } from './components/home-admin/home-admin.component';
 import { DinamicsComponent } from './components/dinamics/dinamics.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { ReportsComponent } from './components/reports/reports.component';
+import { ReportDialog, ReportsComponent } from './components/reports/reports.component';
 import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
 import { FillerComponent } from './components/filler/filler.component';
 import { UserRegistComponent } from './components/user-regist/user-regist.component';
@@ -61,6 +61,7 @@ const icons = {
     BancoPregComponent,
     BancoPregShowComponent,
     RespuestaDialog,
+    ReportDialog
   ],
   imports: [
     BrowserModule,

@@ -16,4 +16,8 @@ export class PruebaService {
       prs: prs
     })
   }
+
+  getAllPruebasByUser(id?: number) {
+    return this.http.get<any>(`${environment.api}/prueba/user/${id}`)
+  }
 }
