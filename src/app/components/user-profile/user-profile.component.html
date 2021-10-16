@@ -74,7 +74,7 @@
   <div class="profile-work col-md-5" style="background-color: white; margin: 10px 20px; border-radius: 13px">
     <p>Pruebas Publicadas</p>
     <div *ngFor="let bp of bps" [routerLink]="['/experimento', bp.experimento, bp.bancoPreguntaId]" class="assignment">
-      <a><span style="font-size: 20px"> {{bp.tema}}</span>
+      <a><span style="font-size: 20px"> {{bp.tituloPublicado}}</span>
         <br />Experimento: {{bp.experimento}} <br />
         Fecha limite: {{bp.fechaLimite}} <br />
         Creador: {{bp.username}}

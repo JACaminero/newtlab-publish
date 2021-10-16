@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { PruebaExperimento, Pregunta, PruebaRespuesta, User, Respuesta } from 'src/app/models/models';
+import { PruebaExperimento, Pregunta, PruebaRespuesta, User, Respuesta, BancoPreg } from 'src/app/models/models';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BancoPregService } from 'src/app/services/banco-preg.service';
 import { ActivatedRoute } from '@angular/router';
@@ -17,26 +17,37 @@ export class HomeComponent implements OnInit {
   preguntas?: Pregunta[];
   id: unknown
   prueba: PruebaExperimento = new PruebaExperimento()
-  respondidas: PruebaRespuesta[]= [];
-  pruebaForm = new FormGroup({ })
+  respondidas: PruebaRespuesta[] = [];
+  pruebaForm = new FormGroup({})
+  bp?: BancoPreg
+  califTotal: number = 0
 
   constructor(
     private auth: AuthService, private route: ActivatedRoute, private fb: FormBuilder,
     private bpService: BancoPregService, private pService: PruebaService, public dialog: MatDialog
   ) {
     this.user = this.auth.userValue;
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id')
+
+    bpService.getById(<number>this.id).subscribe(b => this.bp = b)
+
     bpService.getPreg(<number>this.id).subscribe(here => {
+
       this.preguntas = here.filter(r => r.isOn == true);
-      // this.preguntas.forEach(control => this.pruebaForm.addControl(<string>control.descripcion, this.fb.control(control.preguntaId)));
+      this.preguntas.forEach(preg => {
+        if (preg.isOn) {
+          this.califTotal += +<number>preg.puntuacion
+        }
+      })
+
       this.preguntas.forEach(p => {
         this.bpService.getResp(p.preguntaId).subscribe(r => {
           p.respuestas = r
-          p.respuestas.forEach(control => this.pruebaForm.addControl(<string>control.descripcion, this.fb.control(control.respuestaId)));
+          p.respuestas.forEach(
+            control => this.pruebaForm.addControl(<string>control.descripcion, this.fb.control(control.respuestaId)));
         })
       })
-
-    });
+    })
   }
 
   ngOnInit(): void { }
@@ -47,20 +58,17 @@ export class HomeComponent implements OnInit {
     respondida.preguntaId = r.preguntaId
 
     for (let i = 0; i < this.respondidas.length; i++) {
-        if (this.respondidas[i].preguntaId === r.preguntaId) {
-          this.respondidas.splice(i, 1)  
-        }
+      if (this.respondidas[i].preguntaId === r.preguntaId) {
+        this.respondidas.splice(i, 1)
+      }
     }
     this.respondidas.push(r)
-    
   }
 
   openDialog() {
-    // this.respondidas
     this.prueba.bancoPreguntaId = <number>this.id
-    this.prueba.userId = Object.values(this.auth.userValue)[0];
-
-    
+    this.prueba.userId = Object.values(this.auth.userValue)[0]
+    this.prueba.calificacionTotal = this.califTotal
     this.pService.uploadTest(this.prueba, this.respondidas).subscribe(() => {
       this.dialog.open(SendTestDialog, {
         width: '473px',

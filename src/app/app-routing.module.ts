@@ -12,6 +12,8 @@ import { UsersComponent } from './components/users/users.component';
 import { UserModifComponent } from './components/user-modif/user-modif.component';
 import { BancoPregComponent } from './components/pruebas/banco-preg/banco-preg.component';
 import { BancoPregShowComponent } from './components/banco-preg-show/banco-preg-show.component';
+import { ShowPruebaComponent } from './components/show-prueba/show-prueba.component'
+import { PruebaCorregirComponent } from './components/prueba-corregir/prueba-corregir.component';
 
 const routes: Routes = [
   { path: 'signin', component: SigninComponent },
@@ -56,7 +58,17 @@ const routes: Routes = [
     path: 'show-banco', component: BancoPregShowComponent,
     canActivate: [AuthGuardService],
     data: { role: ['Profesor'] },
-  }
+  },
+  {
+    path: 'pruebas', component: ShowPruebaComponent,
+    canActivate: [AuthGuardService],
+    data: { role: ['Profesor', 'Estudiante'] },
+  },
+  {
+    path: 'prueba/:id/user/:userId', component: PruebaCorregirComponent,
+    canActivate: [AuthGuardService],
+    data: { role: ['Profesor'] },
+  },
 ];
 
 @NgModule({

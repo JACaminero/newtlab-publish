@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BancoPreg, Pregunta, Respuesta } from 'src/app/models/models';
 import { BancoPregService, PublicarVM } from 'src/app/services/banco-preg.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { QuillModule } from 'ngx-quill'
 
 @Component({
   selector: 'app-banco-preg',
@@ -14,7 +15,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 export class BancoPregComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, private bpService: BancoPregService) { }
-  
+
   bp: BancoPreg = new BancoPreg()
   id: unknown
   ps?: Array<Pregunta>
@@ -23,7 +24,9 @@ export class BancoPregComponent implements OnInit {
 
   pruebaForm = new FormGroup({
     limit: new FormControl('', [Validators.required]),
-    tituloPublic: new FormControl('', [Validators.required])
+    tituloPublic: new FormControl('', [Validators.required]),
+    descripcion: new FormControl('', [Validators.required]),
+    instruccion: new FormControl('', [Validators.required])
   })
 
   questionForm = new FormGroup({
@@ -41,11 +44,15 @@ export class BancoPregComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.bpService.getById(<number>this.id).subscribe(u => {
       this.bp = u
+      this.pruebaForm.controls.instruccion.setValue(this.bp.instruccion)
+      this.pruebaForm.controls.descripcion.setValue(this.bp.descripcion)
     });
     this.bpService.getPreg(<number>this.id).subscribe(p => {
       this.ps = p
       this.ps.forEach(preg => {
-        this.califTotal += +<number>preg.puntuacion
+        if (preg.isOn) {
+          this.califTotal += +<number>preg.puntuacion
+        }
       })
       this.ps.sort()
     })
@@ -53,7 +60,10 @@ export class BancoPregComponent implements OnInit {
   }
 
   onSubmit() {
-    let error: string = ''
+    if (this.bp.publicado) {
+      alert('No puede modificar un banco de preguntas mientras esta publicado')
+      return
+    }
     let a1 = new Respuesta(this.questionForm.controls.answer1.value)
     let a2 = new Respuesta(this.questionForm.controls.answer2.value)
     let a3 = new Respuesta(this.questionForm.controls.answer3.value)
@@ -69,7 +79,7 @@ export class BancoPregComponent implements OnInit {
       case "4": a4.esCorrecta = true
         break;
       default:
-        error = "Necesita escoger una respuesta correcta"
+        alert("Necesita escoger una respuesta correcta");
         break;
     }
 
@@ -89,8 +99,11 @@ export class BancoPregComponent implements OnInit {
   }
 
   delete(id?: number) {
-    this.bpService.deletePregunta(id).subscribe()
-    window.location.reload()
+    if (this.bp.publicado) {
+      alert('No puede modificar un banco de preguntas mientras esta publicado')
+      return
+    }
+    this.bpService.deletePregunta(id).subscribe(() => window.location.reload())
   }
 
   openDialog(preguntaId?: any) {
@@ -101,12 +114,16 @@ export class BancoPregComponent implements OnInit {
       })
     })
   }
-  
+
   deshabilitar(id?: number) {
     this.bpService.deshabilitar(id).subscribe(() => window.location.reload())
   }
 
   on(id?: number) {
+    if (this.bp.publicado) {
+      alert('No puede modificar un banco de preguntas mientras esta publicado')
+      return
+    }
     this.bpService.habilitarPregunta(id).subscribe(() => window.location.reload())
   }
 
@@ -115,9 +132,27 @@ export class BancoPregComponent implements OnInit {
       alert('No puede publicar un banco de preguntas sin tener preguntas adentro.')
       return;
     }
+
     let limit = new PublicarVM()
     limit.limit = this.pruebaForm.controls.limit.value;
-    this.bpService.publicar(id, limit, this.pruebaForm.controls.tituloPublic.value).subscribe(() => window.location.reload())
+    limit.instruccion = <string>this.pruebaForm.controls.instruccion.value;
+    limit.descripcion = <string>this.pruebaForm.controls.descripcion.value;
+
+    this.bpService.publicar(id, limit, this.pruebaForm.controls.tituloPublic.value)
+      .subscribe(() => window.location.reload())
+  }
+
+  quillConfiguration = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ color: [] }, { background: [] }],
+      ['link'],
+      ['clean'],
+      ['formula']
+    ],
   }
 }
 

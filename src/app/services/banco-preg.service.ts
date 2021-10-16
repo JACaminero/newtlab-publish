@@ -48,14 +48,16 @@ export class BancoPregService {
   publicar(id?: number, limit?: PublicarVM, tituloPublic?: string) {
     return this.http.put(`${environment.api}/bancopregunta/publicar/${id}`, {
       fechaLimite: limit?.limit,
-       tituloPublicado: tituloPublic
-     })
+      tituloPublicado: tituloPublic,
+      descripcion: limit?.descripcion,
+      instruccion: limit?.instruccion,
+    })
   }
 
   deshabilitar(id?: number) {
     return this.http.put(`${environment.api}/bancopregunta/deshabilitar/${id}`, {})
   }
-  
+
   getById(id: number) {
     return this.http.get<BancoPreg>(`${environment.api}/bancopregunta/${id}`)
   }
@@ -67,4 +69,6 @@ export class BancoPregService {
 
 export class PublicarVM {
   limit?: Date
+  descripcion?: string
+  instruccion?: string
 }

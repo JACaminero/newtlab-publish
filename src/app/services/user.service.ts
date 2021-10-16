@@ -44,7 +44,7 @@ export class UserService {
         Cedula: u.cedula,
         Phone: u.phone,
         Nacimiento: u.birth,
-        role: u.role
+        role: {id:1, descripcion: 1}
       });
   }
 

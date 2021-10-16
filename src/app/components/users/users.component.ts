@@ -30,8 +30,7 @@ export class UsersComponent implements OnInit {
   }
 
   enable(id: number) {
-    this.uServ.enable(id).subscribe();
-    window.location.reload();
+    this.uServ.enable(id).subscribe(() => window.location.reload());
   }
 }
 
@@ -44,11 +43,12 @@ export class DeletePopup {
   constructor(private uServ: UserService, public dialogRef: MatDialogRef<DeletePopup>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   onAccept() {
-    this.uServ.delete(this.data.id).subscribe();
+    console.log(this.data);
+    
+    this.uServ.delete(this.data.id).subscribe(() => window.location.reload());
   }
 
   onNo(): void {
     this.dialogRef.close();
-    window.location.reload();
   }
 }

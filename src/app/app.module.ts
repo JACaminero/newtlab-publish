@@ -9,18 +9,20 @@ import { FormsModule } from '@angular/forms';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
-import {MatRadioModule} from '@angular/material/radio';
-
-import { AppComponent } from './app.component';
-import { SigninComponent } from './components/signin/signin.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { QuillModule } from 'ngx-quill';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { plus, check, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+
+import { AppComponent } from './app.component';
+import { SigninComponent } from './components/signin/signin.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { DescriptionComponent } from './components/experiment/description/description.component';
 import { InstructionsComponent } from './components/experiment/instructions/instructions.component';
 import { HomeComponent } from './components/home/home.component';
@@ -35,7 +37,9 @@ import { UsersComponent } from './components/users/users.component';
 import { UserModifComponent } from './components/user-modif/user-modif.component';
 import { BancoPregComponent, RespuestaDialog } from './components/pruebas/banco-preg/banco-preg.component';
 import { BancoPregShowComponent } from './components/banco-preg-show/banco-preg-show.component';
-import { plus, check, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { InerciaComponent } from './components/inercia/inercia.component';
+import { ShowPruebaComponent } from './components/show-prueba/show-prueba.component';
+import { PruebaCorregirComponent } from './components/prueba-corregir/prueba-corregir.component'
 
 const icons = {
   plus,
@@ -61,7 +65,10 @@ const icons = {
     BancoPregComponent,
     BancoPregShowComponent,
     RespuestaDialog,
-    ReportDialog
+    ReportDialog,
+    InerciaComponent,
+    ShowPruebaComponent,
+    PruebaCorregirComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +90,7 @@ const icons = {
     MatListModule,
     GridModule,
     MatRadioModule,
+    QuillModule.forRoot()
   ],
   providers: [PageService, SortService, FilterService, GroupService],
   bootstrap: [AppComponent],

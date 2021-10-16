@@ -20,4 +20,12 @@ export class PruebaService {
   getAllPruebasByUser(id?: number) {
     return this.http.get<any>(`${environment.api}/prueba/user/${id}`)
   }
+
+  getById(id: number) {
+    return this.http.get<any>(`${environment.api}/prueba/${id}`)
+  }
+
+  getAll() {
+    return this.http.get<any>(`${environment.api}/prueba/`)
+  }
 }

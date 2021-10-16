@@ -52,12 +52,9 @@ export class UserModifComponent implements OnInit {
     this.current.cedula = this.userForm.controls.cedula.value;
     this.current.phone = this.userForm.controls.phone.value;
     this.current.birth = this.userForm.controls.birth.value;
-    this.uServ.modify(this.current).subscribe();
-    if(this.userForm.valid)
-    alert('Operacion exitosa')
-   else
-    alert('Error')
-
+    this.uServ.modify(this.current).subscribe(resp => {
+      alert(resp.message)
+    });
   }
 
   formatDate(originalDate: Date) {

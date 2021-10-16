@@ -24,6 +24,8 @@ export class BancoPreg {
   userId: number = 1
   username?: string
   tituloPublicado?: string
+  descripcion?: string
+  instruccion?: string
 }
 
 export class Pregunta {
@@ -53,6 +55,7 @@ export class PruebaExperimento {
   bancoPreguntaId?: number
   fechaTomado?: Date
   calificacionObtenida?: number
+  calificacionTotal?: number
   isCerrada?: boolean
 }
 

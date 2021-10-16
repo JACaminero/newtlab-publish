@@ -1,32 +1,54 @@
-<div class="banco-cont">
-  <div [formGroup]="pruebaForm" class="banco">
-    <h1><strong>Banco de preguntas: {{bp.tema}}</strong></h1>
-    <div>
-      <span *ngIf="bp.publicado">Titulo de publicación: {{bp.tituloPublicado}}</span>
-      <mat-form-field *ngIf="!bp.publicado" style="font-size: 12px; margin-right:5px" appearance="outline">
-        <mat-label class="answer-label">Titulo Publicacion</mat-label>
-        <input matInput type="text" style="font-size: 20px;" value="{{bp.tema}}" formControlName="tituloPublic">
-      </mat-form-field>  
+<!-- <div class="row banco-cont"> -->
+<form class="banco" [formGroup]="pruebaForm">
+  <div class="row mb-2">
+    <div class="col-md-5">
+      <h1 style="margin: 0;"><strong>Banco de preguntas: {{bp.tema}}</strong></h1>
+      <span>Estado: {{bp.publicado ? 'Publicado' : 'No publicado'}}</span>
     </div>
-    <span>Estado: {{bp.publicado ? 'Publicado' : 'No publicado'}}</span>
-    <div *ngIf="!bp.publicado" >
+    <div class="col-md-7 justify-content-end" *ngIf="!bp.publicado">
+      <mat-form-field style="font-size: 12px; margin-right:5px" appearance="outline">
+        <mat-label class="answer-label">Titulo Publicacion</mat-label>
+        <input matInput type="text" style="font-size: 12px;" value="{{bp.tema}}" formControlName="tituloPublic">
+      </mat-form-field>
       <mat-form-field style="font-size: 12px; margin-right:5px" appearance="outline">
         <mat-label class="answer-label">Fecha Limite</mat-label>
         <input matInput type="date" formControlName="limit" [min]="date">
       </mat-form-field>
-      <button type="button" [disabled]="pruebaForm.invalid" (click)="publicar(bp.bancoPreguntaId)"
-        class="ml btn btn-outline-info">
+      <button type="button" style="height: 45px;margin-bottom: 9px;" [disabled]="pruebaForm.invalid"
+        (click)="publicar(bp.bancoPreguntaId)" class="ml btn btn-outline-info">
         <i i-bs name="plus"></i>Publicar Prueba
       </button>
     </div>
     <div *ngIf="bp.publicado">
-      <span>Fecha de cierre: {{bp.fechaLimite}}</span>
-      <button type="button" style="margin-left:8px"  (click)="deshabilitar(bp.bancoPreguntaId)" class="ml btn btn-outline-info">
+      <span>Titulo de publicación: {{bp.tituloPublicado}}</span><br/>
+      <span>Fecha de cierre: {{bp.fechaLimite}}</span><br/>
+      <button type="button" style="height: 45px;margin-bottom: 9px;" (click)="deshabilitar(bp.bancoPreguntaId)"
+        class="ml btn btn-outline-info">
         <i i-bs name="plus"></i>Deshabilitar prueba
       </button>
     </div>
   </div>
-</div>
+  <div *ngIf="!bp.publicado" class="row banco-cont justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-uppercase mb-0">Descripción de experimento</h2><br />
+          <quill-editor [modules]="quillConfiguration" class="content-editor" style="margin-top: 10px;"
+            formControlName="descripcion" [placeholder]="''"> </quill-editor>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-uppercase mb-0">Instrucciones de ejecución</h2><br />
+          <quill-editor [modules]="quillConfiguration" class="content-editor" formControlName="instruccion"
+            style="margin-top: 10px;" [placeholder]="''"> </quill-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 
 <div class="question-container" style="margin-bottom: 20px;">
   <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" class="question border border-light p-3 ml-sm-5 pl-sm-5">
@@ -93,11 +115,12 @@
   </form>
 </div>
 
-<div class="row justify-content-center">
+<div class="row banco-cont justify-content-center">
   <div class="col-md-6 table-cont">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title text-uppercase mb-0">Preguntas. Calificacion total: {{califTotal}} en preguntas habilitadas </h5>
+        <h5 class="card-title text-uppercase mb-0">Preguntas. Calificacion total: {{califTotal}} en preguntas
+          habilitadas </h5>
       </div>
       <div class="table-responsive">
         <table class="table no-wrap user-table mb-0">
