@@ -1,23 +1,60 @@
-
 <section class="test">
-    <div class="section-header">
-      <span> Prueba </span>
-    </div>
-    <form [formGroup]="pruebaForm" class="mt-sm-5 my-1 container">
-      <h1 style="font-weight: bolder;">{{prueba.titulo}}</h1><hr/>
-      <div *ngFor="let p of preguntas; let i = index" class="question ml-sm-5 pl-sm-5 pt-2">
-        <div class="h5">
-          <b>{{p.descripcion}}</b>
-        </div>
-        <mat-radio-group id="options">
-          <mat-label *ngFor="let r of p.respuestas; let i = index" class="options">
-            <div>
-              {{i + 1}}. <mat-radio-button type="radio" [value]="r.respuestaId">
-                {{r.descripcion}}
-              </mat-radio-button>
-            </div>
-          </mat-label>
-        </mat-radio-group>
-      </div>
-    </form>
-  </section>
+	<!-- <form [formGroup]="pruebaForm" class="mt-sm-5 my-1 container"> -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-body">
+					<h1 class="card-title text-uppercase mb-0"><strong>Titulo de Prueba: </strong>{{prueba.titulo}}</h1>
+					<h3 class="card-title text-uppercase mb-0"><strong>Estudiante: </strong>{{user.name}}</h3>
+					<h3 class="card-title text-uppercase mb-0">
+						<strong>Calificacion Obtenida:</strong> {{prueba.calificacionObtenida}} | <strong>Calificacion Total: </strong>{{califTotal}}
+					</h3>
+				</div>
+				<div class="table-responsive">
+					<table class="table no-wrap user-table mb-0">
+						<thead>
+							<tr class="ml">
+								<th scope="col" class="border-0 text-uppercase font-medium">
+									Pregunta
+								</th>
+								<th scope="col" class="border-0 text-uppercase font-medium">
+									Puntuacion
+								</th>
+								<th scope="col" class="border-0 text-uppercase font-medium">
+									Respuesta
+								</th>
+								<th scope="col" class="border-0 text-uppercase font-medium">
+									Correcta
+								</th>
+								<th scope="col" class="border-0 text-uppercase font-medium">
+									Respuesta Correcta
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="d" *ngFor="let p of pregresps; let i = index">
+								<td>
+									<span class="text-muted">{{p.pregunta?.descripcion}}</span><br />
+								</td>
+								<td>
+									<span class="text-muted">{{p.pregunta?.puntuacion}}</span><br />
+								</td>
+								<td>
+									<span class="text-muted">{{p.respuesta?.descripcion}}</span><br />
+								</td>
+								<td style="text-align: center;">
+									<i *ngIf="p.respuesta?.esCorrecta" i-bs name="check"></i>
+									<i i-bs name="x" *ngIf="!p.respuesta?.esCorrecta"></i>
+									<!-- <span class="text-muted">{{bp.publicado ? 'Publicado' : 'No publicado'}}</span><br /> -->
+								</td>
+								<td>
+									<span class="text-muted">{{respuestaCorrecta[i].descripcion}}</span><br />
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -62,6 +62,8 @@ export class PruebaExperimento {
 export class PruebaRespuesta {
   pruebaRespuestaId?: number
   PEId?: number
+  pregunta?: Pregunta
+  respuesta?: Respuesta
   preguntaId?: number
   respuestaId?: number
 }

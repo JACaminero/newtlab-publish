@@ -17,7 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import { plus, check, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { plus, check, x, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 
 import { AppComponent } from './app.component';
 import { SigninComponent } from './components/signin/signin.component';
@@ -43,7 +43,8 @@ import { PruebaCorregirComponent } from './components/prueba-corregir/prueba-cor
 
 const icons = {
   plus,
-  check
+  check,
+  x,
 };
 
 @NgModule({

@@ -6,6 +6,7 @@ import { BancoPregService } from 'src/app/services/banco-preg.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PruebaService } from 'src/app/services/prueba.service'
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -21,15 +22,21 @@ export class HomeComponent implements OnInit {
   pruebaForm = new FormGroup({})
   bp?: BancoPreg
   califTotal: number = 0
+  descr?: SafeHtml
+  instr?: SafeHtml 
 
   constructor(
-    private auth: AuthService, private route: ActivatedRoute, private fb: FormBuilder,
+    private auth: AuthService, private route: ActivatedRoute, private fb: FormBuilder, private sanitizer: DomSanitizer,
     private bpService: BancoPregService, private pService: PruebaService, public dialog: MatDialog
   ) {
     this.user = this.auth.userValue;
     this.id = this.route.snapshot.paramMap.get('id')
 
-    bpService.getById(<number>this.id).subscribe(b => this.bp = b)
+    bpService.getById(<number>this.id).subscribe(b => {
+      this.bp = b
+      this.descr = this.sanitizer.bypassSecurityTrustHtml(<string>b.descripcion)
+      this.instr = this.sanitizer.bypassSecurityTrustHtml(<string>b.instruccion)
+    })
 
     bpService.getPreg(<number>this.id).subscribe(here => {
 

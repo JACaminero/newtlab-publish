@@ -3,14 +3,15 @@
     <span> Descripción de Conceptos </span>
   </div>
   <div class="section-content">
-    {{bp?.descripcion}}
+    <div [innerHtml]="descr"></div>
   </div>
 </section>
 
 <section class="instructions">
   <div class="section-header"><span> Instrucciones de Ejecución </span></div>
   <div class="section-content">
-    {{bp?.instruccion}}
+    <div [innerHtml]="instr"></div>
+
   </div>
 </section>
 

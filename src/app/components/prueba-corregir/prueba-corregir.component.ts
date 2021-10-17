@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { BancoPreg, Pregunta, PruebaExperimento, PruebaRespuesta, User } from 'src/app/models/models';
+import { BancoPreg, Pregunta, PruebaExperimento, PruebaRespuesta, Respuesta, User } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
 import { BancoPregService } from 'src/app/services/banco-preg.service';
 import { PruebaService } from 'src/app/services/prueba.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-prueba-corregir',
@@ -13,42 +14,42 @@ import { PruebaService } from 'src/app/services/prueba.service';
 })
 export class PruebaCorregirComponent implements OnInit {
 
-  user?: User;
-  preguntas?: Pregunta[];
+  user: any = { name: ` ` };
+  pregresps?: PruebaRespuesta[];
   id: unknown
   prueba: PruebaExperimento = new PruebaExperimento()
-  respondidas: PruebaRespuesta[] = [];
   pruebaForm = new FormGroup({})
   califTotal: number = 0
+  respuestaCorrecta: Respuesta[] = []
 
-  constructor(private auth: AuthService, private route: ActivatedRoute, private fb: FormBuilder,
+  constructor(private uServ: UserService, private route: ActivatedRoute, private fb: FormBuilder,
     private bpService: BancoPregService, private pService: PruebaService
   ) {
     this.id = this.route.snapshot.paramMap.get('id')
 
     pService.getById(<number>this.id).subscribe(b => {
+      
       this.prueba = b
-      bpService.getPreg(<number>this.prueba.bancoPreguntaId).subscribe(here => {
-
-        this.preguntas = here.filter(r => r.isOn == true);
-        this.preguntas.forEach(preg => {
-          if (preg.isOn) {
-            this.califTotal += +<number>preg.puntuacion
-          }
-        })
-
-        this.preguntas.forEach(p => {
-          this.bpService.getResp(p.preguntaId).subscribe(r => {
-            p.respuestas = r
-            p.respuestas.forEach(
-              control => this.pruebaForm.addControl(<string>control.descripcion, this.fb.control(control.respuestaId)));
-          })
-        })
+      this.uServ.getById(<number>this.prueba?.userId).subscribe(u => {
+        this.user.name = `${u.name} ${u.lastName1} ${u.lastName2}`
       })
+      pService.getRespuestaPruebas(<number>this.prueba.pruebaExperimentoId)
+        .subscribe(here => {
+          
+          this.pregresps = here
+          this.pregresps.forEach(r => {
+            this.califTotal += +<number>r.pregunta?.puntuacion
+            bpService.getResp(r.preguntaId).subscribe(resp => {
+              resp.filter(r => r.esCorrecta == true).forEach(rDenuevo => this.respuestaCorrecta.push(rDenuevo))
+            })
+          })
+
+        })
     })
   }
 
   ngOnInit(): void {
+    
   }
 
 }

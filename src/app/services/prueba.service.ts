@@ -28,4 +28,10 @@ export class PruebaService {
   getAll() {
     return this.http.get<any>(`${environment.api}/prueba/`)
   }
+
+  getRespuestaPruebas(pruebaId: number) {
+    return this.http.get<PruebaRespuesta[]>(`${environment.api}/prueba/respuestas/${pruebaId}`)  
+
+  }
+
 }

@@ -90,7 +90,6 @@ export class ReportsComponent implements OnInit {
       data: data
     });
   }
-
 }
 
 @Component({

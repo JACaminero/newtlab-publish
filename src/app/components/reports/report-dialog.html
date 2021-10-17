@@ -13,6 +13,7 @@
     <div class="p-2 grade">Periodo</div>
   </div>
 </div>
+<span *ngIf="pruebas?.length == 0 ">Este estudiante no ha completado prueba.</span>
 <div *ngFor="let i of pruebas" class="d-flex grade-body flex-row justify-content-between">
   <div class="d-flex flex-column justify-content-center">
     <div class="p-2 test">{{i.titulo}}</div>
