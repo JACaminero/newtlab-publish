@@ -10,7 +10,7 @@
             <thead>
               <tr class="ml">
                 <th scope="col" class="border-0 text-uppercase font-medium">
-                  Nombre
+                  Nombre / Matricula
                 </th>
                 <th scope="col" class="border-0 text-uppercase font-medium">
                   Rol
@@ -32,7 +32,8 @@
             <tbody>
               <tr class="d" *ngFor="let u of users">
                 <td>
-                  <span class="text-muted">{{u.name}} {{u.lastName1}} <br />{{u.lastName2}}</span><br />
+                  <span class="text-muted">{{u.name}} {{u.lastName1}} {{u.lastName2}}</span><br />
+                  <span class="text-muted">{{u.matricula}}</span>
                 </td>
                 <td>
                   <span class="text-muted">{{u.role}}</span><br />

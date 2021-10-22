@@ -25,9 +25,9 @@
   </div>
   <form [formGroup]="pruebaForm" class="mt-sm-5 my-1 container">
     <h1 style="font-weight: bolder;">{{bp?.tituloPublicado}}</h1><hr/>
-    <div *ngFor="let p of preguntas; let i = index" class="question ml-sm-5 pl-sm-5 pt-2">
+    <div *ngFor="let p of preguntas; let k = index" class="question ml-sm-5 pl-sm-5 pt-2">
       <div class="h5">
-        <b>{{p.descripcion}}</b>
+        {{k + 1}}. <b>{{p.descripcion}}</b>
       </div>
       <mat-radio-group id="options">
         <mat-label *ngFor="let r of p.respuestas; let i = index" class="options">

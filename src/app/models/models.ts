@@ -11,6 +11,7 @@ export class User {
   birth?: Date;
   cedula?: string;
   isOn?: boolean;
+  matricula?: string;
 }
 
 export class BancoPreg {

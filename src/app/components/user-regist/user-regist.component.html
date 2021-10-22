@@ -25,10 +25,10 @@
       <div *ngIf="userForm.controls.lastName2.errors?.maxLength" class="alert alert-danger mt-3 mb-0">Segundo apellido muy largo</div>
     </div>
     <div class="col">
-      <input type="text" class="form-control" placeholder="Identificacion" formControlName="cedula" />
+      <input type="number" style="appearance: none;" class="form-control" placeholder="Identificacion" formControlName="cedula" />
     </div>
     <div class="col">
-      <input type="text" class="form-control" formControlName="phone" placeholder="Telefono" />
+      <input type="number" class="form-control" style="appearance: none;" formControlName="phone" placeholder="Telefono" />
     </div>
     <div class="col">
       <input type="date" class="form-control" min="1989-12-31" max="2017-01-01" formControlName="birth" />

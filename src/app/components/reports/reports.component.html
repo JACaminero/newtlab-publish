@@ -4,31 +4,79 @@
       <img src="../../../assets/images/maxresdefault.jpg" alt="" />
     </div>
   </div>
-   <div class="d-flex flex-column justify-content-center col-md-8">
+  <div class="d-flex flex-column justify-content-center col-md-8">
     <form [formGroup]="reportForm">
       <h1 style="margin-left: 20px;"><strong>
-        Reporte de Calificaciones: Laboratorio de Fisica
-      </strong></h1>
-      <!-- <mat-form-field appearance="fill" class="name">
-        <mat-label>Nombre del estudiante</mat-label>
-        <input matInput placeholder="Ej. Margarita Hern"
-           formControlName="name" />
-      </mat-form-field> -->
-        <mat-form-field appearance="outline">
-          <mat-label class="answer-label">Fecha Inicio</mat-label>
-          <input matInput type="date" formControlName="fechaInicio" [min]="date">
-        </mat-form-field>
-        <mat-form-field  appearance="outline">
-          <mat-label class="answer-label">Fecha Fin</mat-label>
-          <input matInput type="date" formControlName="fechaFin">
-        </mat-form-field>
-        <input class="btn btn-info" [disabled]="reportForm.invalid"
-          style="width: 15%; margin-bottom: 10px; height: 50px;" type="submit"
-          value="Filtrar" />
-        <!-- <input class="btn btn-info" (click)="filter(reportForm.controls.name)" [disabled]="reportForm.invalid"
-          style="width:100px; margin-right: 20px; height: 55px; margin-bottom: 20px; float: right;" type="submit"
-          value="Buscar" /> -->
+          Reporte de Calificaciones: Laboratorio de Fisica
+        </strong>
+      </h1>
+      <mat-form-field>
+        <mat-select class="dropdown" style="font-size:12px" formControlName="periodo" placeholder="Periodo">
+          <mat-option value="Septiembre-Diciembre">Septiembre-Diciembre</mat-option>
+          <mat-option value="Enero-Abril"></mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label class="answer-label">Año</mat-label>
+        <input matInput type="number" [min]="2021" [max]="date" style="text-decoration: none;" formControlName="ano">
+      </mat-form-field>
+      <input class="btn btn-info" [disabled]="reportForm.invalid" style="width: 15%; margin-bottom: 10px; height: 50px;"
+        type="submit" value="Filtrar" />
+      <!-- <input class="btn btn-info" (click)="toPDF()" style="width: 15%; margin-bottom: 10px; height: 50px;" type="button"
+        value="Generar PDF" /> -->
     </form>
-  </div> 
+  </div>
+
+  <div id="pdfTable" #pdfTable >
+    <ejs-grid id="grid" [allowSorting]='true' [allowFiltering]='true'></ejs-grid>
+  </div>
 </div>
-<ejs-grid id="grid" [allowSorting]='true' [allowFiltering]='true'></ejs-grid>
+<style>
+  .header {
+    height: 200px;
+    margin: 0;
+    border: 3px solid #e0e0e0;
+    background: white;
+  }
+
+  .mat-form-field {
+    margin: 0 20px;
+  }
+
+  .list-item {
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+  }
+
+  .name {
+    width: 92%;
+  }
+
+  .profile-head {
+    margin-left: 20px;
+  }
+
+  .profile-head h3 {
+    color: #333;
+  }
+
+  .profile-img {
+    text-align: center;
+    height: 200px;
+  }
+
+  .row>* {
+    padding: 0;
+  }
+
+  .profile-img img {
+    width: 100%;
+    height: 97%;
+  }
+
+  .dropdown {
+    height: 48px;
+    padding: 16px 16px;
+    font-size: 1.3rem;
+  }
+</style>

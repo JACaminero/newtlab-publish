@@ -20,6 +20,8 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.uServ.getAll().subscribe(us => {
       this.users = us;
+      console.log(us);
+      
     });
   }
 
