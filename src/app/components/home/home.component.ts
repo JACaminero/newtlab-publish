@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   califTotal: number = 0
   descr?: SafeHtml
   instr?: SafeHtml 
+  exper?: any
 
   constructor(
     private auth: AuthService, private route: ActivatedRoute, private fb: FormBuilder, private sanitizer: DomSanitizer,
@@ -31,7 +32,8 @@ export class HomeComponent implements OnInit {
   ) {
     this.user = this.auth.userValue;
     this.id = this.route.snapshot.paramMap.get('id')
-
+    this.exper = this.route.snapshot.paramMap.get('experimento')
+    
     bpService.getById(<number>this.id).subscribe(b => {
       this.bp = b
       this.descr = this.sanitizer.bypassSecurityTrustHtml(<string>b.descripcion)
@@ -76,7 +78,9 @@ export class HomeComponent implements OnInit {
     this.prueba.bancoPreguntaId = <number>this.id
     this.prueba.userId = Object.values(this.auth.userValue)[0]
     this.prueba.calificacionTotal = this.califTotal
+
     this.pService.uploadTest(this.prueba, this.respondidas).subscribe(() => {
+
       this.dialog.open(SendTestDialog, {
         width: '473px',
         data: {
@@ -84,6 +88,7 @@ export class HomeComponent implements OnInit {
             'Prueba enviada exitosamente' : 'Ha ocurrido un error, por favor revise la validez de sus respuestas'
         }
       });
+
     })
   }
 }

@@ -17,8 +17,9 @@ import { PruebaCorregirComponent } from './components/prueba-corregir/prueba-cor
 
 const routes: Routes = [
   { path: 'signin', component: SigninComponent },
+  { path: 'home', component: HomeComponent },
   {
-    path: 'experimento/Gravedad/:id', component: HomeComponent,
+    path: 'experimento/:experimento/:id', component: HomeComponent,
     canActivate: [AuthGuardService],
     data: { role: ['Estudiante', 'Profesor'] }
   },

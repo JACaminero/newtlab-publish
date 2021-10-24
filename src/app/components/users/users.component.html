@@ -13,7 +13,7 @@
                   Nombre / Matricula
                 </th>
                 <th scope="col" class="border-0 text-uppercase font-medium">
-                  Rol
+                  Rol / Grado
                 </th>
                 <th scope="col" class="border-0 text-uppercase font-medium">
                   Email / Contacto
@@ -33,10 +33,11 @@
               <tr class="d" *ngFor="let u of users">
                 <td>
                   <span class="text-muted">{{u.name}} {{u.lastName1}} {{u.lastName2}}</span><br />
-                  <span class="text-muted">{{u.matricula}}</span>
+                  <span class="text-muted">{{ u.matricula }}</span>
                 </td>
                 <td>
                   <span class="text-muted">{{u.role}}</span><br />
+                  <span class="text-muted">{{u.grado}}</span><br />
                 </td>
                 <td>
                   <span class="text-muted">{{u.username}}</span><br />

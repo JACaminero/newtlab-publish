@@ -1,62 +1,83 @@
 <form [formGroup]="userForm" (ngSubmit)="modificar()" class="text-center border border-light p-5">
-    <p class="h4 mb-4">Modificar Usuario</p>
+    <p class="h4 mb-4">Registrar Usuario</p>
     <div class="form-row mb-4">
+
+        <div class="col" style="text-align: start">
+            <mat-form-field *ngIf="current.role == 'Estudiante'" appearance="fill" style="margin: 0 20px">
+                <mat-label>Grado:</mat-label>
+                <select formControlName="grado" matNativeControl>
+                    <option value="Primer Grado de Secundaria">Primer Grado de Secundaria</option>
+                    <option value="Segundo Grado de Secundaria">Segundo Grado de Secundaria</option>
+                    <option value="Tercer Grado de Secundaria">Tercer Grado de Secundaria</option>
+                </select>
+            </mat-form-field>
+        </div>
+
         <div style="text-align: start" class="col">
             <div style="margin-left: 30px;">
-                <mat-label>Nombre</mat-label>
+                <mat-label>Primer nombre</mat-label>
             </div>
             <input type="text" class="form-control" formControlName="firstName" placeholder="Primer nombre" />
+            <div *ngIf="userForm.controls.firstName.errors?.maxLength" class="alert alert-danger mt-3 mb-0">Primer
+                nombre muy largo</div>
         </div>
+
         <div style="text-align: start" class="col">
             <div style="margin-left: 30px;">
                 <mat-label>Apellido paternal</mat-label>
             </div>
             <input type="text" class="form-control" placeholder="Apellido paternal" formControlName="lastName1" />
+            <div *ngIf="userForm.controls.lastName1.errors?.maxLength" class="alert alert-danger mt-3 mb-0">Primer
+                apellido muy largo</div>
         </div>
+
         <div style="text-align: start" class="col">
             <div style="margin-left: 30px;">
                 <mat-label>Apellido maternal</mat-label>
             </div>
             <input type="text" class="form-control" placeholder="Apellido maternal" formControlName="lastName2" />
+            <div *ngIf="userForm.controls.lastName2.errors?.maxLength" class="alert alert-danger mt-3 mb-0">Segundo
+                apellido muy largo</div>
         </div>
-        <div style="text-align: start" class="col">
+
+        <div style="text-align: start" class="col" *ngIf="current.role != 'Estudiante'">
             <div style="margin-left: 30px;">
                 <mat-label>Identificación</mat-label>
             </div>
-            <input type="text" class="form-control" placeholder="Identificación" formControlName="cedula" />
+            <input type="text" style="appearance: none;" class="form-control" placeholder="Identificacion"
+                formControlName="cedula" />
+            <div style="text-align: start; margin-left:20px;"><small>Consejo: no utilize guiones para redactar la
+                    cedula. Ejemplo: 40211114358 es una cedula valida</small></div>
+            <div *ngIf="userForm.controls.cedula.errors?.pattern" class="alert alert-danger mt-3 mb-0">Cedula es
+                invalida, no use guiones</div>
         </div>
+
         <div style="text-align: start" class="col">
             <div style="margin-left: 30px;">
-                <mat-label>Telefono</mat-label>
+                <mat-label>Telefono / Celular</mat-label>
             </div>
-            <input type="text" class="form-control" formControlName="phone" placeholder="Telefono" />
+            <input type="number" class="form-control" style="appearance: none;" formControlName="phone"
+                placeholder="Telefono" />
+                <div style="text-align: start; margin-left:30px;"><small>Consejo: La fecha se encuentra en formato mes / dia / /año.</small></div>
         </div>
+        
         <div style="text-align: start" class="col">
             <div style="margin-left: 30px;">
-                <mat-label>Fecha de Nacimiento</mat-label>
+                <mat-label>Fecha de Nacimiento Actual: {{current.birth}}</mat-label>
             </div>
-            <input type="date" class="form-control" [value]="dat" formControlName="birth" />
-        </div>
+            <input type="date" class="form-control" [value]="10/10/2020" min="1989-12-31" max="2017-01-01"
+                formControlName="birth" />
+            </div>
+        
         <div style="text-align: start" class="col">
             <div style="margin-left: 30px;">
                 <mat-label>E-mail</mat-label>
             </div>
             <input type="email" class="form-control mb-4" formControlName="email" placeholder="E-mail" />
+            <div *ngIf="userForm.controls.email.errors?.email" class="alert alert-danger mt-3 mb-0">Email es invalido
+            </div>
         </div>
-        <!-- <div class="col">
-            <input type="password" formControlName="pass" class="form-control" placeholder="Contraseña" />
-        </div> -->
-
-        <!-- <div class="col" style="text-align: start">
-            <mat-form-field appearance="fill" style="margin: 0 20px">
-                <mat-label>Rol:</mat-label>
-                <select formControlName="role" matNativeControl>
-                    <option value="Profesor">Profesor</option>
-                    <option value="Estudiante">Estudiante</option>
-                    <option value="Admin">Admin</option>
-                </select>
-            </mat-form-field>
-        </div> -->
-        <input class="btn btn-info my-4 btn-block" type="submit" value="Modificar" />
+        <input class="submit btn btn-info my-4 btn-block" [disabled]="userForm.invalid" type="submit"
+            value="Registrar" />
     </div>
 </form>

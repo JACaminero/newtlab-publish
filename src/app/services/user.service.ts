@@ -28,7 +28,8 @@ export class UserService {
         Cedula: u.cedula,
         Phone: u.phone,
         Nacimiento: u.birth,
-        Role: { RoleId: 0, Description: u.role }
+        Role: { RoleId: 0, Description: u.role },
+        Grado: u.grado
       })
   }
 

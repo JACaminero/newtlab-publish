@@ -36,7 +36,7 @@ export class ReportsComponent implements OnInit {
       this.openDialog(args.data);
     }
     this.uServ.getAll().subscribe(u => {
-      u.filter(us => us.role == 'Estudiante')
+      u.filter(us => this.user?.role == 'Estudiante' ? us.userId == this.user?.id : us.role == 'Estudiante')
         .forEach(user => {
           this.data.push({
             name: `${user.name} ${user.lastName1} ${user.lastName2}`,
@@ -44,7 +44,8 @@ export class ReportsComponent implements OnInit {
             userId: user.userId,
             calificacion: 0,
             periodo: this.reportForm.controls.periodo.value,
-            matricula: user.matricula
+            matricula: user.matricula,
+            grado: user.grado
           })
           this.pServ.getAllPruebasByUser(user.userId).subscribe(c => {
             let pe = <PruebaExperimento[]>c.data
@@ -58,52 +59,51 @@ export class ReportsComponent implements OnInit {
           })
         })
 
-      if ('Estudiante' == this.user?.role) {
-        this.data = []
+      // // if ('Estudiante' == this.user?.role) {
+      // //   this.data = []
 
-        this.data.push(
-          u.filter(dim => dim.userId == this.user?.id)
-            .forEach(user => {
-              this.data.push({
-                name: `${user.name} ${user.lastName1} ${user.lastName2}`,
-                email: `${user.username}`,
-                userId: user.userId,
-                calificacion: 0,
-                matricula: user.matricula,
-                periodo: this.reportForm.controls.periodo.value
-              })
-              this.pServ.getAllPruebasByUser(user.userId).subscribe(c => {
-                let pe = <PruebaExperimento[]>c.data
-                pe.forEach(e => {
-                  for (let i = 0; i < this.data.length; i++) {
-                    if (this.data[i].userId == e.userId) {
-                      this.data[i].calificacion += +e.calificacionObtenida!
-                    }
-                  }
-                });
-              })
-            }))
+      // //   this.data.push(
+      // //     u.filter(dim => dim.userId == this.user?.id)
+      // //       .forEach(user => {
+      // //         this.data.push({
+      // //           name: `${user.name} ${user.lastName1} ${user.lastName2}`,
+      // //           email: `${user.username}`,
+      // //           userId: user.userId,
+      // //           calificacion: 0,
+      // //           matricula: user.matricula,
+      // //           periodo: this.reportForm.controls.periodo.value
+      // //         })
+      // //         this.pServ.getAllPruebasByUser(user.userId).subscribe(c => {
+      // //           let pe = <PruebaExperimento[]>c.data
+      // //           pe.forEach(e => {
+      // //             for (let i = 0; i < this.data.length; i++) {
+      // //               if (this.data[i].userId == e.userId) {
+      // //                 this.data[i].calificacion += +e.calificacionObtenida!
+      // //               }
+      // //             }
+      // //           });
+      // //         })
+      // //       }))
 
-        
-        setTimeout(() => {                           //<<<---using ()=> syntax
-          this.grid = new Grid({
-            dataSource: this.data,
-            selectionSettings: { type: 'Single' },
-            columns: [
-              { field: "name", headerText: "Nombre", width: 200 },
-              { field: "email", headerText: "E-mail", width: 300 },
-              { field: "calificacion", headerText: "Calificacion Acumulada en periodo", width: 300 },
-            ],
-            height: 315,
-            rowSelected: selected,
-            allowFiltering: true,
-          });
-          this.grid.appendTo('#grid');
+      //   setTimeout(() => {                           //<<<---using ()=> syntax
+      //     this.grid = new Grid({
+      //       dataSource: this.data,
+      //       selectionSettings: { type: 'Single' },
+      //       columns: [
+      //         { field: "name", headerText: "Nombre", width: 200 },
+      //         { field: "email", headerText: "E-mail", width: 300 },
+      //         { field: "calificacion", headerText: "Calificacion Acumulada en periodo", width: 300 },
+      //       ],
+      //       height: 315,
+      //       rowSelected: selected,
+      //       allowFiltering: true,
+      //     });
+      //     this.grid.appendTo('#grid');
 
-        }, 3000);
-      }
+      //   }, 3000);
+      // }
 
-      setTimeout(() => {                           //<<<---using ()=> syntax
+      setTimeout(() => {            
         this.grid = new Grid({
           dataSource: this.data,
           selectionSettings: { type: 'Single' },
@@ -167,7 +167,6 @@ export class ReportDialog {
 
     pServ.getAllPruebasByUser(data.userId).subscribe(pe => {
       this.pruebas = pe.data
-      console.log(data)
     })
   }
 
@@ -176,7 +175,7 @@ export class ReportDialog {
   }
 
   @ViewChild('pdfTable', { read: ElementRef }) pdfTable!: ElementRef;
-  toPDF(da?: any) {
+  toPDF() {
     const options = {
       background: 'white',
       scale: 3

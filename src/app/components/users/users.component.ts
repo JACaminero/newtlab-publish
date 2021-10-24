@@ -19,8 +19,8 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   ngOnInit(): void {
     this.uServ.getAll().subscribe(us => {
-      this.users = us;
-      console.log(us);
+      this.users = us.filter(filt => filt.role == 'Estudiante'); 
+      console.log(this.users);
       
     });
   }

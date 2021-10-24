@@ -1,118 +1,120 @@
-<!-- <div class="row banco-cont"> -->
-<form class="banco" [formGroup]="pruebaForm">
-  <div class="row mb-2">
-    <div class="col-md-5">
-      <h1 style="margin: 0;"><strong>Banco de preguntas: {{bp.tema}}</strong></h1>
-      <span>Estado: {{bp.publicado ? 'Publicado' : 'No publicado'}}</span>
-    </div>
-    <div class="col-md-7 justify-content-end" *ngIf="!bp.publicado">
-      <mat-form-field style="font-size: 12px; margin-right:5px" appearance="outline">
-        <mat-label class="answer-label">Titulo Publicacion</mat-label>
-        <input matInput type="text" style="font-size: 12px;" value="{{bp.tema}}" formControlName="tituloPublic">
-      </mat-form-field>
-      <mat-form-field style="font-size: 12px; margin-right:5px" appearance="outline">
-        <mat-label class="answer-label">Fecha Limite</mat-label>
-        <input matInput type="date" formControlName="limit" [min]="date">
-      </mat-form-field>
-      <button type="button" style="height: 45px;margin-bottom: 9px;" [disabled]="pruebaForm.invalid"
-        (click)="publicar(bp.bancoPreguntaId)" class="ml btn btn-outline-info">
-        <i i-bs name="plus"></i>Publicar Prueba
-      </button>
-    </div>
-    <div *ngIf="bp.publicado">
-      <span>Titulo de publicación: {{bp.tituloPublicado}}</span><br/>
-      <span>Fecha de cierre: {{bp.fechaLimite}}</span><br/>
-      <button type="button" style="height: 45px;margin-bottom: 9px;" (click)="deshabilitar(bp.bancoPreguntaId)"
-        class="ml btn btn-outline-info">
-        <i i-bs name="plus"></i>Deshabilitar prueba
-      </button>
-    </div>
-  </div>
-  <div *ngIf="!bp.publicado" class="row banco-cont justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title text-uppercase mb-0">Descripción de Conceptos</h2><br />
-          <quill-editor [modules]="quillConfiguration" class="content-editor" style="margin-top: 10px;"
-            formControlName="descripcion" [placeholder]="''"> </quill-editor>
-        </div>
+<div *ngIf="bp.userId == user?.id">
+  <form class="banco" [formGroup]="pruebaForm">
+    <div class="row mb-2">
+      <div class="col-md-5">
+        <h1 style="margin: 0;"><strong>Banco de preguntas: {{bp.tema}}</strong></h1>
+        <span>Estado: {{bp.publicado ? 'Publicado' : 'No publicado'}}</span>
+      </div>
+      <div class="col-md-7 justify-content-end" *ngIf="!bp.publicado">
+        <mat-form-field style="font-size: 12px; margin-right:5px" appearance="outline">
+          <mat-label class="answer-label">Titulo Publicacion</mat-label>
+          <input matInput type="text" style="font-size: 12px;" value="{{bp.tema}}" formControlName="tituloPublic">
+        </mat-form-field>
+        <mat-form-field style="font-size: 12px; margin-right:5px" appearance="outline">
+          <mat-label class="answer-label">Fecha Limite</mat-label>
+          <input matInput type="date" formControlName="limit" [min]="date">
+        </mat-form-field>
+        <button type="button" style="height: 45px;margin-bottom: 9px;" [disabled]="pruebaForm.invalid"
+          (click)="publicar(bp.bancoPreguntaId)" class="ml btn btn-outline-info">
+          <i i-bs name="plus"></i>Publicar Prueba
+        </button>
+      </div>
+      <div *ngIf="bp.publicado">
+        <span>Titulo de publicación: {{bp.tituloPublicado}}</span><br />
+        <span>Fecha de cierre: {{bp.fechaLimite}}</span><br />
+        <button type="button" style="height: 45px;margin-bottom: 9px;" (click)="deshabilitar(bp.bancoPreguntaId)"
+          class="ml btn btn-outline-info">
+          <i i-bs name="plus"></i>Deshabilitar prueba
+        </button>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title text-uppercase mb-0">Instrucciones de ejecución</h2><br />
-          <quill-editor [modules]="quillConfiguration" class="content-editor" formControlName="instruccion"
-            style="margin-top: 10px;" [placeholder]="''"> </quill-editor>
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
-
-<div class="question-container" style="margin-bottom: 20px;">
-  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" class="question border border-light p-3 ml-sm-5 pl-sm-5">
-    <div class="h5">
-      <h2>Nueva pregunta</h2>
-      <hr />
-      <div style="float: right; width: 40%">
-        <mat-label>Tipo de Pregunta:</mat-label>
-        <mat-select style="background-color: #EEE;" formControlName="selectedType">
-          <mat-option value="Seleccion Multiple">Seleccion Multiple</mat-option>
-          <mat-option value="Completa">Completa</mat-option>
-        </mat-select>
-      </div>
-      <mat-form-field style="font-size: 12px;" appearance="outline">
-        <mat-label class="answer-label">Puntuacion</mat-label>
-        <input matInput type="number" formControlName="punt" max="10" min="1">
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width" style="margin: 0;" appearance="standard">
-        <mat-label>Pregunta:</mat-label>
-        <textarea formControlName="description" matInput placeholder="Ej. ¿A que velocidad viaje el carro?"></textarea>
-      </mat-form-field>
-
-      <div *ngIf="questionForm.controls.selectedType.value != '2'">
-        <mat-radio-group aria-label="Select an option" formControlName="options">
-
-          <div style="font-size: small;" class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
-            <mat-form-field class="answer" appearance="outline">
-              <mat-label class="answer-label">Respuesta 1</mat-label>
-              <input matInput formControlName="answer1">
-            </mat-form-field>
-            <mat-radio-button class="radio" value="1"></mat-radio-button>
-            <span *ngIf="questionForm.controls.options.value == '1'">Es correcta</span>
-
-            <mat-form-field class="answer" appearance="outline">
-              <mat-label class="answer-label">Respuesta 2</mat-label>
-              <input matInput formControlName="answer2">
-            </mat-form-field>
-            <mat-radio-button class="radio" value="2"></mat-radio-button>
-            <span *ngIf="questionForm.controls.options.value == '2'">Es correcta</span>
-
-            <mat-form-field class="answer" appearance="outline">
-              <mat-label class="answer-label">Respuesta 3</mat-label>
-              <input matInput formControlName="answer3">
-            </mat-form-field>
-            <mat-radio-button class="radio" value="3"></mat-radio-button>
-            <span *ngIf="questionForm.controls.options.value == '3'">Es correcta</span>
-
-            <mat-form-field class="answer" appearance="outline">
-              <mat-label class="answer-label">Respuesta 4</mat-label>
-              <input matInput formControlName="answer4">
-            </mat-form-field>
-            <mat-radio-button class="radio" value="4"></mat-radio-button>
-            <span *ngIf="questionForm.controls.options.value == '4'">Es correcta</span>
+    <div *ngIf="!bp.publicado" class="row banco-cont justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title text-uppercase mb-0">Descripción de Conceptos</h2><br />
+            <quill-editor [modules]="quillConfiguration" class="content-editor" style="margin-top: 10px;"
+              formControlName="descripcion" [placeholder]="''"> </quill-editor>
           </div>
-        </mat-radio-group>
+        </div>
       </div>
-      <div class="d-flex justify-content-end pt-3">
-        <div id="prev">
-          <input class="btn btn-primary" [disabled]="questionForm.invalid" type="submit" value="Añadir Pregunta" />
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title text-uppercase mb-0">Instrucciones de ejecución</h2><br />
+            <quill-editor [modules]="quillConfiguration" class="content-editor" formControlName="instruccion"
+              style="margin-top: 10px;" [placeholder]="''"> </quill-editor>
+          </div>
         </div>
       </div>
     </div>
   </form>
+
+  <div class="question-container" style="margin-bottom: 20px;">
+    <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" class="question border border-light p-3 ml-sm-5 pl-sm-5">
+      <div class="h5">
+        <h2>Nueva pregunta</h2>
+        <hr />
+        <div style="float: right; width: 40%">
+          <mat-label>Tipo de Pregunta:</mat-label>
+          <mat-select style="background-color: #EEE;" formControlName="selectedType">
+            <mat-option value="Seleccion Multiple">Seleccion Multiple</mat-option>
+            <mat-option value="Completa">Completa</mat-option>
+          </mat-select>
+        </div>
+        <mat-form-field style="font-size: 12px;" appearance="outline">
+          <mat-label class="answer-label">Puntuacion</mat-label>
+          <input matInput type="number" formControlName="punt" max="10" min="1">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" style="margin: 0;" appearance="standard">
+          <mat-label>Pregunta:</mat-label>
+          <textarea formControlName="description" matInput
+            placeholder="Ej. ¿A que velocidad viaje el carro?"></textarea>
+        </mat-form-field>
+
+        <div *ngIf="questionForm.controls.selectedType.value != '2'">
+          <mat-radio-group aria-label="Select an option" formControlName="options">
+
+            <div style="font-size: small;" class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+              <mat-form-field class="answer" appearance="outline">
+                <mat-label class="answer-label">Respuesta 1</mat-label>
+                <input matInput formControlName="answer1">
+              </mat-form-field>
+              <mat-radio-button class="radio" value="1"></mat-radio-button>
+              <span *ngIf="questionForm.controls.options.value == '1'">Es correcta</span>
+
+              <mat-form-field class="answer" appearance="outline">
+                <mat-label class="answer-label">Respuesta 2</mat-label>
+                <input matInput formControlName="answer2">
+              </mat-form-field>
+              <mat-radio-button class="radio" value="2"></mat-radio-button>
+              <span *ngIf="questionForm.controls.options.value == '2'">Es correcta</span>
+
+              <mat-form-field class="answer" appearance="outline">
+                <mat-label class="answer-label">Respuesta 3</mat-label>
+                <input matInput formControlName="answer3">
+              </mat-form-field>
+              <mat-radio-button class="radio" value="3"></mat-radio-button>
+              <span *ngIf="questionForm.controls.options.value == '3'">Es correcta</span>
+
+              <mat-form-field class="answer" appearance="outline">
+                <mat-label class="answer-label">Respuesta 4</mat-label>
+                <input matInput formControlName="answer4">
+              </mat-form-field>
+              <mat-radio-button class="radio" value="4"></mat-radio-button>
+              <span *ngIf="questionForm.controls.options.value == '4'">Es correcta</span>
+            </div>
+          </mat-radio-group>
+        </div>
+        <div class="d-flex justify-content-end pt-3">
+          <div id="prev">
+            <input class="btn btn-primary" [disabled]="questionForm.invalid" type="submit" value="Añadir Pregunta" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 
 <div class="row banco-cont justify-content-center">

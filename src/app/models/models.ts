@@ -1,4 +1,5 @@
 export class User {
+  id? :number
   userId: number = 0;
   username: string = '';
   password: string = '';
@@ -12,6 +13,7 @@ export class User {
   cedula?: string;
   isOn?: boolean;
   matricula?: string;
+  grado?: string;
 }
 
 export class BancoPreg {

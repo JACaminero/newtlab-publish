@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { BancoPreg, PruebaExperimento } from 'src/app/models/models';
+import { BancoPreg, PruebaExperimento, User } from 'src/app/models/models';
 import { BancoPregService } from 'src/app/services/banco-preg.service';
 import { UserService } from 'src/app/services/user.service';
 import { PruebaService } from 'src/app/services/prueba.service';
@@ -14,41 +14,48 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class UserProfileComponent implements OnInit {
 
   bps?: BancoPreg[]
-  user?: any;
+  user?: User;
   pruebaForm = new FormGroup({})
 
   constructor(private pServ: PruebaService, private auth: AuthService, private uServ: UserService
     , private bpServ: BancoPregService, private fb: FormBuilder) {
-    this.auth.user.subscribe(x => this.user = x);
+
   }
+
   ngOnInit(): void {
     this.bpServ.get().subscribe(bp => {
+      this.auth.user.subscribe(x => {
+        this.uServ.getById(<number>x.id).subscribe(u => {
+          this.user = u
 
-      this.pServ.getAllPruebasByUser(this.user.id).subscribe(pes => {
+          this.user.cedula =
+            `${this.user.cedula?.substring(0, 3)}-${this.user.cedula?.substring(4, 10)}-${this.user.cedula?.charAt(10)}`
+          this.pServ.getAllPruebasByUser(this.user?.userId).subscribe(pes => {
 
-        this.bps = bp.filter(bp => bp.publicado == true)
+            console.log(u)
+            this.bps = bp.filter(bp => bp.publicado == true)
 
-        bp.forEach(element => {
+            bp.forEach(element => {
 
-          this.pruebaForm.addControl(element.tituloPublicado!, this.fb.control('Tomar prueba'))
+              this.pruebaForm.addControl(element.tituloPublicado!, this.fb.control('Tomar prueba'))
+              let pruebas = <PruebaExperimento[]>pes.data
 
-          let pruebas = <PruebaExperimento[]>pes.data
-          pruebas.forEach(prb => {
+              pruebas.forEach(prb => {
 
-            if (prb.titulo == element.tituloPublicado) {
-              this.pruebaForm.get(element.tituloPublicado!)?.disable()
-              this.pruebaForm.get(element.tituloPublicado!)?.setValue("Ya has tomado esta prueba")
-            }
+                if (prb.titulo == element.tituloPublicado) {
+                  this.pruebaForm.get(element.tituloPublicado!)?.disable()
+                  this.pruebaForm.get(element.tituloPublicado!)?.setValue("Ya has tomado esta prueba")
+                }
 
-            this.uServ.getById(element.userId).subscribe(uu => {
-              element.username = `${uu.name} ${uu.lastName1}`
-            });
-
-          });
-
+                this.uServ.getById(element.userId).subscribe(uu => {
+                  element.username = `${uu.name} ${uu.lastName1}`
+                });
+              });
+            })
+          })
         })
       })
-    })
+    });
 
   }
 }

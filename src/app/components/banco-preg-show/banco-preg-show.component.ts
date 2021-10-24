@@ -14,17 +14,16 @@ export class BancoPregShowComponent implements OnInit {
 
   user: any;
   bps?: BancoPreg[] = []
-  constructor(private bpServ: BancoPregService, private auth: AuthService, private uServ: UserService) {
-    this.auth.user.subscribe(x => this.user = x);
-  }
-
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
     exper: new FormControl('g'),
   });
 
-  ngOnInit(): void {
+  constructor(private bpServ: BancoPregService, private auth: AuthService, private uServ: UserService) {
+    this.auth.user.subscribe(x => this.user = x);    
+  }
 
+  ngOnInit(): void {
     this.bpServ.get().subscribe(us => {
       us.forEach(element => {
         this.uServ.getById(element.userId).subscribe(uu => {

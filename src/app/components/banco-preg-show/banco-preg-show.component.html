@@ -68,15 +68,14 @@
                   <!-- <button type="button" *ngIf="bp.isOn" (click)="onDelete(bp.bancoPreguntaId)"
                     class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
                     <i class="fa fa-trash"></i>
-                  </button>
-                  <button type="button" *ngIf="!bp.isOn" (click)="on(bp.bancoPreguntaId)"
-                    class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
-                    <i i-bs name="check"></i>
                   </button> -->
-                  <!-- {{bp.userId}} -->
+                  <button type="button" *ngIf="bp.userId != user?.id" [routerLink]="['/preguntas', bp.bancoPreguntaId]"
+                    class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
+                    <i i-bs name="eye"></i>
+                  </button> 
                   <!-- <button type="button" class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
                     <i class="fa fa-repeat"></i>
-                  </button> -->
+                  </button>  -->
                 </td>
               </tr>
             </tbody>

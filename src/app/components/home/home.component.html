@@ -11,12 +11,15 @@
   <div class="section-header"><span> Instrucciones de Ejecución </span></div>
   <div class="section-content">
     <div [innerHtml]="instr"></div>
-
   </div>
 </section>
 
-<section class="experiment">
+<section *ngIf="exper == 'Gravedad'" class="experiment">
   <app-dinamics></app-dinamics>
+</section>
+
+<section *ngIf="exper == 'Accion y Reaccion'" class="experiment">
+  <app-inercia></app-inercia>
 </section>
 
 <section class="test">

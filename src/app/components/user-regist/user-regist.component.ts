@@ -15,27 +15,32 @@ export class UserRegistComponent {
     lastName1: new FormControl('', [Validators.maxLength(30), Validators.required]),
     lastName2: new FormControl('', [Validators.maxLength(30), Validators.required]),
     birth: new FormControl('', [Validators.required]),
-    cedula: new FormControl(''),
+    cedula: new FormControl('', [
+      Validators.required, Validators.pattern(/^[0-9]{3}-?[0-9]{7}-?[0-9]{1}$/),Validators.maxLength(11), Validators.minLength(11)
+    ]),
     pass: new FormControl('', [Validators.required, Validators.maxLength(11)]),
     secondPass: new FormControl('', [Validators.required, Validators.maxLength(12)]),
     phone: new FormControl('', [Validators.required]),
     role: new FormControl('Estudiante', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email])
+    email: new FormControl('', [Validators.required, Validators.email]),
+    grado: new FormControl('Primer Grado de Secundaria', [Validators.required])
   });
-  error?: string
   
+  error?: string
+  uss: User[] = []
+
   constructor(private uServ: UserService) {
+    uServ.getAll().subscribe(us => this.uss = us)
   }
 
   registrar() {
-    if(this.userForm.invalid 
-      || this.userForm.controls.pass.value != this.userForm.controls.secondPass.value) {
-        if(this.userForm.controls.pass.value != this.userForm.controls.secondPass.value) {
-          this.error = 'Las contraseñas no son iguales';
-          return;
-        }
-      this.error = 'Han ocurrido problemas con la informacion ingresa' 
-      return; 
+    if (this.userForm.invalid) {
+      this.error = 'Han ocurrido problemas con la informacion ingresa'
+      return;
+    }
+    if (this.userForm.controls.pass.value != this.userForm.controls.secondPass.value) {
+      this.error = 'Las contraseñas no son iguales';
+      return;
     }
 
     let u = new User();
@@ -48,37 +53,15 @@ export class UserRegistComponent {
     u.phone = this.userForm.controls.phone.value;
     u.birth = this.userForm.controls.birth.value;
     u.role = this.userForm.controls.role.value;
-    this.uServ.insert(u).subscribe(() => alert('Operacion exitosa'), error => console.log(error));
-  }
+    u.grado = this.userForm.controls.grado.value
 
-
-  validaCedula(ced: string): boolean {
-    var c = ced.replace(/-/g, '');
-    var cedula = c.substr(0, c.length - 1);
-    var verificador = c.substr(c.length - 1, 1).length;
-    var suma = 0;
-    let res
-    var cedulaValida = false;
-    if (ced.length < 11) { return false; }
-    for (let i = 0; i < cedula.length; i++) {
-      let mod: number;
-      if ((i % 2) == 0) { mod = 1 } else { mod = 2 }
-      res = cedula.substr(i, 1).length * mod;
-      if (res > 9) {
-        res = res.toString();
-        let uno = res.substr(0, 1);
-        let dos = res.substr(1, 1);
-        res = eval(uno) + eval(dos);
+    this.uss.forEach(us => {
+      if (us.username == u.username) {
+        alert('Este E-mail ya esta registrado en el sistema.')
+        return;
       }
-      suma += eval(res);
-    }
-    let el_numero = (10 - (suma % 10)) % 10;
-    if (el_numero == verificador && cedula.substr(0, 3) != "000") {
-      cedulaValida = true;
-    }
-    else {
-      cedulaValida = false;
-    }
-    return cedulaValida;
+    })
+    this.uServ.insert(u).subscribe(() => alert(`Operacion exitosa`), error => console.log(error));
+
   }
 }

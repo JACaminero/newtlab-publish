@@ -10,48 +10,59 @@ import { User } from 'src/app/models/models';
   styleUrls: ['./user-modif.component.scss']
 })
 export class UserModifComponent implements OnInit {
-
+  
   userForm = new FormGroup({
-    firstName: new FormControl('', [Validators.required]),
-    lastName1: new FormControl('', [Validators.required]),
-    lastName2: new FormControl('', [Validators.required]),
-    birth: new FormControl('', [Validators.required]),
-    cedula: new FormControl('', [Validators.required]),
+    firstName: new FormControl('', [Validators.maxLength(30), Validators.required]),
+    lastName1: new FormControl('', [Validators.maxLength(30), Validators.required]),
+    lastName2: new FormControl('', [Validators.maxLength(30), Validators.required]),
+    birth: new FormControl({}, [Validators.required]),
+    cedula: new FormControl('', [
+      Validators.required, Validators.pattern(/^[0-9]{3}-?[0-9]{7}-?[0-9]{1}$/),Validators.maxLength(11), Validators.minLength(11)
+    ]),
     phone: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email])
+    email: new FormControl('', [Validators.required, Validators.email]),
+    grado: new FormControl('Primer Grado de Secundaria', [Validators.required])
   });
 
+  id: unknown
   constructor(private uServ: UserService, private route: ActivatedRoute) { }
 
   current: User = new User()
   dat?: string
+
   ngOnInit(): void {
-    let id: unknown = this.route.snapshot.paramMap.get('id');
-    this.uServ.getById(<number>id).subscribe(u => {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.uServ.getById(<number>this.id).subscribe(u => {
       this.current = u;
-      let formattedDate = this.formatDate(<Date>u.birth)
       this.userForm.patchValue({
         firstName: this.current.name,
         lastName1: this.current.lastName1,
         lastName2: this.current.lastName2,
-        birth: formattedDate,
         cedula: this.current.cedula,
         phone: this.current.phone,
-        email: this.current.username
+        email: this.current.username,
+        grado: this.current.grado
       })
-      this.dat = formattedDate
     });
   }
 
 
   modificar() {
+
+    if (this.userForm.invalid) {
+      alert('Han ocurrido problemas con la informacion ingresa')
+      return;
+    }
     this.current.name = this.userForm.controls.firstName.value;
     this.current.lastName1 = this.userForm.controls.lastName1.value;
     this.current.lastName2 = this.userForm.controls.lastName2.value;
     this.current.username = this.userForm.controls.email.value;
     this.current.cedula = this.userForm.controls.cedula.value;
     this.current.phone = this.userForm.controls.phone.value;
-    this.current.birth = this.userForm.controls.birth.value;
+    this.current.birth = this.userForm.controls.birth.value  == {} ? this.current.birth : this.userForm.controls.birth.value;
+    this.current.grado = this.userForm.controls.grado.value;
+
+
     this.uServ.modify(this.current).subscribe(resp => {
       alert(resp.message)
     });

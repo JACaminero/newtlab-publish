@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { BancoPreg, Pregunta, Respuesta } from 'src/app/models/models';
+import { BancoPreg, Pregunta, Respuesta, User } from 'src/app/models/models';
 import { BancoPregService, PublicarVM } from 'src/app/services/banco-preg.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { QuillModule } from 'ngx-quill'
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-banco-preg',
@@ -14,13 +15,12 @@ import { QuillModule } from 'ngx-quill'
 })
 export class BancoPregComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog, private bpService: BancoPregService) { }
-
   bp: BancoPreg = new BancoPreg()
   id: unknown
   ps?: Array<Pregunta>
   date: any
   califTotal: number = 0
+  user?: any
 
   pruebaForm = new FormGroup({
     limit: new FormControl('', [Validators.required]),
@@ -40,13 +40,20 @@ export class BancoPregComponent implements OnInit {
     options: new FormControl('1'),
   });
 
+  
+  constructor(private auth: AuthService, private route: ActivatedRoute, public dialog: MatDialog, private bpService: BancoPregService) { 
+    this.auth.user.subscribe(x => this.user = x);
+  }
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
+
+    this.id = this.route.snapshot.paramMap.get('id')
+
     this.bpService.getById(<number>this.id).subscribe(u => {
       this.bp = u
       this.pruebaForm.controls.instruccion.setValue(this.bp.instruccion)
       this.pruebaForm.controls.descripcion.setValue(this.bp.descripcion)
     });
+    
     this.bpService.getPreg(<number>this.id).subscribe(p => {
       this.ps = p
       this.ps.forEach(preg => {
