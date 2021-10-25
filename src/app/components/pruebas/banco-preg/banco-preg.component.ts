@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { BancoPreg, Pregunta, Respuesta, User } from 'src/app/models/models';
+import { BancoPreg, Pregunta, PruebaExperimento, Respuesta, User } from 'src/app/models/models';
 import { BancoPregService, PublicarVM } from 'src/app/services/banco-preg.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { QuillModule } from 'ngx-quill'
 import { AuthService } from 'src/app/services/auth.service';
+import { PruebaService } from 'src/app/services/prueba.service';
 
 @Component({
   selector: 'app-banco-preg',
@@ -40,8 +41,9 @@ export class BancoPregComponent implements OnInit {
     options: new FormControl('1'),
   });
 
-  
-  constructor(private auth: AuthService, private route: ActivatedRoute, public dialog: MatDialog, private bpService: BancoPregService) { 
+
+  constructor(private auth: AuthService, private route: ActivatedRoute
+    , public dialog: MatDialog, private bpService: BancoPregService, private pServ: PruebaService) {
     this.auth.user.subscribe(x => this.user = x);
   }
   ngOnInit(): void {
@@ -53,7 +55,7 @@ export class BancoPregComponent implements OnInit {
       this.pruebaForm.controls.instruccion.setValue(this.bp.instruccion)
       this.pruebaForm.controls.descripcion.setValue(this.bp.descripcion)
     });
-    
+
     this.bpService.getPreg(<number>this.id).subscribe(p => {
       this.ps = p
       this.ps.forEach(preg => {
@@ -140,6 +142,14 @@ export class BancoPregComponent implements OnInit {
       return;
     }
 
+    this.pServ.getAll().subscribe(prueb => {
+      let pruebas: PruebaExperimento[] = prueb.data
+      
+      pruebas.forEach(e => {
+        if (e.titulo?.trim() == this.pruebaForm.controls.tituloPublic.value) {
+          alert("Ya existe una prueba con este titulo. Por favor escoja un titulo de prueba diferente")
+        }
+    })
     let limit = new PublicarVM()
     limit.limit = this.pruebaForm.controls.limit.value;
     limit.instruccion = <string>this.pruebaForm.controls.instruccion.value;
@@ -147,6 +157,7 @@ export class BancoPregComponent implements OnInit {
 
     this.bpService.publicar(id, limit, this.pruebaForm.controls.tituloPublic.value)
       .subscribe(() => window.location.reload())
+  })
   }
 
   quillConfiguration = {

@@ -21,11 +21,14 @@ export class UserModifComponent implements OnInit {
     ]),
     phone: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    grado: new FormControl('Primer Grado de Secundaria', [Validators.required])
+    grado: new FormControl('', [Validators.required])
   });
 
+  uss: User[] = []
   id: unknown
-  constructor(private uServ: UserService, private route: ActivatedRoute) { }
+  constructor(private uServ: UserService, private route: ActivatedRoute) {
+    uServ.getAll().subscribe(us => this.uss = us)
+   }
 
   current: User = new User()
   dat?: string
@@ -62,6 +65,12 @@ export class UserModifComponent implements OnInit {
     this.current.birth = this.userForm.controls.birth.value  == {} ? this.current.birth : this.userForm.controls.birth.value;
     this.current.grado = this.userForm.controls.grado.value;
 
+    this.uss.forEach(us => {
+      if (us.username == this.current.username) {
+        alert('Este E-mail ya esta registrado en el sistema.')
+        return;
+      }
+    })
 
     this.uServ.modify(this.current).subscribe(resp => {
       alert(resp.message)

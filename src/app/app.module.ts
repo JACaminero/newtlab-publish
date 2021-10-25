@@ -39,7 +39,8 @@ import { BancoPregComponent, RespuestaDialog } from './components/pruebas/banco-
 import { BancoPregShowComponent } from './components/banco-preg-show/banco-preg-show.component';
 import { InerciaComponent } from './components/inercia/inercia.component';
 import { ShowPruebaComponent } from './components/show-prueba/show-prueba.component';
-import { PruebaCorregirComponent } from './components/prueba-corregir/prueba-corregir.component'
+import { PruebaCorregirComponent } from './components/prueba-corregir/prueba-corregir.component';
+import { InerciaRealComponent } from './components/inercia-real/inercia-real.component'
 
 const icons = {
   plus,
@@ -70,6 +71,7 @@ const icons = {
     InerciaComponent,
     ShowPruebaComponent,
     PruebaCorregirComponent,
+    InerciaRealComponent,
   ],
   imports: [
     BrowserModule,

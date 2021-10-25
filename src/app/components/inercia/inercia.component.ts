@@ -52,6 +52,18 @@ export class InerciaComponent implements OnInit {
         p.background(255);
         this.timer = t;
 
+        
+        p.stroke(0);
+        p.fill(151, 127, 215);
+        // p.rect(100, 5, 110, 5);
+        p.text("Bloque 1", 100, 20)
+        
+        p.stroke(0);
+        p.fill(156, 207, 231);
+        // p.rect(100, 35, 10, 10);
+        p.text("Bloque 2", 100, 45);
+       
+        p.fill(0, 0, 0);
         p.text("V1  = " + p.round(block1.v * 100000) / 100 + " m/s", 100, 75)
         p.text("V2  = " + p.round(block2.v * 100000) / 100 + " m/s", 100, 105)
         p.text("TiempoTranscurrido = " + t + "s", 100, 135)

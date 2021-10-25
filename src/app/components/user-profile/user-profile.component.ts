@@ -30,19 +30,40 @@ export class UserProfileComponent implements OnInit {
 
           this.user.cedula =
             `${this.user.cedula?.substring(0, 3)}-${this.user.cedula?.substring(4, 10)}-${this.user.cedula?.charAt(10)}`
-          this.pServ.getAllPruebasByUser(this.user?.userId).subscribe(pes => {
+          
+            this.pServ.getAllPruebasByUser(this.user?.userId).subscribe(pes => {
 
-            console.log(u)
             this.bps = bp.filter(bp => bp.publicado == true)
-
+              
             bp.forEach(element => {
+              
+              this.pServ.getAll().subscribe(prbs => {
+                let pruebs = <PruebaExperimento[]>prbs.data
+
+                pruebs.filter(filter => filter.isCerrada)
+                  .forEach(d => {
+                  const index: number = this.bps?.findIndex(obj => obj.tituloPublicado === d.titulo)!                  
+                  if (index > -1) {
+                    this.bps?.splice(index, 1);
+                  }
+                });
+              })
 
               this.pruebaForm.addControl(element.tituloPublicado!, this.fb.control('Tomar prueba'))
               let pruebas = <PruebaExperimento[]>pes.data
 
               pruebas.forEach(prb => {
-
+                
+                // if (prb.isCerrada) {
+                //   const index: number = this.bps?.findIndex(obj => obj.tituloPublicado === prb.titulo)!
+                //   console.log(index);
+                  
+                //   if (index > -1) {
+                //     this.bps?.splice(index, 1);
+                //   }
+                // }
                 if (prb.titulo == element.tituloPublicado) {
+
                   this.pruebaForm.get(element.tituloPublicado!)?.disable()
                   this.pruebaForm.get(element.tituloPublicado!)?.setValue("Ya has tomado esta prueba")
                 }

@@ -1,16 +1,16 @@
 <form [formGroup]="userForm" (ngSubmit)="modificar()" class="text-center border border-light p-5">
-    <p class="h4 mb-4">Registrar Usuario</p>
+    <p class="h4 mb-4">Modificar Usuario</p>
     <div class="form-row mb-4">
 
         <div class="col" style="text-align: start">
             <mat-form-field *ngIf="current.role == 'Estudiante'" appearance="fill" style="margin: 0 20px">
                 <mat-label>Grado:</mat-label>
                 <select formControlName="grado" matNativeControl>
-                    <option value="Primer Grado de Secundaria">Primer Grado de Secundaria</option>
-                    <option value="Segundo Grado de Secundaria">Segundo Grado de Secundaria</option>
-                    <option value="Tercer Grado de Secundaria">Tercer Grado de Secundaria</option>
+                  <option value="Primer Grado de Secundaria">Primer Grado de Secundaria</option>
+                  <option value="Segundo Grado de Secundaria">Segundo Grado de Secundaria</option>
+                  <option value="Tercer Grado de Secundaria">Tercer Grado de Secundaria</option>
                 </select>
-            </mat-form-field>
+              </mat-form-field>
         </div>
 
         <div style="text-align: start" class="col">
@@ -58,7 +58,7 @@
             </div>
             <input type="number" class="form-control" style="appearance: none;" formControlName="phone"
                 placeholder="Telefono" />
-                <div style="text-align: start; margin-left:30px;"><small>Consejo: La fecha se encuentra en formato mes / dia / /año.</small></div>
+                <div style="text-align: start; margin-left:30px;"><small>Consejo: La fecha se encuentra en formato mes / dia / año.</small></div>
         </div>
         
         <div style="text-align: start" class="col">
@@ -78,6 +78,6 @@
             </div>
         </div>
         <input class="submit btn btn-info my-4 btn-block" [disabled]="userForm.invalid" type="submit"
-            value="Registrar" />
+            value="Modificar" />
     </div>
 </form>

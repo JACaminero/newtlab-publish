@@ -14,6 +14,9 @@ import { BancoPregComponent } from './components/pruebas/banco-preg/banco-preg.c
 import { BancoPregShowComponent } from './components/banco-preg-show/banco-preg-show.component';
 import { ShowPruebaComponent } from './components/show-prueba/show-prueba.component'
 import { PruebaCorregirComponent } from './components/prueba-corregir/prueba-corregir.component';
+import { InerciaRealComponent } from './components/inercia-real/inercia-real.component';
+import { InerciaComponent } from './components/inercia/inercia.component';
+import { DinamicsComponent } from './components/dinamics/dinamics.component';
 
 const routes: Routes = [
   { path: 'signin', component: SigninComponent },
@@ -21,7 +24,7 @@ const routes: Routes = [
   {
     path: 'experimento/:experimento/:id', component: HomeComponent,
     canActivate: [AuthGuardService],
-    data: { role: ['Estudiante', 'Profesor'] }
+    data: { role: ['Estudiante'] }
   },
   {
     path: 'reports', canActivate: [AuthGuardService], component: ReportsComponent,
@@ -68,8 +71,23 @@ const routes: Routes = [
   {
     path: 'prueba/:id/user/:userId', component: PruebaCorregirComponent,
     canActivate: [AuthGuardService],
-    data: { role: ['Profesor'] },
+    data: { role: ['Profesor', 'Estudiante'] },
   },
+  {
+    path: 'inercia', component: InerciaRealComponent,
+    canActivate: [AuthGuardService],
+    data: { role: ['Profesor', 'Estudiante'] },
+  },
+  {
+    path: 'accreacc', component: InerciaComponent,
+    canActivate: [AuthGuardService],
+    data: { role: ['Profesor', 'Estudiante'] },
+  },
+  {
+    path: 'gravedad', component: DinamicsComponent,
+    canActivate: [AuthGuardService],
+    data: { role: ['Profesor', 'Estudiante'] },
+  }
 ];
 
 @NgModule({

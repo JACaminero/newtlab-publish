@@ -66,6 +66,7 @@
     </div>
 
     <div class="profile-work col-md-5" style="background-color: white; margin: 10px 20px; border-radius: 13px">
+    <!-- *ngIf="user?.role == 'Estudiante'"> -->
       <form [formGroup]="pruebaForm">
         <p>Pruebas Publicadas</p>
         <div *ngFor="let bp of bps; let i = index" class="assignment">

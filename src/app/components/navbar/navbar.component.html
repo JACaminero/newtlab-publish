@@ -19,6 +19,19 @@
       </div>
       <a class="list-item" mat-list-item href="/show-banco">Bancos de Preguntas</a>
       <a class="list-item" mat-list-item href="/pruebas">Pruebas</a>
+      <div class="list-item">
+        <mat-select class="dropdown" placeholder="Experimentos">
+          <a style="text-decoration: none !important; color: black" href="/inercia">
+            <mat-option>Experimento Inercia</mat-option>
+          </a>
+          <a style="text-decoration: none !important; color: black" href="/gravedad">
+            <mat-option>Experimento Dinamica</mat-option>
+          </a>
+          <a style="text-decoration: none !important; color: black" href="/accreacc">
+            <mat-option>Experimento Accion y Reaccion</mat-option>
+          </a>
+        </mat-select>
+      </div>
       <a class="list-item" mat-list-item href="reports">Reporte de Calificaciones</a>
     </mat-nav-list>
 
@@ -28,14 +41,20 @@
       <a class="list-item" mat-list-item href="/perfil">Perfil de Usuario</a>
       <div class="list-item">
         <mat-select class="dropdown" placeholder="Experimentos">
-          <mat-option>Experimento Inercia</mat-option>
-          <a style="text-decoration: none !important; color: black" href="/home">
+          <a style="text-decoration: none !important; color: black" href="/inercia">
+            <mat-option>Experimento Inercia</mat-option>
+          </a>
+          <a style="text-decoration: none !important; color: black" href="/gravedad">
             <mat-option>Experimento Dinamica</mat-option>
           </a>
-          <mat-option>Experimento Friccion</mat-option>
+          <a style="text-decoration: none !important; color: black" href="/accreacc">
+            <mat-option>Experimento Accion y Reaccion</mat-option>
+          </a>
         </mat-select>
       </div>
+      <a class="list-item" mat-list-item href="/pruebas">Pruebas</a>
       <a class="list-item" mat-list-item href="reports">Reporte de Calificaciones</a>
+      
     </mat-nav-list>
   </mat-sidenav>
 
