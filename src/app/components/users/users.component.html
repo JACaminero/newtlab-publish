@@ -10,7 +10,7 @@
             <thead>
               <tr class="ml">
                 <th scope="col" class="border-0 text-uppercase font-medium">
-                  Nombre / Matricula
+                  Nombre / Matricula o Cedula
                 </th>
                 <th scope="col" class="border-0 text-uppercase font-medium">
                   Rol / Grado
@@ -32,12 +32,13 @@
             <tbody>
               <tr class="d" *ngFor="let u of users">
                 <td>
-                  <span class="text-muted">{{u.name}} {{u.lastName1}} {{u.lastName2}}</span><br />
-                  <span class="text-muted">{{ u.matricula }}</span>
+                  <span class="text-muted">{{ u.name }} {{ u.lastName1 }} {{ u.lastName2 }}</span><br />
+                  <span class="text-muted">{{ u.role == 'Estudiante' ? u.matricula : u.cedula
+                  }}</span>
                 </td>
                 <td>
-                  <span class="text-muted">{{u.role}}</span><br />
-                  <span class="text-muted">{{u.grado}}</span><br />
+                  <span class="text-muted">{{ u.role }}</span><br />
+                  <span class="text-muted">{{ u.grado }}</span><br />
                 </td>
                 <td>
                   <span class="text-muted">{{u.username}}</span><br />

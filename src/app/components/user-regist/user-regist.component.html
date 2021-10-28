@@ -6,9 +6,9 @@
       <mat-form-field appearance="fill" style="margin: 0 20px">
         <mat-label>Rol:</mat-label>
         <select formControlName="role" matNativeControl>
-          <option value="Profesor">Profesor</option>
+          <option *ngIf="user?.role == 'Admin'" value="Profesor">Profesor</option>
           <option value="Estudiante">Estudiante</option>
-          <!-- <option value="Admin">Admin</option> -->
+          <option *ngIf="user?.role == 'Admin'" value="Admin">Admin</option>
         </select>
       </mat-form-field>
       <mat-form-field *ngIf="userForm.controls.role.value == 'Estudiante'" appearance="fill" style="margin: 0 20px">
@@ -46,6 +46,8 @@
       <input type="text" class="form-control" placeholder="Apellido maternal" formControlName="lastName2" />
       <div *ngIf="userForm.controls.lastName2.errors?.maxLength" class="alert alert-danger mt-3 mb-0">Segundo apellido
         muy largo</div>
+      <div *ngIf="userForm.controls.role.value != 'Estudiante'" style="text-align: start; margin-left:20px;"><small>Consejo: no utilize guiones para redactar la cedula.
+        Ejemplo: 40211114358 es una cedula valida</small></div>
     </div>
 
     <div *ngIf="userForm.controls.role.value != 'Estudiante'" style="text-align: start" class="col">
@@ -54,8 +56,6 @@
       </div>
       <input type="text" style="appearance: none;" class="form-control" placeholder="Identificacion"
         formControlName="cedula" />
-      <div style="text-align: start; margin-left:20px;"><small>Consejo: no utilize guiones para redactar la cedula.
-          Ejemplo: 40211114358 es una cedula valida</small></div>
       <div *ngIf="userForm.controls.cedula.errors?.pattern" class="alert alert-danger mt-3 mb-0">Cedula es invalida, no
         use guiones</div>
     </div>

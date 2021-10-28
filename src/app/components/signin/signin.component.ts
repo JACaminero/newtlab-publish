@@ -34,6 +34,7 @@ export class SigninComponent implements OnInit {
   onSubmit() {
     if (this.signInForm.invalid) {
       this.error = this.signInForm.errors
+      alert('Datos invalidos, verifique sus credenciales')
       return;
     }
 
@@ -48,8 +49,7 @@ export class SigninComponent implements OnInit {
           this.router.navigateByUrl(returnUrl);
         },
         (error) => {
-          console.log(error)
-          this.error = error.error.message;
+          alert('Usuario o contraseña incorrectos')
         }
       );
   }

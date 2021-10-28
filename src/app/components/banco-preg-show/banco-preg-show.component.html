@@ -1,6 +1,6 @@
 <div class="container">
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-con border border-light ">
+  <form [formGroup]="form" *ngIf="user?.role == 'Profesor'" (ngSubmit)="onSubmit()" class="form-con border border-light ">
     <p class="h4 mb-4">Crear banco de pregunta</p>
     <div class="form-row mb-4">
       <div class="col">
@@ -35,6 +35,9 @@
                   Fecha de Creacion
                 </th>
                 <th scope="col" class="border-0 text-uppercase font-medium">
+                  Basado en Experimento
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
                   Creador
                 </th>
                 <th scope="col" class="border-0 text-uppercase font-medium">
@@ -52,6 +55,9 @@
                 </td>
                 <td>
                   <span class="text-muted">{{bp.fechaCreacion}}</span><br />
+                </td>
+                <td>
+                  <span class="text-muted">{{bp.experimento}}</span><br />
                 </td>
                 <td>
                   <span class="text-muted">{{bp.username}}</span><br />

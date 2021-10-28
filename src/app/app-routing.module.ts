@@ -22,15 +22,15 @@ const routes: Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'home', component: HomeComponent },
   {
-    path: 'experimento/:experimento/:id', component: HomeComponent,
-    canActivate: [AuthGuardService],
-    data: { role: ['Estudiante'] }
-  },
-  {
     path: 'reports', canActivate: [AuthGuardService], component: ReportsComponent,
   },
   {
     path: 'perfil', canActivate: [AuthGuardService], component: UserProfileComponent,
+  },
+  {
+    path: 'experimento/:experimento/:id', component: HomeComponent,
+    canActivate: [AuthGuardService],
+    data: { role: ['Estudiante'] }
   },
   {
     path: 'colegio', component: HomeAdminComponent,
@@ -40,20 +40,20 @@ const routes: Routes = [
   {
     path: 'registro-usuarios', component: UserRegistComponent,
     canActivate: [AuthGuardService],
-    data: { role: ['Profesor'] },
+    data: { role: ['Profesor', 'Admin'] },
   },
   {
     path: 'usuarios', component: UsersComponent,
     canActivate: [AuthGuardService],
-    data: { role: ['Profesor'] },
+    data: { role: ['Profesor', 'Admin'] },
   }, {
     path: 'usuarios/:id', component: UserModifComponent,
     canActivate: [AuthGuardService],
-    data: { role: ['Profesor'] },
+    data: { role: ['Profesor', 'Admin'] },
   }, {
     path: 'preguntas/:id', component: BancoPregComponent,
     canActivate: [AuthGuardService],
-    data: { role: ['Profesor'] },
+    data: { role: ['Profesor', 'Admin'] },
   },
   {
     path: '', canActivate: [AuthGuardService], component: FillerComponent
@@ -61,17 +61,17 @@ const routes: Routes = [
   {
     path: 'show-banco', component: BancoPregShowComponent,
     canActivate: [AuthGuardService],
-    data: { role: ['Profesor'] },
+    data: { role: ['Profesor', 'Admin'] },
   },
   {
     path: 'pruebas', component: ShowPruebaComponent,
     canActivate: [AuthGuardService],
-    data: { role: ['Profesor', 'Estudiante'] },
+    data: { role: ['Profesor', 'Estudiante', 'Admin'] },
   },
   {
     path: 'prueba/:id/user/:userId', component: PruebaCorregirComponent,
     canActivate: [AuthGuardService],
-    data: { role: ['Profesor', 'Estudiante'] },
+    data: { role: ['Profesor', 'Estudiante', 'Admin'] },
   },
   {
     path: 'inercia', component: InerciaRealComponent,

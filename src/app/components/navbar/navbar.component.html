@@ -35,6 +35,25 @@
       <a class="list-item" mat-list-item href="reports">Reporte de Calificaciones</a>
     </mat-nav-list>
 
+    <!-- navbar de admin -->
+    
+    <mat-nav-list *ngIf="role == 'Admin'">
+      <a class="list-item" mat-list-item href="/perfil">Perfil de Usuario</a>
+      <div class="list-item">
+        <mat-select class="dropdown" placeholder="Usuarios">
+          <a href="/registro-usuarios" style="text-decoration: none !important; color: black">
+            <mat-option>Registrar usuarios</mat-option>
+          </a>
+          <a href="/usuarios" style="text-decoration: none !important; color: black">
+            <mat-option>Consultar Usuarios</mat-option>
+          </a>
+        </mat-select>
+      </div>
+      <a class="list-item" mat-list-item href="/show-banco">Bancos de Preguntas</a>
+      <a class="list-item" mat-list-item href="/pruebas">Pruebas</a>
+      <a class="list-item" mat-list-item href="reports">Reporte de Calificaciones</a>
+    </mat-nav-list>
+
     <!-- navbar de estudiantes -->
 
     <mat-nav-list *ngIf="role == 'Estudiante'">

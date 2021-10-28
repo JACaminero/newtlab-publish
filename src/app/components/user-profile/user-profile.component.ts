@@ -54,16 +54,11 @@ export class UserProfileComponent implements OnInit {
 
               pruebas.forEach(prb => {
                 
-                // if (prb.isCerrada) {
-                //   const index: number = this.bps?.findIndex(obj => obj.tituloPublicado === prb.titulo)!
-                //   console.log(index);
-                  
-                //   if (index > -1) {
-                //     this.bps?.splice(index, 1);
-                //   }
-                // }
                 if (prb.titulo == element.tituloPublicado) {
-
+                  const index: number = this.bps?.findIndex(obj => obj.tituloPublicado === prb.titulo)!                  
+                  if (index > -1) {
+                    this.bps?.splice(index, 1);
+                  }
                   this.pruebaForm.get(element.tituloPublicado!)?.disable()
                   this.pruebaForm.get(element.tituloPublicado!)?.setValue("Ya has tomado esta prueba")
                 }

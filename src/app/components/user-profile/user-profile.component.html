@@ -27,7 +27,6 @@
           <div class="col-md-6">
             <p>{{user?.username}}</p>
           </div>
-
         </div>
         <div class="row user-info">
           <div class="col-md-6">
@@ -47,10 +46,10 @@
         </div>
         <div class="row user-info">
           <div class="col-md-6">
-            <label>{{ user?.role == 'Profesor' ? 'Cedula' : 'Matricula'}}</label>
+            <label>{{ user?.role == 'Estudiante' ? 'Matricula' : 'Cedula' }}</label>
           </div>
           <div class="col-md-6">
-            <p>{{ user?.role == 'Profesor' ? user?.cedula : user?.matricula }}</p>
+            <p>{{ user?.role == 'Estudiante' ? user?.matricula : user?.cedula }}</p>
           </div>
         </div>
         <div *ngIf="user?.role == 'Estudiante'" class="row user-info">
@@ -61,31 +60,32 @@
             <p>{{ user?.grado }}</p>
           </div>
         </div>
-        </div>
       </div>
-    </div>
+      <app-show-prueba *ngIf="user?.role == 'Estudiante'"></app-show-prueba>
 
-    <div class="profile-work col-md-5" style="background-color: white; margin: 10px 20px; border-radius: 13px">
-    <!-- *ngIf="user?.role == 'Estudiante'"> -->
-      <form [formGroup]="pruebaForm">
-        <p>Pruebas Publicadas</p>
-        <div *ngFor="let bp of bps; let i = index" class="assignment">
-          <a>
-            <div>
-              <span style="font-size: 20px"> {{bp.tituloPublicado}}</span><br />
-              Basado en: {{bp.tema}} <br />
-              Experimento: {{bp.experimento}} <br />
-              Fecha limite: {{bp.fechaLimite}} <br />
-              Creador: {{bp.username}}
-            </div>
-            <a>
-              <input [formControlName]="bp.tituloPublicado!"
-                [routerLink]="['/experimento', bp.experimento, bp.bancoPreguntaId]" class="btn btn-primary"
-                type="button" />
-
-            </a>
-          </a>
-        </div>
-      </form>
     </div>
   </div>
+
+  <div class="profile-work col-md-5" *ngIf="user?.role == 'Estudiante'"
+    style="background-color: white; margin: 10px 20px; border-radius: 13px">
+    <form [formGroup]="pruebaForm">
+      <p>Pruebas Publicadas</p>
+      <div *ngFor="let bp of bps; let i = index" class="assignment">
+        <a>
+          <div>
+            <span style="font-size: 20px"> {{bp.tituloPublicado}}</span><br />
+            Basado en: {{bp.tema}} <br />
+            Experimento: {{bp.experimento}} <br />
+            Fecha limite: {{bp.fechaLimite}} <br />
+            Creador: {{bp.username}}
+          </div>
+          <a>
+            <input [formControlName]="bp.tituloPublicado!" 
+              [routerLink]="['/experimento', bp.experimento, bp.bancoPreguntaId]" class="btn btn-primary"
+              type="button" />
+          </a>
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/models';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -28,9 +29,11 @@ export class UserRegistComponent {
   
   error?: string
   uss: User[] = []
+  user?: User
 
-  constructor(private uServ: UserService) {
+  constructor(private uServ: UserService, private auth: AuthService) {
     uServ.getAll().subscribe(us => this.uss = us)
+    uServ.getById(<number>auth.userValue.id).subscribe(u => this.user = u)
   }
 
   registrar() {

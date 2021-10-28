@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PruebaExperimento } from 'src/app/models/models';
+import { PruebaExperimento, User } from 'src/app/models/models';
 import { Grid, RowSelectEventArgs } from '@syncfusion/ej2-grids';
 import { PruebaService } from 'src/app/services/prueba.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-show-prueba',
@@ -11,7 +12,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ShowPruebaComponent implements OnInit {
 
-  constructor(private pServ: PruebaService, private auth: AuthService) { }
+  user?: User
+  constructor(private pServ: PruebaService, private auth: AuthService, private uServ: UserService) { 
+    uServ.getById(<number>auth.userValue.id).subscribe(u => this.user = u)
+
+  }
 
   grid: Grid = new Grid()
   data: PruebaExperimento[] = [];
@@ -23,12 +28,12 @@ export class ShowPruebaComponent implements OnInit {
       let pe: PruebaExperimento = <PruebaExperimento>args.data 
       window.location.href = `prueba/${pe.pruebaExperimentoId}/user/${pe.userId}`
     }
-    console.log(this.auth.userValue);
     
     this.pServ.getAll().subscribe(ps => {
       this.data = ps.data
-  
-      this.grid = new Grid({
+      console.log(this.auth.userValue.role);
+      
+      this.grid = this.auth.userValue.role != 'Estudiante' ? new Grid({
         dataSource: this.data.filter(e => this.auth.userValue.role == "Estudiante" ? (this.auth.userValue.id == e.userId) : true),
         selectionSettings: { type: 'Single' },
         columns: [
@@ -42,7 +47,19 @@ export class ShowPruebaComponent implements OnInit {
         height: 315,
         rowSelected: selected,
         allowFiltering: true,
-      });
+      })
+      : new Grid({
+        dataSource: this.data.filter(e => this.auth.userValue.role == "Estudiante" ? (this.auth.userValue.id == e.userId) : true),
+        selectionSettings: { type: 'Single' },
+        columns: [
+          { field: "titulo", headerText: "Titulo Prueba", width: 200 },
+          { field: "fechaTomado", type:'date', format:'dd/MM/yyyy', headerText: "Fecha Tomada", width: 100 },
+        ],
+        height: 315,
+        rowSelected: selected,
+        allowFiltering: true,
+      })
+      
       this.grid.appendTo('#grid');
     })
 }

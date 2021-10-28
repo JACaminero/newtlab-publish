@@ -59,50 +59,6 @@ export class ReportsComponent implements OnInit {
           })
         })
 
-      // // if ('Estudiante' == this.user?.role) {
-      // //   this.data = []
-
-      // //   this.data.push(
-      // //     u.filter(dim => dim.userId == this.user?.id)
-      // //       .forEach(user => {
-      // //         this.data.push({
-      // //           name: `${user.name} ${user.lastName1} ${user.lastName2}`,
-      // //           email: `${user.username}`,
-      // //           userId: user.userId,
-      // //           calificacion: 0,
-      // //           matricula: user.matricula,
-      // //           periodo: this.reportForm.controls.periodo.value
-      // //         })
-      // //         this.pServ.getAllPruebasByUser(user.userId).subscribe(c => {
-      // //           let pe = <PruebaExperimento[]>c.data
-      // //           pe.forEach(e => {
-      // //             for (let i = 0; i < this.data.length; i++) {
-      // //               if (this.data[i].userId == e.userId) {
-      // //                 this.data[i].calificacion += +e.calificacionObtenida!
-      // //               }
-      // //             }
-      // //           });
-      // //         })
-      // //       }))
-
-      //   setTimeout(() => {                           //<<<---using ()=> syntax
-      //     this.grid = new Grid({
-      //       dataSource: this.data,
-      //       selectionSettings: { type: 'Single' },
-      //       columns: [
-      //         { field: "name", headerText: "Nombre", width: 200 },
-      //         { field: "email", headerText: "E-mail", width: 300 },
-      //         { field: "calificacion", headerText: "Calificacion Acumulada en periodo", width: 300 },
-      //       ],
-      //       height: 315,
-      //       rowSelected: selected,
-      //       allowFiltering: true,
-      //     });
-      //     this.grid.appendTo('#grid');
-
-      //   }, 3000);
-      // }
-
       setTimeout(() => {            
         this.grid = new Grid({
           dataSource: this.data,
@@ -110,6 +66,7 @@ export class ReportsComponent implements OnInit {
           columns: [
             { field: "name", headerText: "Nombre", width: 200 },
             { field: "email", headerText: "E-mail", width: 300 },
+            { field: "grado", headerText: "Grado", width: 300 },
             { field: "calificacion", headerText: "Calificacion Acumulada en periodo", width: 300 },
           ],
           height: 315,
@@ -141,7 +98,6 @@ export class ReportsComponent implements OnInit {
       var img = canvas.toDataURL("image/PNG");
       var doc = new jsPDF('l', 'mm', 'a4', true);
 
-      // Add image Canvas to PDF
       const bufferX = 5;
       const bufferY = 5;
       const imgProps = (<any>doc).getImageProperties(img);
