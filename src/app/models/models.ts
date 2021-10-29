@@ -60,6 +60,7 @@ export class PruebaExperimento {
   calificacionObtenida?: number
   calificacionTotal?: number
   isCerrada?: boolean
+  periodo?: string
 }
 
 export class PruebaRespuesta {

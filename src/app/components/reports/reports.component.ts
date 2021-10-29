@@ -16,19 +16,13 @@ import { PruebaExperimento } from 'src/app/models/models';
 })
 export class ReportsComponent implements OnInit {
 
-  reportForm = new FormGroup({
-    periodo: new FormControl('Septiembre-Diciembre', [Validators.required]),
-    ano: new FormControl(new Date().getFullYear(), [Validators.required])
-  })
   grid: Grid = new Grid()
-  date: any
   data: any[] = [];
   filterSettings: Object = { type: 'Menu' };
   user?: any;
 
   constructor(public dialog: MatDialog, public pServ: PruebaService, private uServ: UserService, private auth: AuthService) {
     this.user = this.auth.userValue;
-    this.date = new Date().getFullYear()
   }
 
   ngOnInit() {
@@ -43,7 +37,6 @@ export class ReportsComponent implements OnInit {
             email: `${user.username}`,
             userId: user.userId,
             calificacion: 0,
-            periodo: this.reportForm.controls.periodo.value,
             matricula: user.matricula,
             grado: user.grado
           })
@@ -59,14 +52,15 @@ export class ReportsComponent implements OnInit {
           })
         })
 
-      setTimeout(() => {            
+      setTimeout(() => {
         this.grid = new Grid({
           dataSource: this.data,
           selectionSettings: { type: 'Single' },
           columns: [
             { field: "name", headerText: "Nombre", width: 200 },
-            { field: "email", headerText: "E-mail", width: 300 },
-            { field: "grado", headerText: "Grado", width: 300 },
+            { field: "matricula", headerText: "Matricula", width: 200 },
+            { field: "email", headerText: "E-mail", width: 200 },
+            { field: "grado", headerText: "Grado", width: 200 },
             { field: "calificacion", headerText: "Calificacion Acumulada en periodo", width: 300 },
           ],
           height: 315,
@@ -111,15 +105,24 @@ export class ReportsComponent implements OnInit {
   }
 }
 
+
+
 @Component({
   selector: 'report-dialog',
   templateUrl: './report-dialog.html',
 })
 export class ReportDialog {
 
-  pruebas: Array<any> = []
+  reportForm = new FormGroup({
+    periodo: new FormControl('Septiembre-Diciembre', [Validators.required]),
+    ano: new FormControl(new Date().getFullYear(), [Validators.required])
+  })
+  pruebas: PruebaExperimento[] = []
+  date: any
+
   constructor(public dialogRef: MatDialogRef<ReportDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any, public pServ: PruebaService) {
+    this.date = new Date().getFullYear()
 
     pServ.getAllPruebasByUser(data.userId).subscribe(pe => {
       this.pruebas = pe.data
@@ -129,6 +132,11 @@ export class ReportDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  filtra(periodo: string, ano: string) {
+    this.pruebas = this.pruebas.filter(r => ano == r.periodo?.substring(0, 4) && periodo == r.periodo?.substring(5, r.periodo.length))
+  }
+
 
   @ViewChild('pdfTable', { read: ElementRef }) pdfTable!: ElementRef;
   toPDF() {
@@ -142,7 +150,6 @@ export class ReportDialog {
       var img = canvas.toDataURL("image/PNG");
       var doc = new jsPDF('l', 'mm', 'a4', true);
 
-      // Add image Canvas to PDF
       const bufferX = 5;
       const bufferY = 5;
       const imgProps = (<any>doc).getImageProperties(img);

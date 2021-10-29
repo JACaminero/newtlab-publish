@@ -1,6 +1,27 @@
-<!-- header -->
+<form class="container" [formGroup]="reportForm">
+
+  <mat-form-field style="margin-right: 10px;">
+    <mat-select class="dropdown" style="font-size:12px; margin-right: 10px;" formControlName="periodo" placeholder="Periodo">
+      <mat-option value="Septiembre-Diciembre">Septiembre-Diciembre</mat-option>
+      <mat-option value="Enero-Abril">Enero-Abril</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field style="margin-right: 10px;" appearance="outline">
+    <mat-label class="answer-label">Año</mat-label>
+    <input matInput type="number" [min]="2021" [max]="date" style="margin-right: 10px; text-decoration: none;" formControlName="ano">
+  </mat-form-field>
+  
+  <input class="btn btn-info" [disabled]="reportForm.invalid" style="width: 15%; margin-right: 10px; margin-bottom: 10px; height: 50px;"
+    type="submit" (click)="filtra(reportForm.controls.periodo.value, reportForm.controls.ano.value)" value="Filtrar" />
+
+  <input class="btn btn-info" (click)="toPDF()" style="width: 15%; margin-bottom: 10px; height: 50px;" type="button"
+    value="Generar PDF" />
+
+</form>
+
 <div id="pdfTable" #pdfTable>
-  <div style="background-color: #501080;" class="d-flex header flex-row justify-content-between">
+  <div style="background-color: #501080; padding: 10px" class="d-flex header flex-row justify-content-between">
     <h2>
       Reporte de Calificaciones: {{data.name}}<br />
       Matricula: {{data.matricula}}<br />
@@ -12,7 +33,7 @@
       <div class="p-2 test">Prueba</div>
     </div>
     <div class="d-flex flex-column">
-      <div class="p-2 grade">Calificación Obtenida</div>
+      <div class="p-2 grade">Calificación Obtenida / Total</div>
     </div>
     <div class="d-flex flex-column">
       <div class="p-2 date">Fecha Tomado</div>
@@ -21,26 +42,25 @@
       <div class="p-2 grade">Periodo</div>
     </div>
   </div>
-  <span *ngIf="pruebas?.length == 0 ">Este estudiante no ha completado prueba.</span>
+  
+  <span *ngIf="pruebas?.length == 0 ">Este estudiante no ha completado ninguna prueba en el periodo y año escogido.</span>
+
   <div *ngFor="let i of pruebas" class="d-flex grade-body flex-row justify-content-between">
     <div class="d-flex flex-column justify-content-center">
       <div class="p-2 test">{{i.titulo}}</div>
     </div>
     <div class="d-flex flex-column justify-content-center">
-      <div class="p-2 grade">{{i.calificacionObtenida}} pts.</div>
+      <div class="p-2 grade">{{i.calificacionObtenida}}   / {{ i.calificacionTotal }} pts.</div>
     </div>
     <div class="d-flex flex-column justify-content-center">
       <div class="p-2 date">{{i.fechaTomado}} </div>
     </div>
     <div class="d-flex flex-column justify-content-center">
-      <div class="p-2 date">2021 {{i.periodo}}</div>
+      <div class="p-2 date">{{i.periodo}}</div>
     </div>
   </div>
+
 </div>
-
-<input class="btn btn-info" (click)="toPDF()" style="width: 15%; margin-bottom: 10px; height: 50px;"
-  type="button" value="Generar PDF" />
-
 <style>
   .header {
     background-color: #6610f2;
@@ -59,10 +79,17 @@
 
   .grade {
     text-align: end;
-    width: 132px;
+    width: 182px;
   }
 
   .grade-body {
     border-bottom: 0.5px solid #ccc;
+  }
+
+  .container {
+    border: 0.5px black solid;
+    border-radius: 3px;
+    padding: 5px;
+    margin-bottom: 5px;
   }
 </style>
