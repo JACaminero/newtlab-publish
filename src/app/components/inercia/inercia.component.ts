@@ -51,16 +51,13 @@ export class InerciaComponent implements OnInit {
         p.fill(0);
         p.background(255);
         this.timer = t;
-
-        
+   
         p.stroke(0);
         p.fill(151, 127, 215);
-        // p.rect(100, 5, 110, 5);
         p.text("Bloque 1", 100, 20)
         
         p.stroke(0);
         p.fill(156, 207, 231);
-        // p.rect(100, 35, 10, 10);
         p.text("Bloque 2", 100, 45);
        
         p.fill(0, 0, 0);
@@ -100,7 +97,6 @@ export class InerciaComponent implements OnInit {
           block2.update();
         }
 
-
         p.stroke(0);
         p.fill(block1.r, block1.g, block1.b);
         const x = p.constrain(block1.x, block1.xConstraint, block1.width)
@@ -110,7 +106,6 @@ export class InerciaComponent implements OnInit {
         p.fill(block2.r, block2.g, block2.b);
         const y = p.constrain(block2.x, block2.xConstraint, block2.width)
         p.rect(y, block2.y, block2.w, block2.w);
-
 
         if (v1 != this.v1Input / timeSteps) {
           block1.v = this.v1Input / timeSteps;

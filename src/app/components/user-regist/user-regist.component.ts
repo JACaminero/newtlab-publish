@@ -16,15 +16,16 @@ export class UserRegistComponent {
     lastName1: new FormControl('', [Validators.maxLength(30), Validators.required]),
     lastName2: new FormControl('', [Validators.maxLength(30), Validators.required]),
     birth: new FormControl('', [Validators.required]),
-    cedula: new FormControl('', [
-      Validators.required, Validators.pattern(/^[0-9]{3}-?[0-9]{7}-?[0-9]{1}$/),Validators.maxLength(11), Validators.minLength(11)
+    cedula: new FormControl('N/A', [
+      Validators.required, Validators.pattern(/^[0-9]{3}-?[0-9]{7}-?[0-9]{1}$/), Validators.maxLength(11), Validators.minLength(11)
     ]),
     pass: new FormControl('', [Validators.required, Validators.maxLength(11)]),
     secondPass: new FormControl('', [Validators.required, Validators.maxLength(12)]),
     phone: new FormControl('', [Validators.required]),
     role: new FormControl('Estudiante', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    grado: new FormControl('Primer Grado de Secundaria', [Validators.required])
+    grado: new FormControl('Primer Grado de Secundaria', [Validators.required]),
+    seccion: new FormControl('A', [Validators.required])
   });
   
   error?: string
@@ -37,8 +38,12 @@ export class UserRegistComponent {
   }
 
   registrar() {
+    if (this.userForm.controls.role.value == 'Estudiante') {
+      this.userForm.controls.cedula.clearValidators();
+      this.userForm.controls.cedula.updateValueAndValidity(); 
+    }
     if (this.userForm.invalid) {
-      this.error = 'Han ocurrido problemas con la informacion ingresa'
+      this.error = 'Han ocurrido problemas, verifique la informacion ingresa'
       return;
     }
     if (this.userForm.controls.pass.value != this.userForm.controls.secondPass.value) {
@@ -57,6 +62,7 @@ export class UserRegistComponent {
     u.birth = this.userForm.controls.birth.value;
     u.role = this.userForm.controls.role.value;
     u.grado = this.userForm.controls.grado.value
+    u.seccion = this.userForm.controls.seccion.value
 
     this.uss.forEach(us => {
       if (us.username == u.username) {

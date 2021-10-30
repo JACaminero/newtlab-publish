@@ -21,7 +21,8 @@ export class UserModifComponent implements OnInit {
     ]),
     phone: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    grado: new FormControl('', [Validators.required])
+    grado: new FormControl('', [Validators.required]),
+    seccion: new FormControl('A', [Validators.required])
   });
 
   uss: User[] = []
@@ -44,7 +45,8 @@ export class UserModifComponent implements OnInit {
         cedula: this.current.cedula,
         phone: this.current.phone,
         email: this.current.username,
-        grado: this.current.grado
+        grado: this.current.grado,
+        seccion: this.current.seccion
       })
     });
   }
@@ -64,6 +66,7 @@ export class UserModifComponent implements OnInit {
     this.current.phone = this.userForm.controls.phone.value;
     this.current.birth = this.userForm.controls.birth.value  == {} ? this.current.birth : this.userForm.controls.birth.value;
     this.current.grado = this.userForm.controls.grado.value;
+    this.current.seccion = this.userForm.controls.seccion.value;
 
     this.uss.forEach(us => {
       if (us.username == this.current.username) {

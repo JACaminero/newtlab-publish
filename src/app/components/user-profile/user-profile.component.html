@@ -54,15 +54,15 @@
         </div>
         <div *ngIf="user?.role == 'Estudiante'" class="row user-info">
           <div class="col-md-6">
-            <label>Grado</label>
+            <label>Grado / Seccion</label>
           </div>
           <div class="col-md-6">
-            <p>{{ user?.grado }}</p>
+            <p>{{ user?.grado }} / {{ user?.seccion }} </p>
           </div>
         </div>
       </div>
+      <hr />
       <app-show-prueba *ngIf="user?.role == 'Estudiante'"></app-show-prueba>
-
     </div>
   </div>
 

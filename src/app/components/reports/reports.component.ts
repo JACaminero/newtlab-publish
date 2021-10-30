@@ -38,7 +38,8 @@ export class ReportsComponent implements OnInit {
             userId: user.userId,
             calificacion: 0,
             matricula: user.matricula,
-            grado: user.grado
+            grado: user.grado,
+            seccion: user.seccion
           })
           this.pServ.getAllPruebasByUser(user.userId).subscribe(c => {
             let pe = <PruebaExperimento[]>c.data
@@ -61,6 +62,7 @@ export class ReportsComponent implements OnInit {
             { field: "matricula", headerText: "Matricula", width: 200 },
             { field: "email", headerText: "E-mail", width: 200 },
             { field: "grado", headerText: "Grado", width: 200 },
+            { field: "seccion", headerText: "Sección", width: 200 },
             { field: "calificacion", headerText: "Calificacion Acumulada en periodo", width: 300 },
           ],
           height: 315,

@@ -1,6 +1,6 @@
 <div class="container">
-
-  <form [formGroup]="form" *ngIf="user?.role == 'Profesor'" (ngSubmit)="onSubmit()" class="form-con border border-light ">
+  <form [formGroup]="form" *ngIf="user?.role == 'Profesor'" (ngSubmit)="onSubmit()"
+    class="form-con border border-light ">
     <p class="h4 mb-4">Crear banco de pregunta</p>
     <div class="form-row mb-4">
       <div class="col">
@@ -64,24 +64,16 @@
                 </td>
                 <td>
                   <span class="text-muted">{{bp.publicado ? 'Publicado' : 'No publicado'}}</span><br />
-                  <!-- <span class="text-muted">{{bp.isOn ? 'Habilitado' : 'Deshabilitado'}}</span><br /> -->
                 </td>
                 <td>
                   <button type="button" [routerLink]="['/preguntas', bp.bancoPreguntaId]"
                     [disabled]="bp.userId != user?.id" class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
                     <i class="fa fa-edit"></i>
                   </button>
-                  <!-- <button type="button" *ngIf="bp.isOn" (click)="onDelete(bp.bancoPreguntaId)"
-                    class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
-                    <i class="fa fa-trash"></i>
-                  </button> -->
                   <button type="button" *ngIf="bp.userId != user?.id" [routerLink]="['/preguntas', bp.bancoPreguntaId]"
                     class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
                     <i i-bs name="eye"></i>
-                  </button> 
-                  <!-- <button type="button" class="ml btn btn-outline-info btn-circle btn-lg btn-circle">
-                    <i class="fa fa-repeat"></i>
-                  </button>  -->
+                  </button>
                 </td>
               </tr>
             </tbody>

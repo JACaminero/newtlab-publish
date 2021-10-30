@@ -26,10 +26,11 @@ export class UserService {
         LastName1: u.lastName1,
         LastName2: u.lastName2,
         Cedula: u.cedula,
-        Phone: u.phone,
+        Phone: u.phone.toString().concat('.'),
         Nacimiento: u.birth,
         Role: { RoleId: 0, Description: u.role },
-        Grado: u.grado
+        Grado: u.grado,
+        Seccion: u.seccion
       })
   }
 
@@ -43,9 +44,11 @@ export class UserService {
         LastName1: u.lastName1,
         LastName2: u.lastName2,
         Cedula: u.cedula,
-        Phone: u.phone,
+        Phone: u.phone.toString().concat('.'),
         Nacimiento: u.birth,
-        role: {id:1, descripcion: 1}
+        role: {id:1, descripcion: 1},
+        Grado: u.grado,
+        Seccion: u.seccion
       });
   }
 

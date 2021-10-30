@@ -27,12 +27,13 @@ export class BancoPregComponent implements OnInit {
     limit: new FormControl('', [Validators.required]),
     tituloPublic: new FormControl('', [Validators.required]),
     descripcion: new FormControl('', [Validators.required]),
-    instruccion: new FormControl('', [Validators.required])
+    instruccion: new FormControl('', [Validators.required]),
+    grado: new FormControl('Primer Grado de Secundaria', [Validators.required]),
   })
 
   questionForm = new FormGroup({
     description: new FormControl('', [Validators.maxLength(120), Validators.required]),
-    punt: new FormControl(1, [Validators.required]),
+    punt: new FormControl(0, [Validators.required]),
     answer1: new FormControl('', [Validators.maxLength(50), Validators.required]),
     answer2: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     answer3: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -70,9 +71,14 @@ export class BancoPregComponent implements OnInit {
 
   onSubmit() {
     if (this.bp.publicado) {
-      alert('No puede modificar un banco de preguntas mientras esta publicado')
+      alert('No puede modificar un banco de preguntas mientras esta publicado.')
       return
     }
+    if (this.questionForm.controls.punt.value < 0) {
+      alert('Debe asignar una puntuacion a esta pregunta.')
+      return
+    }
+
     let a1 = new Respuesta(this.questionForm.controls.answer1.value)
     let a2 = new Respuesta(this.questionForm.controls.answer2.value)
     let a3 = new Respuesta(this.questionForm.controls.answer3.value)
@@ -103,8 +109,7 @@ export class BancoPregComponent implements OnInit {
     p.bancoPreguntaId = <number>this.id
     p.tp = this.questionForm.controls.selectedType.value
 
-    this.bpService.insertPreg(p).subscribe();
-    window.location.reload()
+    this.bpService.insertPreg(p).subscribe(() => window.location.reload());
   }
 
   delete(id?: number) {
@@ -144,20 +149,20 @@ export class BancoPregComponent implements OnInit {
 
     this.pServ.getAll().subscribe(prueb => {
       let pruebas: PruebaExperimento[] = prueb.data
-      
+
       pruebas.forEach(e => {
         if (e.titulo?.trim() == this.pruebaForm.controls.tituloPublic.value) {
           alert("Ya existe una prueba con este titulo. Por favor escoja un titulo de prueba diferente")
         }
-    })
-    let limit = new PublicarVM()
-    limit.limit = this.pruebaForm.controls.limit.value;
-    limit.instruccion = <string>this.pruebaForm.controls.instruccion.value;
-    limit.descripcion = <string>this.pruebaForm.controls.descripcion.value;
+      })
+      let limit = new PublicarVM()
+      limit.limit = this.pruebaForm.controls.limit.value;
+      limit.instruccion = <string>this.pruebaForm.controls.instruccion.value;
+      limit.descripcion = <string>this.pruebaForm.controls.descripcion.value;
 
-    this.bpService.publicar(id, limit, this.pruebaForm.controls.tituloPublic.value)
-      .subscribe(() => window.location.reload())
-  })
+      this.bpService.publicar(id, limit, this.pruebaForm.controls.tituloPublic.value)
+        .subscribe(() => window.location.reload())
+    })
   }
 
   quillConfiguration = {

@@ -1,19 +1,29 @@
 <div *ngIf="bp.userId == user?.id">
   <form class="banco" [formGroup]="pruebaForm">
     <div class="row mb-2">
-      <div class="col-md-5">
+      <div class="col-md-4">
         <h1 style="margin: 0;"><strong>Banco de preguntas: {{bp.tema}}</strong></h1>
         <span>Estado: {{bp.publicado ? 'Publicado' : 'No publicado'}}</span>
       </div>
-      <div class="col-md-7 justify-content-end" *ngIf="!bp.publicado">
-        <mat-form-field style="font-size: 12px; margin-right:5px" appearance="outline">
+      <div class="col-md-8 justify-content-end" *ngIf="!bp.publicado">
+        <mat-form-field style="font-size: 11px; margin-right:5px" appearance="outline">
           <mat-label class="answer-label">Titulo Publicacion</mat-label>
-          <input matInput type="text" style="font-size: 12px;" value="{{bp.tema}}" formControlName="tituloPublic">
+          <input matInput type="text" style="font-size: 11px;" value="{{bp.tema}}" formControlName="tituloPublic">
         </mat-form-field>
-        <mat-form-field style="font-size: 12px; margin-right:5px" appearance="outline">
+        <mat-form-field style="font-size: 11px; margin-right:5px" appearance="outline">
           <mat-label class="answer-label">Fecha Limite</mat-label>
           <input matInput type="date" formControlName="limit" [min]="date">
         </mat-form-field>
+
+        <mat-form-field appearance="outline" style="font-size: 11px; margin: 0 5px">
+          <mat-label>Grado:</mat-label>
+          <select formControlName="grado" matNativeControl>
+            <option value="Primer Grado de Secundaria">Primer Grado de Secundaria</option>
+            <option value="Segundo Grado de Secundaria">Segundo Grado de Secundaria</option>
+            <option value="Tercer Grado de Secundaria">Tercer Grado de Secundaria</option>
+          </select>
+        </mat-form-field>
+
         <button type="button" style="height: 45px;margin-bottom: 9px;" [disabled]="pruebaForm.invalid"
           (click)="publicar(bp.bancoPreguntaId)" class="ml btn btn-outline-info">
           <i i-bs name="plus"></i>Publicar Prueba
@@ -55,23 +65,24 @@
       <div class="h5">
         <h2>Nueva pregunta</h2>
         <hr />
-        <div style="float: right; width: 40%">
-          <mat-label>Tipo de Pregunta:</mat-label>
+        <div style="float: right; width: 30%; margin-top: 10px;">
+          <!-- <mat-label>Tipo de Pregunta:</mat-label>
           <mat-select style="background-color: #EEE;" formControlName="selectedType">
             <mat-option value="Seleccion Multiple">Seleccion Multiple</mat-option>
             <mat-option value="Completa">Completa</mat-option>
-          </mat-select>
+          </mat-select> -->
+          <mat-form-field style="font-size: 12px;" appearance="outline">
+            <mat-label class="answer-label">Puntuacion</mat-label>
+            <input matInput type="number" formControlName="punt" max="10" min="0">
+          </mat-form-field>
         </div>
-        <mat-form-field style="font-size: 12px;" appearance="outline">
-          <mat-label class="answer-label">Puntuacion</mat-label>
-          <input matInput type="number" formControlName="punt" max="10" min="1">
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width" style="margin: 0;" appearance="standard">
-          <mat-label>Pregunta:</mat-label>
-          <textarea formControlName="description" matInput
-            placeholder="Ej. ¿A que velocidad viaje el carro?"></textarea>
-        </mat-form-field>
+        <div style="float: left; width: 70%">
+          <mat-form-field class="example-full-width" style="margin: 0;" appearance="standard">
+            <mat-label>Pregunta:</mat-label>
+            <textarea formControlName="description" matInput
+              placeholder="Ej. ¿A que velocidad viaje el carro?"></textarea>
+          </mat-form-field>
+        </div>
 
         <div *ngIf="questionForm.controls.selectedType.value != '2'">
           <mat-radio-group aria-label="Select an option" formControlName="options">
@@ -118,15 +129,17 @@
 </div>
 
 <div class="row banco-cont justify-content-center">
-  <div class="col-md-6 table-cont" >
+  <div class="col-md-6 table-cont">
     <div *ngIf="bp.userId != user?.id" style="padding: 5px; background-color: white;">
       <h1><strong>Banco de preguntas: {{bp.tema}}</strong></h1>
-      <span>Estado: {{bp.publicado ? 'Publicado' : 'No publicado'}}</span>  
+      <span>Estado: {{bp.publicado ? 'Publicado' : 'No publicado'}}</span>
     </div>
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title text-uppercase mb-0">Preguntas. Calificacion total: {{califTotal}} en preguntas
-          habilitadas </h5>
+        <h5 class="card-title text-uppercase mb-0">
+          Preguntas. Calificacion total: {{califTotal}} en preguntas
+          habilitadas
+        </h5>
       </div>
       <div class="table-responsive">
         <table class="table no-wrap user-table mb-0">

@@ -14,6 +14,7 @@ export class User {
   isOn?: boolean;
   matricula?: string;
   grado?: string;
+  seccion?: string;
 }
 
 export class BancoPreg {
@@ -29,6 +30,7 @@ export class BancoPreg {
   tituloPublicado?: string
   descripcion?: string
   instruccion?: string
+  grado?: string
 }
 
 export class Pregunta {
