@@ -17,6 +17,7 @@ export class BancoPregShowComponent implements OnInit {
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
     exper: new FormControl('g'),
+    grado: new FormControl('Primer Grado de Secundaria', [Validators.required]),
   });
 
   constructor(private bpServ: BancoPregService, private auth: AuthService, private uServ: UserService) {
@@ -50,8 +51,10 @@ export class BancoPregShowComponent implements OnInit {
       default:
         break;
     }
+     
     let gotDamn: User = this.user
-    this.bpServ.insert(this.form.controls.name.value, Object.values(gotDamn)[0], k)
+    this.bpServ.insert(this.form.controls.name.value, Object.values(gotDamn)[0], k,
+    this.form.controls.grado.value)
       .subscribe(() => {
         alert('¡Operacion Exitosa!');
         window.location.reload()

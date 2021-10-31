@@ -15,15 +15,6 @@
           <input matInput type="date" formControlName="limit" [min]="date">
         </mat-form-field>
 
-        <mat-form-field appearance="outline" style="font-size: 11px; margin: 0 5px">
-          <mat-label>Grado:</mat-label>
-          <select formControlName="grado" matNativeControl>
-            <option value="Primer Grado de Secundaria">Primer Grado de Secundaria</option>
-            <option value="Segundo Grado de Secundaria">Segundo Grado de Secundaria</option>
-            <option value="Tercer Grado de Secundaria">Tercer Grado de Secundaria</option>
-          </select>
-        </mat-form-field>
-
         <button type="button" style="height: 45px;margin-bottom: 9px;" [disabled]="pruebaForm.invalid"
           (click)="publicar(bp.bancoPreguntaId)" class="ml btn btn-outline-info">
           <i i-bs name="plus"></i>Publicar Prueba

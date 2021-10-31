@@ -13,6 +13,16 @@
             <option value="a">Accion y Reaccion</option>
           </select>
         </mat-form-field>
+        
+        <mat-form-field appearance="fill" style="margin: 10px 5px">
+          <mat-label>Grado:</mat-label>
+          <select formControlName="grado" matNativeControl>
+            <option value="Primer Grado de Secundaria">Primer Grado de Secundaria</option>
+            <option value="Segundo Grado de Secundaria">Segundo Grado de Secundaria</option>
+            <option value="Tercer Grado de Secundaria">Tercer Grado de Secundaria</option>
+          </select>
+        </mat-form-field>
+
       </div>
       <input [disabled]="form.invalid" class="btn btn-info btn-block" type="submit" value="Crear" />
     </div>
@@ -38,6 +48,9 @@
                   Basado en Experimento
                 </th>
                 <th scope="col" class="border-0 text-uppercase font-medium">
+                  Grado
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
                   Creador
                 </th>
                 <th scope="col" class="border-0 text-uppercase font-medium">
@@ -61,6 +74,9 @@
                 </td>
                 <td>
                   <span class="text-muted">{{bp.username}}</span><br />
+                </td>
+                <td>
+                  <span class="text-muted">{{bp.grado}}</span><br />
                 </td>
                 <td>
                   <span class="text-muted">{{bp.publicado ? 'Publicado' : 'No publicado'}}</span><br />

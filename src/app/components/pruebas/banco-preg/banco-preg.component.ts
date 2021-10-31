@@ -28,7 +28,6 @@ export class BancoPregComponent implements OnInit {
     tituloPublic: new FormControl('', [Validators.required]),
     descripcion: new FormControl('', [Validators.required]),
     instruccion: new FormControl('', [Validators.required]),
-    grado: new FormControl('Primer Grado de Secundaria', [Validators.required]),
   })
 
   questionForm = new FormGroup({

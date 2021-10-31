@@ -21,11 +21,12 @@ export class BancoPregService {
     return this.http.get<Respuesta[]>(`${environment.api}/pregunta/respuestas/${id}`)
   }
 
-  insert(name: string, userId?: number, exp?: number) {
+  insert(name: string, userId?: number, exp?: number, grado?: string) {
     return this.http.post(`${environment.api}/bancopregunta`, {
       Tema: name,
       ExperimentoId: exp,
-      UserId: userId
+      UserId: userId,
+      grado: grado
     })
   }
 
