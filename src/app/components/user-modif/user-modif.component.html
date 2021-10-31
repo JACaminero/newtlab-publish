@@ -12,7 +12,7 @@
 				</select>
 			</mat-form-field>
 
-			<mat-form-field *ngIf="userForm.controls.role.value == 'Estudiante'" appearance="fill" style="margin: 0 20px">
+			<mat-form-field *ngIf="current.role == 'Estudiante'" appearance="fill" style="margin: 0 20px">
 				<mat-label>Sección:</mat-label>
 				<select formControlName="grado" matNativeControl>
 					<option value="A">A</option>
@@ -68,8 +68,9 @@
 			</div>
 			<input type="number" class="form-control" style="appearance: none;" formControlName="phone"
 				placeholder="Telefono" />
-			<div style="text-align: start; margin-left:30px;"><small>Consejo: La fecha se encuentra en formato mes / dia /
-					año.</small></div>
+			<div style="text-align: start; margin-left:30px;"><small>
+				Consejo: La fecha se encuentra en formato mes / dia / año.
+			</small></div>
 		</div>
 
 		<div style="text-align: start" class="col">
@@ -88,6 +89,6 @@
 			<div *ngIf="userForm.controls.email.errors?.email" class="alert alert-danger mt-3 mb-0">Email es invalido
 			</div>
 		</div>
-		<input class="submit btn btn-info my-4 btn-block" [disabled]="userForm.invalid" type="submit" value="Modificar" />
+		<input class="submit btn btn-info my-4 btn-block" type="submit" value="Modificar" />
 	</div>
 </form>
