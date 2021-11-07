@@ -80,10 +80,28 @@
             Creador: {{bp.username}}
           </div>
           <a>
-            <input [formControlName]="bp.tituloPublicado!" 
+            <input [formControlName]="bp.tituloPublicado!"
               [routerLink]="['/experimento', bp.experimento, bp.bancoPreguntaId]" class="btn btn-primary"
               type="button" />
           </a>
+        </a>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="profile-work col-md-5" *ngIf="user?.role != 'Estudiante'"
+    style="background-color: white; margin: 10px 20px; border-radius: 13px">
+    <form [formGroup]="pruebaForm">
+      <p>Pruebas Publicadas</p>
+      <div *ngFor="let bp of bps; let i = index" class="assignment">
+        <a>
+          <div>
+            <span style="font-size: 20px"> {{bp.tituloPublicado}}</span><br />
+            Basado en: {{bp.tema}} <br />
+            Experimento: {{bp.experimento}} <br />
+            Fecha limite: {{bp.fechaLimite}} <br />
+          </div>
         </a>
       </div>
     </form>

@@ -40,13 +40,13 @@ export class BancoPregShowComponent implements OnInit {
     //BULLSHIT
     switch (this.form.controls.exper.value) {
       case 'g':
-        k = 1
+        k = 7
         break;
       case 'i':
-        k = 2
+        k = 8
         break;
       case 'a':
-        k = 4
+        k = 9
         break;
       default:
         break;
