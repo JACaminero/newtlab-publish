@@ -73,3 +73,11 @@ export class PruebaRespuesta {
   preguntaId?: number
   respuestaId?: number
 }
+
+export class Sesion {
+  sesionId?: number
+  grado?: string
+  sesionNombre?: string
+  isOn?: boolean
+}
+

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from 'src/app/models/models';
+import { Sesion, User } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -19,24 +19,33 @@ export class UserRegistComponent {
     cedula: new FormControl('N/A', [
       Validators.required, Validators.pattern(/^[0-9]{3}-?[0-9]{7}-?[0-9]{1}$/), Validators.maxLength(11), Validators.minLength(11)
     ]),
-    pass: new FormControl('', [Validators.required, Validators.maxLength(11)]),
+    pass: new FormControl('', [Validators.required, Validators.maxLength(12)]),
     secondPass: new FormControl('', [Validators.required, Validators.maxLength(12)]),
     phone: new FormControl('', [Validators.required]),
     role: new FormControl('Estudiante', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     grado: new FormControl('Primer Grado de Secundaria', [Validators.required]),
-    seccion: new FormControl('A', [Validators.required])
+    seccion: new FormControl('', [Validators.required])
   });
   
   error?: string
   uss: User[] = []
   user?: User
-
+  ses = new Array<Sesion>()
+  sesOriginal = new Array<Sesion>()
   constructor(private uServ: UserService, private auth: AuthService) {
     uServ.getAll().subscribe(us => this.uss = us)
     uServ.getById(<number>auth.userValue.id).subscribe(u => this.user = u)
+    uServ.getSesion().subscribe(r => {
+      this.ses = r.filter(f => f.grado == this.userForm.controls.grado.value)
+      this.sesOriginal = r
+    })
   }
 
+  filter() {
+    this.ses = this.sesOriginal.filter(f => f.grado == this.userForm.controls.grado.value)
+  }
+  
   registrar() {
     if (this.userForm.controls.role.value == 'Estudiante') {
       this.userForm.controls.cedula.clearValidators();

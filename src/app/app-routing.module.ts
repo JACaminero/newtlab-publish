@@ -17,12 +17,17 @@ import { PruebaCorregirComponent } from './components/prueba-corregir/prueba-cor
 import { InerciaRealComponent } from './components/inercia-real/inercia-real.component';
 import { InerciaComponent } from './components/inercia/inercia.component';
 import { DinamicsComponent } from './components/dinamics/dinamics.component';
+import { ShitComponent } from './components/shit/shit.component';
+import { SesionComponent } from './components/sesion/sesion.component';
 
 const routes: Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'home', component: HomeComponent },
   {
     path: 'reports', canActivate: [AuthGuardService], component: ReportsComponent,
+  },
+  {
+    path: 'irrelevant', canActivate: [AuthGuardService], component: ShitComponent,
   },
   {
     path: 'perfil', canActivate: [AuthGuardService], component: UserProfileComponent,
@@ -57,6 +62,11 @@ const routes: Routes = [
   },
   {
     path: '', canActivate: [AuthGuardService], component: FillerComponent
+  },
+  {
+    path: 'sesion', component: SesionComponent,
+    canActivate: [AuthGuardService],
+    data: { role: ['Admin'] },
   },
   {
     path: 'show-banco', component: BancoPregShowComponent,

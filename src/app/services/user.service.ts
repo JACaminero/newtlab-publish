@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { User } from '.././models/models';
+import { Sesion, User } from '.././models/models';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,22 @@ export class UserService {
 
   getById(id: number) {
     return this.http.get<User>(`${environment.api}/user/${id}`, {});
+  }
+
+  insertSesion(s: Sesion) {
+    return this.http.post<any>(`${environment.api}/user/insert/sesion`, s)
+  }
+
+  getSesion() {
+    return this.http.get<Sesion[]>(`${environment.api}/user/sesion`);
+  }
+
+  onSesion(id?: number) {
+    return this.http.put(`${environment.api}/user/sesion/on/${id}`, {});
+  }
+
+  offSesion(id?: number) {
+    return this.http.put<Sesion>(`${environment.api}/user/sesion/delete/${id}`, {})
   }
 
   insert(u: User) {

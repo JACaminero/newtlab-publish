@@ -18,6 +18,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { eye, plus, check, x, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { SigninComponent } from './components/signin/signin.component';
@@ -40,7 +42,10 @@ import { BancoPregShowComponent } from './components/banco-preg-show/banco-preg-
 import { InerciaComponent } from './components/inercia/inercia.component';
 import { ShowPruebaComponent } from './components/show-prueba/show-prueba.component';
 import { PruebaCorregirComponent } from './components/prueba-corregir/prueba-corregir.component';
-import { InerciaRealComponent } from './components/inercia-real/inercia-real.component'
+import { InerciaRealComponent } from './components/inercia-real/inercia-real.component';
+import { ShitComponent } from './components/shit/shit.component';
+import { SesionComponent } from './components/sesion/sesion.component'
+import {DatePipe} from '@angular/common';
 
 const icons = {
   plus,
@@ -72,6 +77,8 @@ const icons = {
     ShowPruebaComponent,
     PruebaCorregirComponent,
     InerciaRealComponent,
+    ShitComponent,
+    SesionComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,9 +100,12 @@ const icons = {
     MatListModule,
     GridModule,
     MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     QuillModule.forRoot()
   ],
-  providers: [PageService, SortService, FilterService, GroupService],
-  bootstrap: [AppComponent],
+  providers: [PageService, DatePipe, SortService, FilterService, GroupService],
+  bootstrap: [AppComponent]
+
 })
 export class AppModule { }

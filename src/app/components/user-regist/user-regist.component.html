@@ -13,18 +13,16 @@
       </mat-form-field>
       <mat-form-field *ngIf="userForm.controls.role.value == 'Estudiante'" appearance="fill" style="margin: 0 20px">
         <mat-label>Grado:</mat-label>
-        <select formControlName="grado" matNativeControl>
+        <select (change)="filter()" formControlName="grado" matNativeControl>
           <option value="Primer Grado de Secundaria">Primer Grado de Secundaria</option>
           <option value="Segundo Grado de Secundaria">Segundo Grado de Secundaria</option>
           <option value="Tercer Grado de Secundaria">Tercer Grado de Secundaria</option>
         </select>
       </mat-form-field>
       <mat-form-field *ngIf="userForm.controls.role.value == 'Estudiante'" appearance="fill" style="margin: 0 20px">
-        <mat-label>Sección:</mat-label>
+        <mat-label>Sesión:</mat-label>
         <select formControlName="seccion" matNativeControl>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
+          <option *ngFor="let i of ses" value="i.sesionNombre">{{ i.sesionNombre }}</option>
         </select>
       </mat-form-field>
     </div>

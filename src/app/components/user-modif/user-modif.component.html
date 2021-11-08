@@ -13,14 +13,12 @@
 			</mat-form-field>
 
 			<mat-form-field *ngIf="current.role == 'Estudiante'" appearance="fill" style="margin: 0 20px">
-				<mat-label>Sección:</mat-label>
-				<select formControlName="grado" matNativeControl>
-					<option value="A">A</option>
-					<option value="B">B</option>
-					<option value="C">C</option>
+				<mat-label>Sesión:</mat-label>
+				<select formControlName="seccion" matNativeControl>
+					<option *ngFor="let i of ses" value="i.sesionNombre">{{ i.sesionNombre }}</option>
 				</select>
 			</mat-form-field>
-			
+
 		</div>
 
 		<div style="text-align: start" class="col">
@@ -66,20 +64,25 @@
 			<div style="margin-left: 30px;">
 				<mat-label>Telefono / Celular</mat-label>
 			</div>
-			<input type="number" class="form-control" style="appearance: none;" formControlName="phone"
+			<input type="text" class="form-control" style="appearance: none;" formControlName="phone"
 				placeholder="Telefono" />
 			<div style="text-align: start; margin-left:30px;"><small>
-				Consejo: La fecha se encuentra en formato mes / dia / año.
-			</small></div>
+					Consejo: La fecha se encuentra en formato mes / dia / año.
+				</small></div>
 		</div>
-
+<!-- 
 		<div style="text-align: start" class="col">
 			<div style="margin-left: 30px;">
 				<mat-label>Fecha de Nacimiento Actual: {{current.birth}}</mat-label>
 			</div>
-			<input type="date" class="form-control" [value]="10/10/2020" min="1989-12-31" max="2017-01-01"
-				formControlName="birth" />
-		</div>
+			<input type="date" class="form-control" [formControl]="date" formControlName="birth" />
+		</div> -->
+		<mat-form-field style="text-align: start" class="col" appearance="fill">
+			<mat-label>Fecha de Nacimiento</mat-label>
+			<input matInput [matDatepicker]="picker2" min="1989-12-31" max="2010-01-01" [formControl]="date">
+			<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+			<mat-datepicker #picker2></mat-datepicker>
+		</mat-form-field>
 
 		<div style="text-align: start" class="col">
 			<div style="margin-left: 30px;">
@@ -90,5 +93,36 @@
 			</div>
 		</div>
 		<input class="submit btn btn-info my-4 btn-block" type="submit" value="Modificar" />
+		<div>
+			<input class="submit btn btn-info my-4 btn-block" (click)="reestablece()" type="button" value="Reestablecer contraseña" />
+		</div>
+	</div>
+
+	<div *ngIf="reestable" class="card">
+		<div class="card-body">
+			<h1 class="card-title">Reiniciar Contraseña</h1>
+
+			<form [formGroup]="resetForm" (ngSubmit)="resetPassword()">
+				<div class="form-group row">
+					<label for="password" class="col-form-label col-sm-2">Nueva Contraseña:</label>
+					<div class="col-md-5">
+						<input type="password" id="password" formControlName="new" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="confirm" class="col-form-label col-sm-2">Confirmar Contraseña:</label>
+					<div class="col-md-5">
+						<input type="password" id="confirm" formControlName="confirm" class="form-control" />
+					</div>
+				</div>
+				<br>
+				<div class="form-group row">
+					<div class="col-md-1">
+						<button type="submit" class="btn btn-info" [disabled]="!resetForm.valid">Reestablecer</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
 	</div>
 </form>
