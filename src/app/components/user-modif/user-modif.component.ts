@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute } from '@angular/router';
-import { Sesion, User } from 'src/app/models/models';
+import { History, Sesion, User } from 'src/app/models/models';
 import { DatePipe } from '@angular/common';
+import { BancoPregService } from 'src/app/services/banco-preg.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-user-modif',
@@ -39,7 +41,7 @@ export class UserModifComponent implements OnInit {
   sesOriginal = new Array<Sesion>()
   reestable?: boolean
 
-  constructor(private uServ: UserService, private datePipe: DatePipe, private route: ActivatedRoute) {
+  constructor(private uServ: UserService, private bpServ: BancoPregService, private auth: AuthService, private datePipe: DatePipe, private route: ActivatedRoute) {
     uServ.getAll().subscribe(us => this.uss = us)
   }
 
@@ -81,8 +83,8 @@ export class UserModifComponent implements OnInit {
   reestablece() {
     this.reestable = true;
   }
-  modificar() {
 
+  modificar() {
     if (this.current.role == 'Estudiante') {
       this.userForm.controls.cedula.clearValidators();
       this.userForm.controls.cedula.updateValueAndValidity();
@@ -91,12 +93,16 @@ export class UserModifComponent implements OnInit {
       alert('Han ocurrido problemas con la informacion ingresa')
       return;
     }
-    console.log(this.userForm.controls.birth.value)
+    if (this.userForm.controls.role.value == 'Profesor' || this.userForm.controls.role.value == 'Admin') {
+      this.userForm.controls.grado.setValue("");
+      this.userForm.controls.seccion.setValue("");
+    }
 
     this.current.name = this.userForm.controls.firstName.value;
     this.current.lastName1 = this.userForm.controls.lastName1.value;
     this.current.lastName2 = this.userForm.controls.lastName2.value;
     this.current.username = this.userForm.controls.email.value;
+    this.current.username = this.current.username.toLowerCase()
     this.current.cedula = this.userForm.controls.cedula.value;
     this.current.phone = this.userForm.controls.phone.value;
     this.current.birth = this.userForm.controls.birth.value == {} ? this.datePipe.transform(this.current.birth, "yyyy-MM-dd") : this.userForm.controls.birth.value;
@@ -112,20 +118,34 @@ export class UserModifComponent implements OnInit {
 
     this.uServ.modify(this.current).subscribe(resp => {
       alert(resp.message)
+      
+      let h = new History()
+      h.username = `El usuario ${this.auth.userValue.username}, con cedula: ${this.auth.userValue.cedula}`
+      h.what = `Ha modificado el usuario ${this.current.username}`
+      this.bpServ.insertHist(h).subscribe()
+
+      window.location.reload()
     })
   }
 
   resetPassword() {
 
     if (this.resetForm.controls.new.value != this.resetForm.controls.confirm.value) {
-      alert('Las contraseñas no son iguales')
+      alert('Las contraseñas no son iguales.')
       return;
     }
     this.current.password = this.resetForm.controls.new.value
 
     this.uServ.modify(this.current).subscribe(resp => {
       alert('Operacion exitosa')
+      
+      let h = new History()
+      h.username = `El usuario ${this.auth.userValue.username}, con cedula: ${this.auth.userValue.cedula}`
+      h.what = `Ha cambiado la contraseña del usuario ${this.current.username}`
+      this.bpServ.insertHist(h).subscribe()
+
       window.location.reload()
+
     })
   }
 }

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Sesion, User } from 'src/app/models/models';
+import { History, Sesion, User } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { BancoPregService } from 'src/app/services/banco-preg.service';
 
 @Component({
   selector: 'app-user-regist',
@@ -25,7 +26,7 @@ export class UserRegistComponent {
     role: new FormControl('Estudiante', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     grado: new FormControl('Primer Grado de Secundaria', [Validators.required]),
-    seccion: new FormControl('', [Validators.required])
+    seccion: new FormControl('A', [Validators.required])
   });
   
   error?: string
@@ -33,7 +34,8 @@ export class UserRegistComponent {
   user?: User
   ses = new Array<Sesion>()
   sesOriginal = new Array<Sesion>()
-  constructor(private uServ: UserService, private auth: AuthService) {
+
+  constructor(private uServ: UserService, private bpServ: BancoPregService, private auth: AuthService) {
     uServ.getAll().subscribe(us => this.uss = us)
     uServ.getById(<number>auth.userValue.id).subscribe(u => this.user = u)
     uServ.getSesion().subscribe(r => {
@@ -51,13 +53,17 @@ export class UserRegistComponent {
       this.userForm.controls.cedula.clearValidators();
       this.userForm.controls.cedula.updateValueAndValidity(); 
     }
+    if (this.userForm.controls.pass.value != this.userForm.controls.secondPass.value) {
+      this.error = 'Las contraseñas no son iguales';
+      return;
+    }
     if (this.userForm.invalid) {
       this.error = 'Han ocurrido problemas, verifique la informacion ingresa'
       return;
     }
-    if (this.userForm.controls.pass.value != this.userForm.controls.secondPass.value) {
-      this.error = 'Las contraseñas no son iguales';
-      return;
+    if (this.userForm.controls.role.value == 'Profesor' || this.userForm.controls.role.value == 'Admin') {
+      this.userForm.controls.grado.setValue("");
+      this.userForm.controls.seccion.setValue("");
     }
 
     let u = new User();
@@ -65,6 +71,7 @@ export class UserRegistComponent {
     u.lastName1 = this.userForm.controls.lastName1.value;
     u.lastName2 = this.userForm.controls.lastName2.value;
     u.username = this.userForm.controls.email.value;
+    u.username = u.username.toLowerCase()
     u.cedula = this.userForm.controls.cedula.value;
     u.password = this.userForm.controls.pass.value;
     u.phone = this.userForm.controls.phone.value;
@@ -79,7 +86,13 @@ export class UserRegistComponent {
         return;
       }
     })
-    this.uServ.insert(u).subscribe(() => alert(`Operacion exitosa`), error => console.log(error));
+    this.uServ.insert(u).subscribe(() => {
+      let h = new History()
+      h.username = `El usuario ${this.auth.userValue.username}, con cedula: ${this.auth.userValue.cedula}`
+      h.what = `Ha insertado el usuario ${u.username}`
+      this.bpServ.insertHist(h).subscribe()
+      alert(`Operacion exitosa`)
+  })
 
   }
 }

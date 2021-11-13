@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BancoPreg, User } from 'src/app/models/models';
+import { BancoPreg, History, User } from 'src/app/models/models';
 import { BancoPregService } from 'src/app/services/banco-preg.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
@@ -21,7 +21,7 @@ export class BancoPregShowComponent implements OnInit {
   });
 
   constructor(private bpServ: BancoPregService, private auth: AuthService, private uServ: UserService) {
-    this.auth.user.subscribe(x => this.user = x);    
+    this.auth.user.subscribe(x => this.user = x);
   }
 
   ngOnInit(): void {
@@ -57,20 +57,45 @@ export class BancoPregShowComponent implements OnInit {
       default:
         break;
     }
-     
+
     let gotDamn: User = this.user
     this.bpServ.insert(this.form.controls.name.value, Object.values(gotDamn)[0], k, this.form.controls.grado.value)
       .subscribe(() => {
         alert('¡Operacion Exitosa!');
+
+        let h = new History()
+        h.username = `El usuario ${this.auth.userValue.username}, con cedula: ${this.auth.userValue.cedula}`
+        h.what = `Ha insertado el banco de preguntas: ${this.form.controls.name.value}`
+        this.bpServ.insertHist(h).subscribe()
+
         window.location.reload()
       });
   }
 
   onDelete(id?: number) {
-    this.bpServ.deleteBanco(id).subscribe(() => window.location.reload());
+    this.bpServ.deleteBanco(id).subscribe(() => {
+      
+      let h = new History()
+      h.username = `El usuario ${this.auth.userValue.username}, con cedula: ${this.auth.userValue.cedula}`
+      h.what = `Ha deshabilitado el banco de preguntas: ${this.form.controls.name.value}`
+      this.bpServ.insertHist(h).subscribe()
+      
+      window.location.reload()
+    
+    });
   }
 
   on(id?: number) {
-    this.bpServ.onBanco(id).subscribe(() => window.location.reload());
+
+    this.bpServ.onBanco(id).subscribe(() => {
+    
+      let h = new History()
+      h.username = `El usuario ${this.auth.userValue.username}, con cedula: ${this.auth.userValue.cedula}`
+      h.what = `Ha habilitado el banco de preguntas: ${this.form.controls.name.value}`
+      this.bpServ.insertHist(h).subscribe()
+
+      window.location.reload()
+      
+    });
   }
 }

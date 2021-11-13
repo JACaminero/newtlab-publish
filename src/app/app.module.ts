@@ -46,6 +46,7 @@ import { InerciaRealComponent } from './components/inercia-real/inercia-real.com
 import { ShitComponent } from './components/shit/shit.component';
 import { SesionComponent } from './components/sesion/sesion.component'
 import {DatePipe} from '@angular/common';
+import { HistoryComponent } from './components/history/history.component';
 
 const icons = {
   plus,
@@ -79,6 +80,7 @@ const icons = {
     InerciaRealComponent,
     ShitComponent,
     SesionComponent,
+    HistoryComponent,
   ],
   imports: [
     BrowserModule,

@@ -19,6 +19,7 @@ import { InerciaComponent } from './components/inercia/inercia.component';
 import { DinamicsComponent } from './components/dinamics/dinamics.component';
 import { ShitComponent } from './components/shit/shit.component';
 import { SesionComponent } from './components/sesion/sesion.component';
+import { HistoryComponent } from './components/history/history.component';
 
 const routes: Routes = [
   { path: 'signin', component: SigninComponent },
@@ -46,6 +47,11 @@ const routes: Routes = [
     path: 'registro-usuarios', component: UserRegistComponent,
     canActivate: [AuthGuardService],
     data: { role: ['Profesor', 'Admin'] },
+  },
+  {
+    path: 'historico', component: HistoryComponent,
+    canActivate: [AuthGuardService],
+    data: { role: ['Admin'] },
   },
   {
     path: 'usuarios', component: UsersComponent,

@@ -1,0 +1,12 @@
+<div class="header row" *ngIf="user">
+    <div class="d-flex flex-column justify-content-center col-md-12">
+        <h1 style="margin-left: 20px;"><strong>
+            Historico de acciones
+          </strong>
+        </h1>
+    </div>
+  
+    <div id="pdfTable" #pdfTable >
+      <ejs-grid id="grid" [allowSorting]='true' [allowFiltering]='true'></ejs-grid>
+    </div>
+  </div>

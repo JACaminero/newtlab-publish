@@ -74,10 +74,16 @@ export class PruebaRespuesta {
   respuestaId?: number
 }
 
+export class History {
+  historyId?: number
+  username?: string
+  what?: string
+  fecha?: Date
+}
+
 export class Sesion {
   sesionId?: number
   grado?: string
   sesionNombre?: string
   isOn?: boolean
 }
-

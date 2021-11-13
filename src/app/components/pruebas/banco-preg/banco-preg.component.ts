@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { BancoPreg, Pregunta, PruebaExperimento, Respuesta, User } from 'src/app/models/models';
+import { BancoPreg, History, Pregunta, PruebaExperimento, Respuesta, User } from 'src/app/models/models';
 import { BancoPregService, PublicarVM } from 'src/app/services/banco-preg.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { QuillModule } from 'ngx-quill'
@@ -108,7 +108,15 @@ export class BancoPregComponent implements OnInit {
     p.bancoPreguntaId = <number>this.id
     p.tp = this.questionForm.controls.selectedType.value
 
-    this.bpService.insertPreg(p).subscribe(() => window.location.reload());
+    this.bpService.insertPreg(p).subscribe(() => {
+
+      let h = new History()
+      h.username = `El usuario ${this.auth.userValue.username}, con cedula: ${this.auth.userValue.cedula}`
+      h.what = `Ha insertado una pregunta con titulo ${p.descripcion} al banco de preguntas: ${this.bp.tema}`
+      this.bpService.insertHist(h).subscribe()
+
+      window.location.reload()
+    });
   }
 
   delete(id?: number) {
@@ -116,6 +124,12 @@ export class BancoPregComponent implements OnInit {
       alert('No puede modificar un banco de preguntas mientras esta publicado')
       return
     }
+
+    let h = new History()
+    h.username = `El usuario ${this.auth.userValue.username}, con cedula: ${this.auth.userValue.cedula}`
+    h.what = `Ha deshabilitado una pregunta en el banco de preguntas: ${this.bp.tema}`
+    this.bpService.insertHist(h).subscribe()
+
     this.bpService.deletePregunta(id).subscribe(() => window.location.reload())
   }
 
@@ -129,7 +143,14 @@ export class BancoPregComponent implements OnInit {
   }
 
   deshabilitar(id?: number) {
-    this.bpService.deshabilitar(id).subscribe(() => window.location.reload())
+    this.bpService.deshabilitar(id).subscribe(() => {
+      window.location.reload()
+
+      let h = new History()
+      h.username = `El usuario ${this.auth.userValue.username}, con cedula: ${this.auth.userValue.cedula}`
+      h.what = `Ha deshabilitado el banco de preguntas: ${this.bp.tema}`
+      this.bpService.insertHist(h).subscribe()
+    })
   }
 
   on(id?: number) {
@@ -137,7 +158,16 @@ export class BancoPregComponent implements OnInit {
       alert('No puede modificar un banco de preguntas mientras esta publicado')
       return
     }
-    this.bpService.habilitarPregunta(id).subscribe(() => window.location.reload())
+
+    this.bpService.habilitarPregunta(id).subscribe(() => {
+    
+      let h = new History()
+      h.username = `El usuario ${this.auth.userValue.username}, con cedula: ${this.auth.userValue.cedula}`
+      h.what = `Ha habilitado una pregunta en el banco de preguntas: ${this.bp.tema}`
+      this.bpService.insertHist(h).subscribe()
+      
+      window.location.reload()
+    })
   }
 
   publicar(id?: number) {
@@ -160,7 +190,15 @@ export class BancoPregComponent implements OnInit {
       limit.descripcion = <string>this.pruebaForm.controls.descripcion.value;
 
       this.bpService.publicar(id, limit, this.pruebaForm.controls.tituloPublic.value)
-        .subscribe(() => window.location.reload())
+        .subscribe(() => {
+
+          let h = new History()
+          h.username = `El usuario ${this.auth.userValue.username}, con cedula: ${this.auth.userValue.cedula}`
+          h.what = `Ha publicado el banco de preguntas: ${this.bp.tema}`
+          this.bpService.insertHist(h).subscribe()
+
+          window.location.reload()
+        })
     })
   }
 

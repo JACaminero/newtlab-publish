@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { BancoPreg, Pregunta, Respuesta } from '.././models/models';
+import { BancoPreg, History, Pregunta, Respuesta } from '.././models/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BancoPregService {
   constructor(private http: HttpClient) { }
+
+  insertHist(h: History) {
+    return this.http.post(`${environment.api}/bancopregunta/historico`, h)
+  }
+
+  getHist() {
+    return this.http.get<History[]>(`${environment.api}/bancopregunta/historico`)
+  }
 
   insertPreg(p: Pregunta) {
     return this.http.post(`${environment.api}/pregunta`, p)

@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { PruebaExperimento, Pregunta, PruebaRespuesta, User, Respuesta, BancoPreg } from 'src/app/models/models';
+import { PruebaExperimento, Pregunta, PruebaRespuesta, User, Respuesta, BancoPreg, History } from 'src/app/models/models';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BancoPregService } from 'src/app/services/banco-preg.service';
 import { ActivatedRoute } from '@angular/router';
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   bp?: BancoPreg
   califTotal: number = 0
   descr?: SafeHtml
-  instr?: SafeHtml 
+  instr?: SafeHtml
   exper?: any
 
   constructor(
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     this.user = this.auth.userValue;
     this.id = this.route.snapshot.paramMap.get('id')
     this.exper = this.route.snapshot.paramMap.get('experimento')
-    
+
     bpService.getById(<number>this.id).subscribe(b => {
       this.bp = b
       this.descr = this.sanitizer.bypassSecurityTrustHtml(<string>b.descripcion)
@@ -89,6 +89,13 @@ export class HomeComponent implements OnInit {
         }
       });
 
+
+      let h = new History()
+      h.username = `El estudiante ${this.auth.userValue.username}, con matricula ${this.auth.userValue.matricula}`
+      h.what = `Ha completado una prueba con titulo: ${this.bp?.tituloPublicado}`
+      this.bpService.insertHist(h).subscribe()
+      
+      window.location.reload()
     })
   }
 }
