@@ -70,6 +70,7 @@
     style="background-color: white; margin: 10px 20px; border-radius: 13px">
     <form [formGroup]="pruebaForm">
       <p>Pruebas Publicadas</p>
+      <span *ngIf="bps == []">No tiene pruebas disponibles</span>
       <div *ngFor="let bp of bps; let i = index" class="assignment">
         <a>
           <div>

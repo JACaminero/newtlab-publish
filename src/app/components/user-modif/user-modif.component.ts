@@ -72,9 +72,9 @@ export class UserModifComponent implements OnInit {
           grado: this.current.grado,
           seccion: this.current.seccion
         })
-        console.log();
-        
+
       })
+      
     })
   }
 

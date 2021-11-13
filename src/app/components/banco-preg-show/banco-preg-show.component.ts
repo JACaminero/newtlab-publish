@@ -36,6 +36,12 @@ export class BancoPregShowComponent implements OnInit {
   }
 
   onSubmit() {
+    this.bps?.forEach(r => {
+      if (r.tema == this.form.controls.name.value) {
+        alert('Ya existe un banco de preguntas con este nombre.')
+        return;
+      }
+    })
     let k: number = 0
     //BULLSHIT
     switch (this.form.controls.exper.value) {
@@ -53,8 +59,7 @@ export class BancoPregShowComponent implements OnInit {
     }
      
     let gotDamn: User = this.user
-    this.bpServ.insert(this.form.controls.name.value, Object.values(gotDamn)[0], k,
-    this.form.controls.grado.value)
+    this.bpServ.insert(this.form.controls.name.value, Object.values(gotDamn)[0], k, this.form.controls.grado.value)
       .subscribe(() => {
         alert('¡Operacion Exitosa!');
         window.location.reload()

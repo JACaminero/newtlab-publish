@@ -107,8 +107,6 @@ export class ReportsComponent implements OnInit {
   }
 }
 
-
-
 @Component({
   selector: 'report-dialog',
   templateUrl: './report-dialog.html',

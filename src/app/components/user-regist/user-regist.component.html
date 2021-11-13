@@ -21,9 +21,11 @@
       </mat-form-field>
       <mat-form-field *ngIf="userForm.controls.role.value == 'Estudiante'" appearance="fill" style="margin: 0 20px">
         <mat-label>Sesión:</mat-label>
-        <select formControlName="seccion" matNativeControl>
-          <option *ngFor="let i of ses" value="i.sesionNombre">{{ i.sesionNombre }}</option>
-        </select>
+        <mat-select formControlName="seccion">
+          <mat-option *ngFor="let i of ses" [value]="i.sesionNombre">
+            {{ i.sesionNombre }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
@@ -52,8 +54,9 @@
       <input type="text" class="form-control" placeholder="Apellido maternal" formControlName="lastName2" />
       <div *ngIf="userForm.controls.lastName2.errors?.maxLength" class="alert alert-danger mt-3 mb-0">Segundo apellido
         muy largo</div>
-      <div *ngIf="userForm.controls.role.value != 'Estudiante'" style="text-align: start; margin-left:20px;"><small>Consejo: no utilize guiones para redactar la cedula.
-        Ejemplo: 40211114358 es una cedula valida</small></div>
+      <div *ngIf="userForm.controls.role.value != 'Estudiante'" style="text-align: start; margin-left:20px;">
+        <small>Consejo: no utilize guiones para redactar la cedula.
+          Ejemplo: 40211114358 es una cedula valida</small></div>
     </div>
 
     <div *ngIf="userForm.controls.role.value != 'Estudiante'" style="text-align: start" class="col">
