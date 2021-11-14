@@ -21,7 +21,8 @@ export class PruebaCorregirComponent implements OnInit {
   pruebaForm = new FormGroup({})
   califTotal: number = 0
   respuestaCorrecta: Respuesta[] = []
-
+  califTotalReal: number = 0
+  total: number = 0
   constructor(private uServ: UserService, private route: ActivatedRoute, private fb: FormBuilder,
     private bpService: BancoPregService, private pService: PruebaService
   ) {
@@ -33,14 +34,17 @@ export class PruebaCorregirComponent implements OnInit {
       this.uServ.getById(<number>this.prueba?.userId).subscribe(u => {
         this.user.name = `${u.name} ${u.lastName1} ${u.lastName2}`
       })
+      
       pService.getRespuestaPruebas(<number>this.prueba.pruebaExperimentoId)
         .subscribe(here => {
+          this.total = here.length
           
           this.pregresps = here
           this.pregresps.forEach(r => {
             this.califTotal += +<number>r.pregunta?.puntuacion
             bpService.getResp(r.preguntaId).subscribe(resp => {
-              resp.filter(r => r.esCorrecta == true).forEach(rDenuevo => this.respuestaCorrecta.push(rDenuevo))
+              resp.filter(r => r.esCorrecta == true)
+                .forEach(rDenuevo => this.respuestaCorrecta.push(rDenuevo))
             })
           })
 

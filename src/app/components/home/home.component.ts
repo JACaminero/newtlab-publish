@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
   openDialog() {
     this.prueba.bancoPreguntaId = <number>this.id
     this.prueba.userId = Object.values(this.auth.userValue)[0]
-    this.prueba.calificacionTotal = this.califTotal
+    this.prueba.calificacionTotal = this.bp?.califTotalPublicado
 
     this.pService.uploadTest(this.prueba, this.respondidas).subscribe(() => {
 
@@ -88,7 +88,6 @@ export class HomeComponent implements OnInit {
             'Prueba enviada exitosamente' : 'Ha ocurrido un error, por favor revise la validez de sus respuestas'
         }
       });
-
 
       let h = new History()
       h.username = `El estudiante ${this.auth.userValue.username}, con matricula ${this.auth.userValue.matricula}`

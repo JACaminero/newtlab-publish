@@ -18,9 +18,7 @@ export class UserProfileComponent implements OnInit {
   pruebaForm = new FormGroup({})
 
   constructor(private pServ: PruebaService, private auth: AuthService, private uServ: UserService
-    , private bpServ: BancoPregService, private fb: FormBuilder) {
-
-  }
+    , private bpServ: BancoPregService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.bpServ.get().subscribe(bp => {
@@ -36,7 +34,6 @@ export class UserProfileComponent implements OnInit {
             this.user?.role == 'Estudiante' ? this.bps = bp.filter(bp => bp.publicado == true)
               .filter(r => r.grado == this.user?.grado)
               : this.bps = bp.filter(bp => bp.publicado == true)
-
             bp.forEach(element => {
 
               this.pServ.getAll().subscribe(prbs => {
@@ -51,6 +48,9 @@ export class UserProfileComponent implements OnInit {
                   });
               })
 
+              this.uServ.getById(element.userId).subscribe(uu => {
+                element.username = `${uu.name} ${uu.lastName1}`
+              });
               this.pruebaForm.addControl(element.tituloPublicado!, this.fb.control('Tomar prueba'))
               let pruebas = <PruebaExperimento[]>pes.data
 
@@ -65,9 +65,6 @@ export class UserProfileComponent implements OnInit {
                   this.pruebaForm.get(element.tituloPublicado!)?.setValue("Ya has tomado esta prueba")
                 }
 
-                this.uServ.getById(element.userId).subscribe(uu => {
-                  element.username = `${uu.name} ${uu.lastName1}`
-                });
               });
             })
           })

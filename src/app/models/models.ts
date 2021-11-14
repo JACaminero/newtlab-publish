@@ -31,6 +31,7 @@ export class BancoPreg {
   descripcion?: string
   instruccion?: string
   grado?: string
+  califTotalPublicado: number = 10
 }
 
 export class Pregunta {
@@ -63,6 +64,7 @@ export class PruebaExperimento {
   calificacionTotal?: number
   isCerrada?: boolean
   periodo?: string
+  calificacionObtenidaReal: number = 0
 }
 
 export class PruebaRespuesta {

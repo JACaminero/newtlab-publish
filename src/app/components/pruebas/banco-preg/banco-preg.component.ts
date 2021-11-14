@@ -22,17 +22,19 @@ export class BancoPregComponent implements OnInit {
   date: any
   califTotal: number = 0
   user?: any
+  califTotalReal: number = 0
 
   pruebaForm = new FormGroup({
     limit: new FormControl('', [Validators.required]),
     tituloPublic: new FormControl('', [Validators.required]),
     descripcion: new FormControl('', [Validators.required]),
     instruccion: new FormControl('', [Validators.required]),
+    califTotalReal: new FormControl(10, [Validators.required]),
   })
 
   questionForm = new FormGroup({
     description: new FormControl('', [Validators.maxLength(120), Validators.required]),
-    punt: new FormControl(0, [Validators.required]),
+    punt: new FormControl(1, [Validators.required]),
     answer1: new FormControl('', [Validators.maxLength(50), Validators.required]),
     answer2: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     answer3: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -52,6 +54,8 @@ export class BancoPregComponent implements OnInit {
 
     this.bpService.getById(<number>this.id).subscribe(u => {
       this.bp = u
+      console.log(this.bp);
+      
       this.pruebaForm.controls.instruccion.setValue(this.bp.instruccion)
       this.pruebaForm.controls.descripcion.setValue(this.bp.descripcion)
     });
@@ -104,7 +108,7 @@ export class BancoPregComponent implements OnInit {
     p.descripcion = this.questionForm.controls.description.value;
     p.puntuacion = this.questionForm.controls.punt.value;
     p.respuestas = rs;
-
+    
     p.bancoPreguntaId = <number>this.id
     p.tp = this.questionForm.controls.selectedType.value
 
@@ -188,6 +192,7 @@ export class BancoPregComponent implements OnInit {
       limit.limit = this.pruebaForm.controls.limit.value;
       limit.instruccion = <string>this.pruebaForm.controls.instruccion.value;
       limit.descripcion = <string>this.pruebaForm.controls.descripcion.value;
+      limit.califTotalPublicado = this.pruebaForm.controls.califTotalReal.value;
 
       this.bpService.publicar(id, limit, this.pruebaForm.controls.tituloPublic.value)
         .subscribe(() => {

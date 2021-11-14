@@ -60,6 +60,7 @@ export class BancoPregService {
       tituloPublicado: tituloPublic,
       descripcion: limit?.descripcion,
       instruccion: limit?.instruccion,
+      califTotalPublicado: limit?.califTotalPublicado,
     })
   }
 
@@ -80,4 +81,5 @@ export class PublicarVM {
   limit?: Date
   descripcion?: string
   instruccion?: string
+  califTotalPublicado: number = 0
 }
