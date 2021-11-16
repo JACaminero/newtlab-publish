@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PruebaService } from 'src/app/services/prueba.service'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -27,36 +28,39 @@ export class HomeComponent implements OnInit {
   exper?: any
 
   constructor(
-    private auth: AuthService, private route: ActivatedRoute, private fb: FormBuilder, private sanitizer: DomSanitizer,
+    private auth: AuthService, uServ: UserService, private route: ActivatedRoute, private fb: FormBuilder, private sanitizer: DomSanitizer,
     private bpService: BancoPregService, private pService: PruebaService, public dialog: MatDialog
   ) {
-    this.user = this.auth.userValue;
-    this.id = this.route.snapshot.paramMap.get('id')
-    this.exper = this.route.snapshot.paramMap.get('experimento')
-
-    bpService.getById(<number>this.id).subscribe(b => {
-      this.bp = b
-      this.descr = this.sanitizer.bypassSecurityTrustHtml(<string>b.descripcion)
-      this.instr = this.sanitizer.bypassSecurityTrustHtml(<string>b.instruccion)
-    })
-
-    bpService.getPreg(<number>this.id).subscribe(here => {
-
-      this.preguntas = here.filter(r => r.isOn == true);
-      this.preguntas.forEach(preg => {
-        if (preg.isOn) {
-          this.califTotal += +<number>preg.puntuacion
-        }
+     uServ.getById(this.auth.userValue.userId).subscribe(u => {
+      this.user = u
+      this.id = this.route.snapshot.paramMap.get('id')
+      this.exper = this.route.snapshot.paramMap.get('experimento')
+  
+      bpService.getById(<number>this.id).subscribe(b => {
+        this.bp = b
+        this.descr = this.sanitizer.bypassSecurityTrustHtml(<string>b.descripcion)
+        this.instr = this.sanitizer.bypassSecurityTrustHtml(<string>b.instruccion)
       })
-
-      this.preguntas.forEach(p => {
-        this.bpService.getResp(p.preguntaId).subscribe(r => {
-          p.respuestas = r
-          p.respuestas.forEach(
-            control => this.pruebaForm.addControl(<string>control.descripcion, this.fb.control(control.respuestaId)));
+  
+      bpService.getPreg(<number>this.id).subscribe(here => {
+  
+        this.preguntas = here.filter(r => r.isOn == true);
+        this.preguntas.forEach(preg => {
+          if (preg.isOn) {
+            this.califTotal += +<number>preg.puntuacion
+          }
+        })
+  
+        this.preguntas.forEach(p => {
+          this.bpService.getResp(p.preguntaId).subscribe(r => {
+            p.respuestas = r
+            p.respuestas.forEach(
+              control => this.pruebaForm.addControl(<string>control.descripcion, this.fb.control(control.respuestaId)));
+          })
         })
       })
-    })
+    });
+    
   }
 
   ngOnInit(): void { }

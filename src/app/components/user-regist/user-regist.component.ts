@@ -76,7 +76,6 @@ export class UserRegistComponent {
     u.password = this.userForm.controls.pass.value;
     u.phone = this.userForm.controls.phone.value;
     u.birth = this.userForm.controls.birth.value;
-    u.role = this.userForm.controls.role.value;
     u.grado = this.userForm.controls.grado.value
     u.seccion = this.userForm.controls.seccion.value
 

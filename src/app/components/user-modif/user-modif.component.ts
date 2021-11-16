@@ -88,12 +88,12 @@ export class UserModifComponent implements OnInit {
     if (this.current.role == 'Estudiante') {
       this.userForm.controls.cedula.clearValidators();
       this.userForm.controls.cedula.updateValueAndValidity();
-    }
+    } 
     if (this.userForm.invalid) {
       alert('Han ocurrido problemas con la informacion ingresa')
       return;
     }
-    if (this.userForm.controls.role.value == 'Profesor' || this.userForm.controls.role.value == 'Admin') {
+    if (this.current.role == 'Profesor' || this.current.role == 'Admin') {
       this.userForm.controls.grado.setValue("");
       this.userForm.controls.seccion.setValue("");
     }

@@ -51,6 +51,7 @@ export class UserProfileComponent implements OnInit {
               this.uServ.getById(element.userId).subscribe(uu => {
                 element.username = `${uu.name} ${uu.lastName1}`
               });
+              
               this.pruebaForm.addControl(element.tituloPublicado!, this.fb.control('Tomar prueba'))
               let pruebas = <PruebaExperimento[]>pes.data
 
