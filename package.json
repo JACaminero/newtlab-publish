@@ -35,6 +35,7 @@
     "@pixi/settings": "^6.1.0",
     "@pixi/ticker": "^6.1.0",
     "@pixi/utils": "^6.1.0",
+    "@swimlane/ngx-charts": "^19.1.0",
     "@syncfusion/ej2": "^19.2.51",
     "@syncfusion/ej2-angular-grids": "^19.2.51",
     "@types/katex": "^0.11.1",
