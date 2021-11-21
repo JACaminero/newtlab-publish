@@ -32,8 +32,9 @@ export class UserProfileComponent implements OnInit {
           this.pServ.getAllPruebasByUser(this.user?.userId).subscribe(pes => {
 
             this.user?.role == 'Estudiante' ? this.bps = bp.filter(bp => bp.publicado == true)
-              .filter(r => r.grado == this.user?.grado)
-              : this.bps = bp.filter(bp => bp.publicado == true)
+              .filter(r => r.grado == this.user?.grado).filter(t => t.fechaLimite! <= Date())
+              :
+               this.bps = bp.filter(bp => bp.publicado == true)
             bp.forEach(element => {
 
               this.pServ.getAll().subscribe(prbs => {

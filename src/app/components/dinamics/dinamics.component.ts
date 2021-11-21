@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { dataBound } from '@syncfusion/ej2-grids';
 
 @Component({
   selector: 'app-dinamics',
@@ -8,10 +10,23 @@ import * as p5 from 'p5';
 })
 
 export class DinamicsComponent implements OnInit {
+     
+  data?: any[];
+  view: number[] = [700, 300];
+  showLabels: boolean = true;
+  animations: boolean = true;
+  xAxis: boolean = true;
+  yAxis: boolean = true;
+  showYAxisLabel: boolean = true;
+  showXAxisLabel: boolean = true;
+  xAxisLabel: string = 'Tiempo (segundos)';
+  yAxisLabel: string = 'Valor';
+  timeline: boolean = true;
 
-  constructor() { }
+  constructor() {
+  }
+
   canvas: any;
-
   p = p5.prototype;
   massInput: number = 60;
   angleInput: number = 15;
@@ -19,11 +34,14 @@ export class DinamicsComponent implements OnInit {
   timer: number = 0;
   speed: number = 0
   distance: number = 0;
+  dData: any = {name: 'Distancia (metros)', series: []}
+  vData: any = {name: 'Velocidad (metros por segundo)', series: []}
   //  functions to manipulate experiment's of execution 
   stop: any;
   start: any;
   restart: any;
   isStopped: boolean = true;
+  graph: any;
 
   ngOnInit(): void {
     const sketch = (p: any) => {
@@ -131,7 +149,13 @@ export class DinamicsComponent implements OnInit {
       this.start = () => {
         p.loop();
         if (!interval) {
-          interval = setInterval(increaseTime, 1000);
+          interval = setInterval(() => {
+            increaseTime()
+            this.dData.series.push({ name: t, value: this.distance })
+            this.vData.series.push({ name: t, value: this.speed })
+
+          }, 1000);
+
         }
       }
 
@@ -139,6 +163,7 @@ export class DinamicsComponent implements OnInit {
         p.noLoop();
         clearInterval(interval);
         interval = null;
+        
       };
 
       this.restart = () => {
@@ -151,8 +176,16 @@ export class DinamicsComponent implements OnInit {
         t = 0;
         p.loop();
         this.stop();
+        this.dData.series = []
+        this.vData.series = []
+        this.data = []
       };
+
+      this.graph = () => {
+        this.data = [this.dData, this.vData]
+      }
     }
+
 
     this.canvas = new p5(sketch);
   }

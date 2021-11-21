@@ -20,11 +20,17 @@
   </div>
 </div>
 
-<div id="cnvs"></div>
+<div id="cnvs" style="text-align: center;"></div>
 <div class="btn-container">
   <button class="btn btn-outline" (click)="stop()">Detener</button>
   <button class="btn btn-colour-1" (click)="start()">Empezar</button>
   <button class="btn btn-outline" (click)="restart()">Reiniciar</button>
+  <button class="btn btn-colour-1" (click)="graph()">Generar Grafico</button>
 </div>
 
-<div>
+<div style="margin:0 25% 0 25% ">
+  <ngx-charts-line-chart [view]="[700, 300]" [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel" [timeline]="timeline" [results]="data">
+  </ngx-charts-line-chart>
+</div>

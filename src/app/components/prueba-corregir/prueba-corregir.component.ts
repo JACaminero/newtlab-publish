@@ -34,14 +34,14 @@ export class PruebaCorregirComponent implements OnInit {
       this.uServ.getById(<number>this.prueba?.userId).subscribe(u => {
         this.user.name = `${u.name} ${u.lastName1} ${u.lastName2}`
       })
-      
+      this.califTotal = this.prueba.calificacionTotal!
       pService.getRespuestaPruebas(<number>this.prueba.pruebaExperimentoId)
         .subscribe(here => {
           this.total = here.length
           
           this.pregresps = here
           this.pregresps.forEach(r => {
-            this.califTotal += +<number>r.pregunta?.puntuacion
+            
             bpService.getResp(r.preguntaId).subscribe(resp => {
               resp.filter(r => r.esCorrecta == true)
                 .forEach(rDenuevo => this.respuestaCorrecta.push(rDenuevo))

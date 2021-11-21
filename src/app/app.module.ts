@@ -20,6 +20,8 @@ import { MatListModule } from '@angular/material/list';
 import { eye, plus, check, x, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 import { AppComponent } from './app.component';
 import { SigninComponent } from './components/signin/signin.component';
@@ -87,6 +89,7 @@ const icons = {
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSidenavModule,
+    NgxChartsModule,
     MatDialogModule,
     MatSelectModule,
     MatInputModule,

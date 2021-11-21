@@ -10,19 +10,36 @@ export class InerciaComponent implements OnInit {
 
   constructor() { }
 
+  data?: any[];
+  view: number[] = [700, 300];
+  showLabels: boolean = true;
+  animations: boolean = true;
+  xAxis: boolean = true;
+  yAxis: boolean = true;
+  showYAxisLabel: boolean = true;
+  showXAxisLabel: boolean = true;
+  xAxisLabel: string = 'Tiempo (segundos)';
+  yAxisLabel: string = 'Valor';
+  timeline: boolean = true;
+
   canvas: any;
+
   v1Input: number = 2;
   v2Input: number = -2;
   m1Input: number = 5;
   m2Input: number = 5;
+  b1?: number
+  b2?: number
+  b1Data: any = {name: 'Velocidad Bloque 1 (metros por segundo)', series: []}
+  b2Data: any = {name: 'Velocidad Bloque 2 (metros por segundo)', series: []}
 
   timer: number = 0;
-  speed: number = 0
   //  functions to manipulate experiment's of execution 
   stop: any;
   start: any;
   restart: any;
   isStopped: boolean = true;
+  graph: any;
 
   ngOnInit(): void {
     const sketch = (p: any) => {
@@ -123,6 +140,9 @@ export class InerciaComponent implements OnInit {
           block2.m = this.m2Input;
           m2 = this.m1Input;
         }
+        
+        this.b1 = block1.v
+        this.b2 = block2.v
       }
 
       function increaseTime() {
@@ -134,7 +154,12 @@ export class InerciaComponent implements OnInit {
       this.start = () => {
         p.loop();
         if (!interval) {
-          interval = setInterval(increaseTime, 1000);
+          interval = setInterval(() => {
+            increaseTime()
+            this.b1Data.series.push({ name: t, value: this.b1 })
+            this.b2Data.series.push({ name: t, value: this.b2 })
+
+          }, 1000);
         }
       }
 
@@ -155,7 +180,14 @@ export class InerciaComponent implements OnInit {
         type = "perfectly elastic";
         p.loop();
         this.stop();
+        this.b1Data.series = []
+        this.b2Data.series = []
+        this.data = []
       };
+      
+      this.graph = () => {
+        this.data = [this.b1Data, this.b2Data]
+      }
     }
     this.canvas = new p5(sketch);
 

@@ -10,20 +10,37 @@ export class InerciaRealComponent implements OnInit {
 
   constructor() { }
 
+  data?: any[];
+  view: number[] = [700, 300];
+  showLabels: boolean = true;
+  animations: boolean = true;
+  xAxis: boolean = true;
+  yAxis: boolean = true;
+  showYAxisLabel: boolean = true;
+  showXAxisLabel: boolean = true;
+  xAxisLabel: string = 'Tiempo (segundos)';
+  yAxisLabel: string = 'Valor';
+  timeline: boolean = true;
+
   canvas: any;
+  m1Input: number = 2.5;
+  m2Input: number = 1;
+  ke?: number
+  pe?: number
+  keData: any = { name: 'Energia Kinetica', series: [] }
+  peData: any = { name: 'Energia Potencial', series: [] }
+
   stop: any;
   start: any;
   restart: any;
   isStopped: boolean = true;
-  m1Input: number = 2.5;
-  m2Input: number = 1;
+  graph: any;
 
   ngOnInit(): void {
     const sketch = (p: any) => {
 
       let interval: any;
       let t: number = 0;
-
       let g = 0.02;
       let m1 = this.m1Input;
       let m2 = this.m2Input;
@@ -65,18 +82,21 @@ export class InerciaRealComponent implements OnInit {
         p.push();
         p.translate(115, 300 + x);
         p.rotate(-Math.PI / 2);
-        var KE = Math.round(0.5 * m1 * v * v);
-        var PE = Math.round(m1 * g * (230 - x));
+        this.ke = Math.round(0.5 * m1 * v * v);
+        this.pe = Math.round(m1 * g * (230 - x));
         if (Math.abs(x) >= 230) {
-          KE = 0;
+          this.ke = 0;
+          this.stop()
         }
-        if (x >= 230)
-          PE = 0;
+        if (x >= 230) {
+          this.pe = 0;
+          this.stop()
+        }
 
         p.stroke(0);
         p.strokeWeight(1);
-        p.text("KE = " + KE + " J", -65, 50);
-        p.text("PE = " + PE + " J", -70, 80);
+        p.text("KE = " + this.ke + " J", -65, 50);
+        p.text("PE = " + this.pe + " J", -70, 80);
         p.pop();
 
         p.line(125, 50, 125, x + 320);
@@ -109,7 +129,12 @@ export class InerciaRealComponent implements OnInit {
       this.start = () => {
         p.loop();
         if (!interval) {
-          interval = setInterval(increaseTime, 1000);
+          interval = setInterval(() => {
+            increaseTime()
+            this.keData.series.push({ name: t, value: this.ke })
+            this.peData.series.push({ name: t, value: this.pe })
+
+          }, 1000);
         }
       }
 
@@ -128,7 +153,15 @@ export class InerciaRealComponent implements OnInit {
         t = 0
         p.loop();
         this.stop();
+        
+        this.peData.series = []
+        this.keData.series = []
+        this.data = []
       };
+      
+      this.graph = () => {
+        this.data = [this.peData, this.keData]
+      }
     }
     this.canvas = new p5(sketch);
   }

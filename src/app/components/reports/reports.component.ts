@@ -46,7 +46,7 @@ export class ReportsComponent implements OnInit {
             pe.forEach(e => {
               for (let i = 0; i < this.data.length; i++) {
                 if (this.data[i].userId == e.userId) {
-                  this.data[i].calificacion += +e.calificacionObtenida!
+                  this.data[i].calificacion += +e.calificacionObtenidaReal!
                 }
               }
             });
