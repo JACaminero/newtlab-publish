@@ -44,6 +44,13 @@ export class Pregunta {
   isOn?: boolean
 }
 
+
+export class Concepto {
+  tipoPreguntaId?: number;
+  descripcion?: string;
+  concepto: string = 'N/A'
+}
+
 export class Respuesta {
   respuestaId?: number;
   descripcion?: string;

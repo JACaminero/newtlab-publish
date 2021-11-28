@@ -28,7 +28,7 @@ const routes: Routes = [
     path: 'reports', canActivate: [AuthGuardService], component: ReportsComponent,
   },
   {
-    path: 'irrelevant', canActivate: [AuthGuardService], component: ShitComponent,
+    path: 'conceptos', canActivate: [AuthGuardService], component: ShitComponent,
   },
   {
     path: 'perfil', canActivate: [AuthGuardService], component: UserProfileComponent,

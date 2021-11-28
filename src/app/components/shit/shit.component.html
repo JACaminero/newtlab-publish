@@ -1,1 +1,68 @@
-<p>shit works!</p>
+<div class="container">
+	<div class="row">
+		<div style="background-color: white; margin: 3px 2px; border-radius: 13px" class="col-md-4">
+			<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-con">
+				<div *ngIf="user?.role == 'Profesor'">
+					<p class="h4 mb-4">Crear nuevos conceptos</p>
+
+					<input type="text" class="form-control" placeholder="Tema" formControlName="name"
+						style="margin-bottom: 10px;" />
+	
+					<input [disabled]="form.invalid" class="btn btn-info btn-block" style="margin-bottom: 10px;" type="submit"
+						value="Crear" />	
+				</div>
+				
+				<div class="table-responsive">
+					<table class="table no-wrap user-table mb-0">
+						<thead>
+							<tr class="ml">
+								<th scope="col" class="border-0 text-uppercase font-medium">
+									Conceptos
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr class="d" *ngFor="let p of cons; let i = index">
+								<td (click)="refill(p)" class="hov">
+									<span class="text-muted">{{p.concepto}}</span><br />
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<!-- <mat-form-field appearance="fill" style="margin: 10px 5px">
+							<mat-label>Experimento:</mat-label>
+							<select matNativeControl>
+								<option value="g">Gravedad</option>
+								<option value="i">Poleas</option>
+								<option value="a">Accion y Reaccion</option>
+							</select>
+						</mat-form-field> -->
+			</form>
+		</div>
+
+		<div class="col"
+			style="background-color:white; height: fit-content; padding-bottom: 5px; margin: 3px 2px; border-radius: 13px">
+			<h2>{{currentConcepto?.concepto}} </h2> 
+			<form *ngIf="user?.role == 'Profesor'" [formGroup]="descrForm" (ngSubmit)="update()" class="form-con">
+				<h2 class="text-uppercase mb-0">Descripcion</h2><br />
+				<quill-editor [modules]="quillConfiguration" formControlName="descripcion" class="content-editor"
+					style="margin-top: 10px;" [placeholder]="'Seleccione un concepto de la lista a la izquierda'">
+				</quill-editor>
+				<input [disabled]="descrForm.invalid" class="btn btn-info btn-block" style="margin-bottom: 10px;" type="submit"
+					value="Actualizar"  />
+			</form>
+			<div [innerHtml]="instr"></div>
+		</div>
+	</div>
+</div>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style>
+	.hov :hover {
+		cursor: pointer;
+	}
+</style>

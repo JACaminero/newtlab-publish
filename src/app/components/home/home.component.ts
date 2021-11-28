@@ -28,7 +28,8 @@ export class HomeComponent implements OnInit {
   exper?: any
 
   constructor(
-    private auth: AuthService, uServ: UserService, private route: ActivatedRoute, private fb: FormBuilder, private sanitizer: DomSanitizer,
+    private auth: AuthService, uServ: UserService, private route: ActivatedRoute,
+    private fb: FormBuilder, private sanitizer: DomSanitizer,
     private bpService: BancoPregService, private pService: PruebaService, public dialog: MatDialog
   ) {
      uServ.getById(this.auth.userValue.userId).subscribe(u => {
