@@ -4,6 +4,7 @@ import { User } from 'src/app/models/models';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export interface DialogData {
   id: number;
@@ -16,11 +17,18 @@ export interface DialogData {
 export class UsersComponent implements OnInit {
 
   user?: User
+  users: User[] = [];
+  usersOrig: User[] = [];
+
+  form = new FormGroup({
+    rol: new FormControl('Estudiante'),
+    ident: new FormControl(''),
+  });
+
   constructor(private uServ: UserService, public dialog: MatDialog, private route: ActivatedRoute, private auth: AuthService) {
     uServ.getById(<number>auth.userValue.id).subscribe(u => this.user = u)
   }
 
-  users: User[] = [];
   ngOnInit(): void {
 
     this.uServ.getAll().subscribe(us => {
@@ -29,6 +37,7 @@ export class UsersComponent implements OnInit {
         this.users[i].cedula =
           `${this.users[i].cedula?.substring(0, 3)}-${this.users[i].cedula?.substring(4, 10)}-${this.users[i].cedula?.charAt(10)}`
       }
+      this.usersOrig = this.users
     });
   }
 
@@ -46,6 +55,16 @@ export class UsersComponent implements OnInit {
 
   enable(id: number) {
     this.uServ.enable(id).subscribe(() => window.location.reload());
+  }
+  
+  filtraRol(rol: string) {
+    this.users = this.usersOrig.filter(r => rol == r.role)
+  }
+  
+  filtra(ident: string) {
+    console.log(ident.toUpperCase());
+    
+    this.users = this.usersOrig.filter(r => r.cedula?.includes(ident) || r.matricula?.includes(ident.toUpperCase()!))
   }
 }
 

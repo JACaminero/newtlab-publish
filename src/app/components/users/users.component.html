@@ -1,9 +1,34 @@
 <div class="container">
+  <form *ngIf="user?.role! != 'Estudiante'" [formGroup]="form">
+
+    <mat-form-field style="margin-right: 10px;">
+      <mat-select class="dropdown" style="font-size:12px; margin-right: 10px;" formControlName="rol">
+        <mat-option value="Profesor">Profesor</mat-option>
+        <mat-option value="Estudiante">Estudiante</mat-option>
+        <mat-option value="Admin">Admin</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <input class="btn btn-info" [disabled]="form.invalid"
+      style="width: 15%; margin-right: 10px; margin-bottom: 10px; height: 50px;" type="submit"
+      (click)="filtraRol(form.controls.rol.value)" value="Filtrar Rol" />
+
+    <mat-form-field style="font-size: 11px; margin-right:5px" appearance="outline">
+      <mat-label class="answer-label">Cedula o Matricula</mat-label>
+      <input matInput type="text" style="font-size: 11px;" class="form-control" placeholder="Cedula o Matricula"
+        formControlName="ident">
+    </mat-form-field>
+
+    <input class="btn btn-info" [disabled]="form.invalid"
+      style="width: 15%; margin-right: 10px; margin-bottom: 10px; height: 50px;" type="submit"
+      (click)="filtra(form.controls.ident.value)" value="Filtrar" />
+  </form>
+
   <div class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title text-uppercase mb-0">Usuarios</h5>
+          <h2 class="card-title text-uppercase mb-0">Usuarios</h2>
         </div>
         <div class="table-responsive">
           <table class="table no-wrap user-table mb-0">
@@ -34,7 +59,7 @@
                 <td>
                   <span class="text-muted">{{ u.name }} {{ u.lastName1 }} {{ u.lastName2 }}</span><br />
                   <span class="text-muted">{{ u.role == 'Estudiante' ? u.matricula : u.cedula
-                  }}</span>
+                    }}</span>
                 </td>
                 <td>
                   <span class="text-muted">{{ u.role }}</span><br />

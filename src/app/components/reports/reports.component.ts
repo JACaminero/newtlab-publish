@@ -118,16 +118,15 @@ export class ReportDialog {
     ano: new FormControl(new Date().getFullYear(), [Validators.required])
   })
   pruebas: PruebaExperimento[] = []
+  pruebasOrig: PruebaExperimento[] = []
   date: any
-
   constructor(public dialogRef: MatDialogRef<ReportDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any, public pServ: PruebaService) {
     this.date = new Date().getFullYear()
 
     pServ.getAllPruebasByUser(data.userId).subscribe(pe => {
+      this.pruebasOrig = pe.data
       this.pruebas = pe.data
-      console.log(this.pruebas);
-      
     })
   }
 
@@ -136,9 +135,8 @@ export class ReportDialog {
   }
 
   filtra(periodo: string, ano: string) {
-    this.pruebas = this.pruebas.filter(r => ano == r.periodo?.substring(0, 4) && periodo == r.periodo?.substring(5, r.periodo.length))
+    this.pruebas = this.pruebasOrig.filter(r => ano == r.periodo?.substring(0, 4) && periodo == r.periodo?.substring(5, r.periodo.length))
   }
-
 
   @ViewChild('pdfTable', { read: ElementRef }) pdfTable!: ElementRef;
   toPDF() {
