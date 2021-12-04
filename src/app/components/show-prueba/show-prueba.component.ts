@@ -31,8 +31,8 @@ export class ShowPruebaComponent implements OnInit {
     
     this.pServ.getAll().subscribe(ps => {
       this.data = ps.data
-      console.log(this.auth.userValue.role);
-      
+      console.log(this.data);
+            
       this.grid = this.auth.userValue.role != 'Estudiante' ? new Grid({
         dataSource: this.data.filter(e => this.auth.userValue.role == "Estudiante" ? (this.auth.userValue.id == e.userId) : true),
         selectionSettings: { type: 'Single' },
@@ -41,7 +41,9 @@ export class ShowPruebaComponent implements OnInit {
           { field: "user.name", headerText: "Nombre Estudiante", width: 100 },
           { field: "user.lastName1", headerText: "Apellido Paterno", width: 100 },
           { field: "user.lastName2", headerText: "Apellido Materno", width: 100 },
-          { field: "user.grado", headerText: "Grado Academico", width: 100 },
+          { field: "calificacionObtenidaReal", headerText: "Calificacion Obtenida", width: 60 },
+          { field: "periodo", headerText: "Periodo Academico", width: 100 },
+          { field: "user.grado", headerText: "Grado Academico Estudiante", width: 100 },
           { field: "fechaTomado", type:'date', format:'dd/MM/yyyy', headerText: "Fecha Tomada", width: 100 },
         ],
         height: 315,
@@ -53,6 +55,8 @@ export class ShowPruebaComponent implements OnInit {
         selectionSettings: { type: 'Single' },
         columns: [
           { field: "titulo", headerText: "Titulo Prueba", width: 200 },
+          { field: "calificacionObtenidaReal", headerText: "Calificacion Obtenida", width: 60 },
+          { field: "periodo", headerText: "Periodo Academico", width: 100 },
           { field: "fechaTomado", type:'date', format:'dd/MM/yyyy', headerText: "Fecha Tomada", width: 100 },
         ],
         height: 315,
