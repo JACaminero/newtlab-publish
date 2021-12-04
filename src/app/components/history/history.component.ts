@@ -32,10 +32,8 @@ export class HistoryComponent implements OnInit {
         ],
         allowFiltering: true,
       });
-  
       this.grid.appendTo('#grid');
     })
-    
   }
 
 }

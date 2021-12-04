@@ -11,7 +11,7 @@
           <option *ngIf="user?.role == 'Admin'" value="Admin">Admin</option>
         </select>
       </mat-form-field>
-      <mat-form-field *ngIf="userForm.controls.role.value == 'Estudiante'" appearance="fill" style="margin: 0 20px">
+      <mat-form-field *ngIf="userForm.controls.role.value != 'Admin'" appearance="fill" style="margin: 0 20px">
         <mat-label>Grado:</mat-label>
         <select (change)="filter()" formControlName="grado" matNativeControl>
           <option value="Primer Grado de Secundaria">Primer Grado de Secundaria</option>
@@ -19,7 +19,7 @@
           <option value="Tercer Grado de Secundaria">Tercer Grado de Secundaria</option>
         </select>
       </mat-form-field>
-      <mat-form-field *ngIf="userForm.controls.role.value == 'Estudiante'" appearance="fill" style="margin: 0 20px">
+      <mat-form-field *ngIf="userForm.controls.role.value != 'Admin'" appearance="fill" style="margin: 0 20px">
         <mat-label>Sesión:</mat-label>
         <mat-select formControlName="seccion">
           <mat-option *ngFor="let i of ses" [value]="i.sesionNombre">

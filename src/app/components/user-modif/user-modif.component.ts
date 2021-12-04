@@ -93,7 +93,7 @@ export class UserModifComponent implements OnInit {
       alert('Han ocurrido problemas con la informacion ingresa')
       return;
     }
-    if (this.current.role == 'Profesor' || this.current.role == 'Admin') {
+    if (this.current.role == 'Admin') {
       this.userForm.controls.grado.setValue("");
       this.userForm.controls.seccion.setValue("");
     }

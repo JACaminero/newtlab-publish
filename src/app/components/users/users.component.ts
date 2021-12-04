@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
 
     this.uServ.getAll().subscribe(us => {
-      this.users = us.filter(filt => this.user?.role != 'Profesor' ? true : filt.role == 'Estudiante')
+      this.users = us.filter(filt => this.user?.role == 'Admin' ? true : filt.role == 'Estudiante' && filt.grado == this.user?.grado && this.user?.seccion == filt.seccion)
       for (let i = 0; i < this.users.length; i++) {
         this.users[i].cedula =
           `${this.users[i].cedula?.substring(0, 3)}-${this.users[i].cedula?.substring(4, 10)}-${this.users[i].cedula?.charAt(10)}`
@@ -62,8 +62,6 @@ export class UsersComponent implements OnInit {
   }
   
   filtra(ident: string) {
-    console.log(ident.toUpperCase());
-    
     this.users = this.usersOrig.filter(r => r.cedula?.includes(ident) || r.matricula?.includes(ident.toUpperCase()!))
   }
 }

@@ -54,7 +54,7 @@
 				<input [disabled]="descrForm.invalid" class="btn btn-info btn-block" style="margin-bottom: 10px;" type="submit"
 					value="Actualizar"  />
 			</form>
-			<div [innerHtml]="instr"></div>
+			<div [innerHtml]="instr" *ngIf="user?.role != 'Profesor'"></div>
 		</div>
 	</div>
 </div>

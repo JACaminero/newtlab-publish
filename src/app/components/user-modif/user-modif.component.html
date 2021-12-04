@@ -3,7 +3,7 @@
 	<div class="form-row mb-4">
 
 		<div class="col" style="text-align: start">
-			<mat-form-field *ngIf="current.role == 'Estudiante'" appearance="fill" style="margin: 0 20px">
+			<mat-form-field *ngIf="current.role != 'Admin'" appearance="fill" style="margin: 0 20px">
 				<mat-label>Grado:</mat-label>
 				<select formControlName="grado" matNativeControl>
 					<option value="Primer Grado de Secundaria">Primer Grado de Secundaria</option>
@@ -12,7 +12,7 @@
 				</select>
 			</mat-form-field>
 
-			<mat-form-field *ngIf="current.role == 'Estudiante'" appearance="fill" style="margin: 0 20px">
+			<mat-form-field *ngIf="current.role != 'Admin'" appearance="fill" style="margin: 0 20px">
 					<mat-label>Sesión:</mat-label>
 					<mat-select formControlName="seccion">
 					  <mat-option *ngFor="let i of ses" [value]="i.sesionNombre">

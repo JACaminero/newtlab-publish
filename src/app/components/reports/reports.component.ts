@@ -127,6 +127,7 @@ export class ReportDialog {
     pServ.getAllPruebasByUser(data.userId).subscribe(pe => {
       this.pruebasOrig = pe.data
       this.pruebas = pe.data
+      console.log(pe.data);
     })
   }
 

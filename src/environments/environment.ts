@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // api: 'https://localhost:44349/newtlabapi',
-  api: 'https://newtlabapi20211130221545.azurewebsites.net/newtlabapi',
+  api: 'https://localhost:44349/newtlabapi',
+  // api: 'https://newtlabapi20211130221545.azurewebsites.net/newtlabapi',
 };
 
 /*

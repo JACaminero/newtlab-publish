@@ -61,7 +61,7 @@ export class UserRegistComponent {
       this.error = 'Han ocurrido problemas, verifique la informacion ingresa'
       return;
     }
-    if (this.userForm.controls.role.value == 'Profesor' || this.userForm.controls.role.value == 'Admin') {
+    if (this.userForm.controls.role.value == 'Admin') {
       this.userForm.controls.grado.setValue("");
       this.userForm.controls.seccion.setValue("");
     }

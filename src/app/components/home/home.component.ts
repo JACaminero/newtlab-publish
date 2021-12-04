@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
     private fb: FormBuilder, private sanitizer: DomSanitizer,
     private bpService: BancoPregService, private pService: PruebaService, public dialog: MatDialog
   ) {
-     uServ.getById(this.auth.userValue.userId).subscribe(u => {
+     uServ.getById(this.auth.userValue.id!).subscribe(u => {
       this.user = u
       this.id = this.route.snapshot.paramMap.get('id')
       this.exper = this.route.snapshot.paramMap.get('experimento')
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
         this.descr = this.sanitizer.bypassSecurityTrustHtml(<string>b.descripcion)
         this.instr = this.sanitizer.bypassSecurityTrustHtml(<string>b.instruccion)
       })
-  
+
       bpService.getPreg(<number>this.id).subscribe(here => {
   
         this.preguntas = here.filter(r => r.isOn == true);
