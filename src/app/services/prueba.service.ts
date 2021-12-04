@@ -30,8 +30,7 @@ export class PruebaService {
   }
 
   getRespuestaPruebas(pruebaId: number) {
-    return this.http.get<PruebaRespuesta[]>(`${environment.api}/prueba/respuestas/${pruebaId}`)  
-
+    return this.http.get<PruebaRespuesta[]>(`${environment.api}/prueba/respuestas/${pruebaId}`)
   }
 
   InsertConcepto(c: Concepto) {

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'https://localhost:44349/newtlabapi',
+  api: 'https://newtlabapi20211130221545.azurewebsites.net/',
 };

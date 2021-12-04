@@ -30,7 +30,6 @@ export class HistoryComponent implements OnInit {
           { field: "what", headerText: "Accion", width: 400 },
           { field: "fecha", headerText: "Fecha", width: 100 },
         ],
-        height: 200,
         allowFiltering: true,
       });
   

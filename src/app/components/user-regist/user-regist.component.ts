@@ -78,7 +78,7 @@ export class UserRegistComponent {
     u.birth = this.userForm.controls.birth.value;
     u.grado = this.userForm.controls.grado.value
     u.seccion = this.userForm.controls.seccion.value
-
+    u.role =  this.userForm.controls.role.value
     this.uss.forEach(us => {
       if (us.username == u.username) {
         alert('Este E-mail ya esta registrado en el sistema.')
