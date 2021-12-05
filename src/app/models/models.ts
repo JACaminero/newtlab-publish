@@ -65,6 +65,7 @@ export class PruebaExperimento {
   pruebaExperimentoId?: number
   titulo?: string
   userId?: number
+  user?: User
   bancoPreguntaId?: number
   fechaTomado?: Date
   calificacionObtenida?: number
