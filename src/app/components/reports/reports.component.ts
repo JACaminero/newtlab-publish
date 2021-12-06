@@ -135,7 +135,7 @@ export class ReportDialog {
         ind += +r.calificacionObtenidaReal
         tot += +r.calificacionTotal!
       })
-      this.percent = (ind / tot) * 100
+      this.percent = Math.round((ind / tot) * 100)
     })
   }
 
