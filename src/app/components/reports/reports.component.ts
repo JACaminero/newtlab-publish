@@ -8,6 +8,7 @@ import { PruebaService } from 'src/app/services/prueba.service';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import { PruebaExperimento } from 'src/app/models/models';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-reports',
@@ -121,6 +122,9 @@ export class ReportDialog {
   pruebasOrig: PruebaExperimento[] = []
   date: any
   percent: number = 0
+  ind = 0
+  tot = 0
+
   constructor(public dialogRef: MatDialogRef<ReportDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any, public pServ: PruebaService) {
     this.date = new Date().getFullYear()
@@ -135,6 +139,8 @@ export class ReportDialog {
         ind += +r.calificacionObtenidaReal
         tot += +r.calificacionTotal!
       })
+      this.ind = ind
+      this.tot = tot
       this.percent = Math.round((ind / tot) * 100)
     })
   }
@@ -152,6 +158,8 @@ export class ReportDialog {
       ind += +r.calificacionObtenidaReal
       tot += +r.calificacionTotal!
     })
+    this.ind = ind
+    this.tot = tot
     this.percent = Math.round((ind / tot) * 100)
   }
 
