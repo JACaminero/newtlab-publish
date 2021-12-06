@@ -8,7 +8,6 @@ import { PruebaService } from 'src/app/services/prueba.service';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import { PruebaExperimento } from 'src/app/models/models';
-import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-reports',
