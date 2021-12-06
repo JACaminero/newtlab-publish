@@ -120,6 +120,7 @@ export class ReportDialog {
   pruebas: PruebaExperimento[] = []
   pruebasOrig: PruebaExperimento[] = []
   date: any
+  percent: number = 0
   constructor(public dialogRef: MatDialogRef<ReportDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any, public pServ: PruebaService) {
     this.date = new Date().getFullYear()
@@ -127,7 +128,14 @@ export class ReportDialog {
     pServ.getAllPruebasByUser(data.userId).subscribe(pe => {
       this.pruebasOrig = pe.data
       this.pruebas = pe.data
-      console.log(pe.data);
+      let ind = 0
+      let tot = 0
+      this.pruebasOrig.forEach(r => {
+        
+        ind += +r.calificacionObtenidaReal
+        tot += +r.calificacionTotal!
+      })
+      this.percent = (ind / tot) * 100
     })
   }
 

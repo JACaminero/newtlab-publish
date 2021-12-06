@@ -141,7 +141,7 @@ export class ShowPruebaComponent implements OnInit {
     this.vertical = []
 
     this.uServ.getAll().subscribe(us => {
-      let ps = us.filter(fu => fu.grado == grado)
+      let ps = us.filter(fu => fu.grado == grado && fu.role == 'Estudiante')
 
       ps.forEach(pss => {
         this.pServ.getAllPruebasByUser(pss.userId).subscribe(p => {
