@@ -25,7 +25,7 @@
     <h2>
       Reporte de Calificaciones: {{data.name}} / Matricula: {{data.matricula}}<br />
       Periodo: {{reportForm.controls.ano.value}} {{reportForm.controls.periodo.value}}<br />
-      Grado Academico: {{data.grado}} / Seccion: {{data.seccion}}
+      Grado Academico: {{data.grado}} / Seccion: {{data.seccion}}<br/>
       Compleción del programa de clases: {{percent}}% <span *ngIf="percent >= 70" style="color: #4BB543;">Aprobado</span> <span *ngIf="percent<=69">Pendiente</span>
     </h2>
   </div>

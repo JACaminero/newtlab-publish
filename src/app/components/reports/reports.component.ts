@@ -145,6 +145,14 @@ export class ReportDialog {
 
   filtra(periodo: string, ano: string) {
     this.pruebas = this.pruebasOrig.filter(r => ano == r.periodo?.substring(0, 4) && periodo == r.periodo?.substring(5, r.periodo.length))
+    
+    let ind = 0
+    let tot = 0
+    this.pruebas.forEach(r => {
+      ind += +r.calificacionObtenidaReal
+      tot += +r.calificacionTotal!
+    })
+    this.percent = Math.round((ind / tot) * 100)
   }
 
   @ViewChild('pdfTable', { read: ElementRef }) pdfTable!: ElementRef;
