@@ -6,34 +6,8 @@
 <ejs-grid id="grid" [allowSorting]='true' [allowFiltering]='true'></ejs-grid>
 <div class="row">
   <form class="container" [formGroup]="reportForm">
+    
     <div class="col-md-10">
-
-      <mat-form-field style="margin-right: 10px; margin-top: 30px;">
-        <mat-select class="dropdown" style="font-size:12px; margin-right: 10px;" formControlName="periodo"
-          placeholder="Periodo">
-          <mat-option value="Septiembre-Diciembre">Septiembre-Diciembre</mat-option>
-          <mat-option value="Enero-Abril">Enero-Abril</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field style="margin-right: 10px;" appearance="outline">
-        <mat-label class="answer-label">Año</mat-label>
-        <input matInput type="number" [min]="2021" [max]="date" style="margin-right: 10px; text-decoration: none;"
-          formControlName="ano">
-      </mat-form-field>
-
-      <input class="btn btn-info" [disabled]="reportForm.invalid"
-        style="width: 15%; margin-right: 10px; margin-bottom: 10px; height: 50px;" type="submit"
-        (click)="load(data, reportForm.controls.periodo.value, reportForm.controls.ano.value)" value="Filtrar" />
-
-      <h2>Calificacion promedio de los estudiantes po raño y periodo de clases y agrupada por grado</h2>
-      <ngx-charts-pie-chart [view]="[600,600]" [results]="single" [gradient]="true" [legend]="true"
-        [legendPosition]="legendPosition" [labels]="true" [doughnut]="false">
-      </ngx-charts-pie-chart>
-    </div>
-
-    <div class="col-md-10">
-
       <mat-form-field appearance="fill" style="margin: 10px 5px">
         <mat-label>Grado:</mat-label>
         <select formControlName="grado" matNativeControl>
@@ -52,7 +26,31 @@
         [yAxis]="showYAxis" [legend]="true" [showXAxisLabel]="true" autoscale="true" [showYAxisLabel]="true"
         [xAxisLabel]="'Puntuacion'" [yAxisLabel]="'Estudiante'">
         </ngx-charts-bar-horizontal>
+    </div>
 
+    <div class="col-md-10">
+      <mat-form-field style="margin-right: 10px; margin-top: 30px;">
+        <mat-select class="dropdown" style="font-size:12px; margin-right: 10px;" formControlName="periodo"
+          placeholder="Periodo">
+          <mat-option value="Septiembre-Diciembre">Septiembre-Diciembre</mat-option>
+          <mat-option value="Enero-Abril">Enero-Abril</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field style="margin-right: 10px;" appearance="outline">
+        <mat-label class="answer-label">Año</mat-label>
+        <input matInput type="number" [min]="2021" [max]="date" style="margin-right: 10px; text-decoration: none;"
+          formControlName="ano">
+      </mat-form-field>
+
+      <input class="btn btn-info" [disabled]="reportForm.invalid"
+        style="width: 15%; margin-right: 10px; margin-bottom: 10px; height: 50px;" type="submit"
+        (click)="load(data, reportForm.controls.periodo.value, reportForm.controls.ano.value)" value="Filtrar" />
+
+      <h2>Calificacion promedio de los estudiantes por año y periodo de clases y agrupada por grado</h2>
+      <ngx-charts-pie-chart [view]="[600,400]" [results]="single" [gradient]="true" [legend]="true"
+        [legendPosition]="legendPosition" [labels]="true" [doughnut]="false">
+      </ngx-charts-pie-chart>
     </div>
   </form>
 </div>

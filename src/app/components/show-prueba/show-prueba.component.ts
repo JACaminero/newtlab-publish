@@ -137,9 +137,6 @@ export class ShowPruebaComponent implements OnInit {
     this.single = [p, s, t]
   }
 
-  dData: any = {name: 'Distancia (metros)', series: []}
-
-
   loadV(grado: string) {
     this.vertical = []
 
